@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>remoteStorage.js × Nextcloud probe</title>
+</head>
+<body>
+  <pre id="log">probe page</pre>
+  <script>
+    (() => {
+      const config = () => window.__PROBE_CONFIG__ || {};
+      const credentials = () => btoa(`${config().user}:${config().pass}`);
+      const absolute = (path) => `${String(config().ncUrl).replace(/\/+$/, "")}${path}`;
+
+      async function req(method, target, options = {}) {
+        const headers = Object.assign(
+          { Authorization: `Basic ${credentials()}` },
+          options.headers || {}
+        );
+        try {
+          const response = await fetch(target, {
+            method,
+            headers,
+            body: options.body,
+            credentials: "omit",
+            mode: "cors",
+            redirect: "follow"
+          });
+          const text = await response.text();
+          const responseHeaders = {};
+          response.headers.forEach((value, name) => {
+            responseHeaders[name.toLowerCase()] = value;
+          });
+          return {
+            ok: true,
+            status: response.status,
+            statusText: response.statusText,
+            headers: responseHeaders,
+            body: text.slice(0, 4000)
+          };
+        } catch (error) {
+          return {
+            ok: false,
+            error: `${error && error.name}: ${error && error.message}`,
+            name: error && error.name
+          };
+        }
+      }
+
+      window.probe = {
+        config,
+        url: absolute,
+        dav: (relative) =>
+          absolute(`/remote.php/dav/files/${encodeURIComponent(config().user)}/remotestorage/${relative}`),
+        req
+      };
+
+      document.getElementById("log").textContent = "probe ready";
+    })();
+  </script>
+</body>
+</html>

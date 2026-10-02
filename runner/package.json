@@ -1,0 +1,7 @@
+{
+  "name": "rs-nc-browser-probe",
+  "private": true,
+  "scripts": {
+    "test": "playwright test"
+  }
+}

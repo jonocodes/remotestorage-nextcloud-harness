@@ -1,0 +1,67 @@
+[
+  {
+    "id": "T11",
+    "status": "fail",
+    "expected": "PROPFIND succeeds and the response is readable",
+    "observed": "fetch failed: TypeError: Failed to fetch (control GET succeeded, so the page reaches Nextcloud)",
+    "evidence": {
+      "control": {
+        "ok": true,
+        "status": 200
+      },
+      "response": {
+        "ok": false,
+        "error": "TypeError: Failed to fetch",
+        "name": "TypeError"
+      }
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
+  },
+  {
+    "id": "T12",
+    "status": "fail",
+    "expected": "PUT/GET/DELETE succeed and response.headers.get('ETag') is non-null on PUT and GET (plan T12, amended 2026-10-02)",
+    "observed": "PUT TypeError: Failed to fetch; GET TypeError: Failed to fetch; DELETE TypeError: Failed to fetch; PUT response did not expose ETag; GET response did not expose ETag",
+    "evidence": {
+      "statuses": {},
+      "etags": {
+        "put": null,
+        "get": null,
+        "delete": null
+      },
+      "errors": {
+        "put": "TypeError: Failed to fetch",
+        "get": "TypeError: Failed to fetch",
+        "delete": "TypeError: Failed to fetch"
+      }
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
+  },
+  {
+    "id": "T13",
+    "status": "fail",
+    "expected": "stale If-Match PUT returns 412 to the page and does not write",
+    "observed": "fetch failed instead of returning 412: TypeError: Failed to fetch",
+    "evidence": {
+      "ok": false,
+      "error": "TypeError: Failed to fetch",
+      "name": "TypeError"
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
+  },
+  {
+    "id": "T14",
+    "status": "fail",
+    "expected": "browser obtains server/loginName/appPassword via login flow v2 and the app password works",
+    "observed": "POST /index.php/login/v2 failed in the browser: TypeError: Failed to fetch",
+    "evidence": {
+      "ok": false,
+      "error": "TypeError: Failed to fetch"
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
+  }
+]

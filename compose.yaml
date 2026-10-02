@@ -1,0 +1,58 @@
+name: rs-nextcloud-harness
+
+x-probe-environment: &probe-environment
+  NC_URL: http://nextcloud
+  NC_USER: ${NC_USER:-rstest}
+  NC_PASS: ${NC_PASS:-rstest-pass}
+
+services:
+  nextcloud:
+    image: ${NC_IMAGE:-nextcloud:35-apache}
+    environment:
+      SQLITE_DATABASE: nextcloud
+      NEXTCLOUD_ADMIN_USER: ${NC_ADMIN_USER:-admin}
+      NEXTCLOUD_ADMIN_PASSWORD: ${NC_ADMIN_PASSWORD:-admin}
+      NEXTCLOUD_TRUSTED_DOMAINS: "nc.localhost app.localhost nextcloud origin localhost 127.0.0.1"
+    ports:
+      - "${NC_PORT:-8080}:80"
+    volumes:
+      - nextcloud-data:/var/www/html
+
+  origin:
+    image: caddy:2-alpine
+    ports:
+      - "${ORIGIN_PORT:-8081}:80"
+    volumes:
+      - ./origin/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./origin:/srv:ro
+
+  curl-probe:
+    build: ./docker/curl-probe
+    image: rs-nc-curl-probe
+    working_dir: /harness
+    command: ["sleep", "infinity"]
+    environment: *probe-environment
+    volumes:
+      - ./:/harness
+
+  runner:
+    build:
+      context: ./runner
+      args:
+        PLAYWRIGHT_VERSION: ${PLAYWRIGHT_VERSION:-1.63.0}
+    image: rs-nc-runner
+    working_dir: /harness/runner
+    command: ["sleep", "infinity"]
+    shm_size: "1gb"
+    environment:
+      <<: *probe-environment
+      ORIGIN_URL: http://origin
+      RESULTS_DIR: /harness/results
+      HOME: /tmp
+      VARIANT: ${VARIANT:-unknown}
+      NC_VERSION: ${NC_VERSION:-unknown}
+    volumes:
+      - ./results:/harness/results
+
+volumes:
+  nextcloud-data:

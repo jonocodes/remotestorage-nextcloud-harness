@@ -1,0 +1,76 @@
+[
+  {
+    "id": "T11",
+    "status": "pass",
+    "expected": "PROPFIND succeeds and the response is readable",
+    "observed": "HTTP 207",
+    "evidence": {
+      "control": {
+        "ok": true,
+        "status": 200
+      },
+      "status": 207,
+      "headers": {
+        "content-length": "480",
+        "content-type": "application/xml; charset=utf-8",
+        "dav": "1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar",
+        "vary": "Brief,Prefer"
+      },
+      "body": "<?xml version=\"1.0\"?>\n<d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\" xmlns:oc=\"http://owncloud.org/ns\" xmlns:nc=\"http://nextcloud.org/ns\"><d:response><d:href>/remote.php/dav/files/rstest/remotestorage/</d:href><d:propstat><d:prop><d:getlastmodified>Fri, 02 Oct 2026 20:21:30 GMT</d:getlastmodified><d:resourcetype><d:collection/></d:resourcetype><d:quota-used-bytes>13</d:quota-used-bytes><d:quota-available-bytes>-3</d:quota-available-bytes><d:getetag>&quot;6ac0124a75fdc&quot;</d:ge"
+    },
+    "variant": "pr40537",
+    "nextcloud_version": "28"
+  },
+  {
+    "id": "T12",
+    "status": "pass",
+    "expected": "PUT/GET/DELETE succeed and response.headers.get('ETag') is non-null on PUT and GET (plan T12, amended 2026-10-02)",
+    "observed": "PUT/GET/DELETE succeeded; ETag visible on PUT \"1905cc331a878c48f3ca4e42c9c5abb1\" and GET \"1905cc331a878c48f3ca4e42c9c5abb1\"; DELETE ETag not sent",
+    "evidence": {
+      "statuses": {
+        "put": 201,
+        "get": 200,
+        "delete": 204
+      },
+      "etags": {
+        "put": "\"1905cc331a878c48f3ca4e42c9c5abb1\"",
+        "get": "\"1905cc331a878c48f3ca4e42c9c5abb1\"",
+        "delete": null
+      },
+      "errors": {}
+    },
+    "variant": "pr40537",
+    "nextcloud_version": "28"
+  },
+  {
+    "id": "T13",
+    "status": "pass",
+    "expected": "stale If-Match PUT returns 412 to the page and does not write",
+    "observed": "412 visible to the page and content unchanged",
+    "evidence": {
+      "staleStatus": 412,
+      "staleHeaders": {
+        "content-length": "526",
+        "content-type": "application/xml; charset=utf-8",
+        "etag": "\"947f2d1fa7dd4b3b98a14478ab5abce3\"",
+        "vary": "Origin"
+      },
+      "readBackStatus": 200,
+      "readBackBody": "original"
+    },
+    "variant": "pr40537",
+    "nextcloud_version": "28"
+  },
+  {
+    "id": "T14",
+    "status": "fail",
+    "expected": "browser obtains server/loginName/appPassword via login flow v2 and the app password works",
+    "observed": "POST /index.php/login/v2 failed in the browser: TypeError: Failed to fetch",
+    "evidence": {
+      "ok": false,
+      "error": "TypeError: Failed to fetch"
+    },
+    "variant": "pr40537",
+    "nextcloud_version": "28"
+  }
+]

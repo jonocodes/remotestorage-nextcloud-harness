@@ -1,0 +1,249 @@
+[
+  {
+    "id": "T1",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "PUT $R/a/b/c.txt changes root, a/ and a/b/ ETags",
+    "observed": "all three ETags changed (root=yes a/=yes a/b/=yes)",
+    "evidence": {
+      "before": {
+        "root": "\"6ac011cac39bc\"",
+        "a/": "\"6ac011cac39bc\"",
+        "a/b/": "\"6ac011cabd564\""
+      },
+      "after": {
+        "root": "\"6ac011cbbdb23\"",
+        "a/": "\"6ac011cbbdb23\"",
+        "a/b/": "\"6ac011cbbdb23\""
+      }
+    }
+  },
+  {
+    "id": "T2",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "overwriting $R/a/b/c.txt changes root, a/ and a/b/ ETags",
+    "observed": "all three ETags changed on overwrite (root=yes a/=yes a/b/=yes)",
+    "evidence": {
+      "before": {
+        "root": "\"6ac011ce0bac2\"",
+        "a/": "\"6ac011ce0bac2\"",
+        "a/b/": "\"6ac011ce0bac2\""
+      },
+      "after": {
+        "root": "\"6ac011cf2d06f\"",
+        "a/": "\"6ac011cf2d06f\"",
+        "a/b/": "\"6ac011cf2d06f\""
+      }
+    }
+  },
+  {
+    "id": "T3",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "DELETE of $R/a/b/c.txt changes root, a/ and a/b/ ETags",
+    "observed": "all three ETags changed on delete (root=yes a/=yes a/b/=yes)",
+    "evidence": {
+      "before": {
+        "root": "\"6ac011d203eb2\"",
+        "a/": "\"6ac011d203eb2\"",
+        "a/b/": "\"6ac011d203eb2\""
+      },
+      "after": {
+        "root": "\"6ac011d31bb38\"",
+        "a/": "\"6ac011d31bb38\"",
+        "a/b/": "\"6ac011d31bb38\""
+      }
+    }
+  },
+  {
+    "id": "T4",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "root ETag changes on the first PROPFIND after PUT returns",
+    "observed": "root ETag changed on the first read (189ms after PUT returned)",
+    "evidence": {
+      "before": "\"6ac011d44ec62\"",
+      "first_read_etag": "\"6ac011d4db70c\"",
+      "first_read_ms": 189,
+      "change_latency_ms": 189
+    }
+  },
+  {
+    "id": "T5",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "PUT under x/ leaves sibling y/ ETag unchanged",
+    "observed": "sibling y/ ETag unchanged; root changed=yes",
+    "evidence": {
+      "y_before": "\"6ac011d64a8e6\"",
+      "y_after": "\"6ac011d64a8e6\"",
+      "root_before": "\"6ac011d64e3b4\"",
+      "root_after": "\"6ac011d7141c7\""
+    }
+  },
+  {
+    "id": "T6",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "GET ETag equals parent PROPFIND getetag",
+    "observed": "GET ETag equals PROPFIND getetag after quote normalization",
+    "evidence": {
+      "get_status": "200",
+      "get_etag": "\"b89338b475900ab41aa60959eb06145d\"",
+      "propfind_getetag": "\"b89338b475900ab41aa60959eb06145d\"",
+      "normalized": {
+        "get": "b89338b475900ab41aa60959eb06145d",
+        "propfind": "b89338b475900ab41aa60959eb06145d"
+      },
+      "weak": "no"
+    }
+  },
+  {
+    "id": "T7",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "PUT with If-Match: \"stale\" returns 412 and does not write",
+    "observed": "PUT with stale If-Match returned 412 and left the file unchanged",
+    "evidence": {
+      "status": "412",
+      "body_after": "t7 original",
+      "request_header": "If-Match: \"stale\""
+    }
+  },
+  {
+    "id": "T8",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "PUT with If-None-Match: * on an existing file returns 412",
+    "observed": "PUT with If-None-Match: * on an existing file returned 412 and left it unchanged",
+    "evidence": {
+      "status": "412",
+      "body_after": "t8 original",
+      "request_header": "If-None-Match: *"
+    }
+  },
+  {
+    "id": "T9",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "DELETE with If-Match: \"stale\" returns 412 and does not delete",
+    "observed": "DELETE with stale If-Match returned 412 and the file still exists",
+    "evidence": {
+      "delete_status": "412",
+      "get_after_status": "200",
+      "body_after": "t9 keep me",
+      "request_header": "If-Match: \"stale\""
+    }
+  },
+  {
+    "id": "T10",
+    "variant": "stock",
+    "nextcloud_version": "34",
+    "status": "pass",
+    "expected": "Depth: 1 PROPFIND exposes ETag, content type, length, last-modified and subfolder ETag",
+    "observed": "4 responses, files carry ETag/content-type/length/last-modified and sub/ has an ETag",
+    "evidence": {
+      "mapping": {
+        "files": [
+          {
+            "href": "/remote.php/dav/files/rstest/remotestorage/f1.txt",
+            "etag": "\"ded97beaf311a014f10a5a8d38ddc193\"",
+            "contenttype": "text/plain",
+            "contentlength": "3",
+            "lastmodified": "Fri, 02 Oct 2026 20:19:42 GMT"
+          },
+          {
+            "href": "/remote.php/dav/files/rstest/remotestorage/f2.txt",
+            "etag": "\"725df1d95768230728a4331c7807ad2d\"",
+            "contenttype": "text/plain",
+            "contentlength": "10",
+            "lastmodified": "Fri, 02 Oct 2026 20:19:42 GMT"
+          }
+        ],
+        "collections": [
+          {
+            "href": "/remote.php/dav/files/rstest/remotestorage/sub/",
+            "etag": "\"6ac011decba4f\""
+          }
+        ]
+      },
+      "response_count": 4,
+      "sub_is_collection": 1
+    }
+  },
+  {
+    "id": "T11",
+    "status": "fail",
+    "expected": "PROPFIND succeeds and the response is readable",
+    "observed": "fetch failed: TypeError: Failed to fetch (control GET succeeded, so the page reaches Nextcloud)",
+    "evidence": {
+      "control": {
+        "ok": true,
+        "status": 200
+      },
+      "response": {
+        "ok": false,
+        "error": "TypeError: Failed to fetch",
+        "name": "TypeError"
+      }
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
+  },
+  {
+    "id": "T12",
+    "status": "fail",
+    "expected": "PUT/GET/DELETE succeed and response.headers.get('ETag') is non-null on PUT and GET (plan T12, amended 2026-10-02)",
+    "observed": "PUT TypeError: Failed to fetch; GET TypeError: Failed to fetch; DELETE TypeError: Failed to fetch; PUT response did not expose ETag; GET response did not expose ETag",
+    "evidence": {
+      "statuses": {},
+      "etags": {
+        "put": null,
+        "get": null,
+        "delete": null
+      },
+      "errors": {
+        "put": "TypeError: Failed to fetch",
+        "get": "TypeError: Failed to fetch",
+        "delete": "TypeError: Failed to fetch"
+      }
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
+  },
+  {
+    "id": "T13",
+    "status": "fail",
+    "expected": "stale If-Match PUT returns 412 to the page and does not write",
+    "observed": "fetch failed instead of returning 412: TypeError: Failed to fetch",
+    "evidence": {
+      "ok": false,
+      "error": "TypeError: Failed to fetch",
+      "name": "TypeError"
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
+  },
+  {
+    "id": "T14",
+    "status": "fail",
+    "expected": "browser obtains server/loginName/appPassword via login flow v2 and the app password works",
+    "observed": "POST /index.php/login/v2 failed in the browser: TypeError: Failed to fetch",
+    "evidence": {
+      "ok": false,
+      "error": "TypeError: Failed to fetch"
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
+  }
+]

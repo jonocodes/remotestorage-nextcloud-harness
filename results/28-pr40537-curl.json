@@ -1,0 +1,184 @@
+[
+  {
+    "id": "T1",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "PUT $R/a/b/c.txt changes root, a/ and a/b/ ETags",
+    "observed": "all three ETags changed (root=yes a/=yes a/b/=yes)",
+    "evidence": {
+      "before": {
+        "root": "\"6ac01239a6965\"",
+        "a/": "\"6ac01239a6965\"",
+        "a/b/": "\"6ac01239a4f47\""
+      },
+      "after": {
+        "root": "\"6ac0123a66ac8\"",
+        "a/": "\"6ac0123a66ac8\"",
+        "a/b/": "\"6ac0123a66ac8\""
+      }
+    }
+  },
+  {
+    "id": "T2",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "overwriting $R/a/b/c.txt changes root, a/ and a/b/ ETags",
+    "observed": "all three ETags changed on overwrite (root=yes a/=yes a/b/=yes)",
+    "evidence": {
+      "before": {
+        "root": "\"6ac0123be93bf\"",
+        "a/": "\"6ac0123be93bf\"",
+        "a/b/": "\"6ac0123be93bf\""
+      },
+      "after": {
+        "root": "\"6ac0123ca6116\"",
+        "a/": "\"6ac0123ca6116\"",
+        "a/b/": "\"6ac0123ca6116\""
+      }
+    }
+  },
+  {
+    "id": "T3",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "DELETE of $R/a/b/c.txt changes root, a/ and a/b/ ETags",
+    "observed": "all three ETags changed on delete (root=yes a/=yes a/b/=yes)",
+    "evidence": {
+      "before": {
+        "root": "\"6ac0123e6ee36\"",
+        "a/": "\"6ac0123e6ee36\"",
+        "a/b/": "\"6ac0123e6ee36\""
+      },
+      "after": {
+        "root": "\"6ac0123f5aa67\"",
+        "a/": "\"6ac0123f5aa67\"",
+        "a/b/": "\"6ac0123f5aa67\""
+      }
+    }
+  },
+  {
+    "id": "T4",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "root ETag changes on the first PROPFIND after PUT returns",
+    "observed": "root ETag changed on the first read (173ms after PUT returned)",
+    "evidence": {
+      "before": "\"6ac0124076422\"",
+      "first_read_etag": "\"6ac01240eb7bc\"",
+      "first_read_ms": 173,
+      "change_latency_ms": 173
+    }
+  },
+  {
+    "id": "T5",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "PUT under x/ leaves sibling y/ ETag unchanged",
+    "observed": "sibling y/ ETag unchanged; root changed=yes",
+    "evidence": {
+      "y_before": "\"6ac0124267a12\"",
+      "y_after": "\"6ac0124267a12\"",
+      "root_before": "\"6ac012426ba97\"",
+      "root_after": "\"6ac0124312f68\""
+    }
+  },
+  {
+    "id": "T6",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "GET ETag equals parent PROPFIND getetag",
+    "observed": "GET ETag equals PROPFIND getetag after quote normalization",
+    "evidence": {
+      "get_status": "200",
+      "get_etag": "\"8206502b4a9e50e78eaaf6e702c2fdb8\"",
+      "propfind_getetag": "\"8206502b4a9e50e78eaaf6e702c2fdb8\"",
+      "normalized": {
+        "get": "8206502b4a9e50e78eaaf6e702c2fdb8",
+        "propfind": "8206502b4a9e50e78eaaf6e702c2fdb8"
+      },
+      "weak": "no"
+    }
+  },
+  {
+    "id": "T7",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "PUT with If-Match: \"stale\" returns 412 and does not write",
+    "observed": "PUT with stale If-Match returned 412 and left the file unchanged",
+    "evidence": {
+      "status": "412",
+      "body_after": "t7 original",
+      "request_header": "If-Match: \"stale\""
+    }
+  },
+  {
+    "id": "T8",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "PUT with If-None-Match: * on an existing file returns 412",
+    "observed": "PUT with If-None-Match: * on an existing file returned 412 and left it unchanged",
+    "evidence": {
+      "status": "412",
+      "body_after": "t8 original",
+      "request_header": "If-None-Match: *"
+    }
+  },
+  {
+    "id": "T9",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "DELETE with If-Match: \"stale\" returns 412 and does not delete",
+    "observed": "DELETE with stale If-Match returned 412 and the file still exists",
+    "evidence": {
+      "delete_status": "412",
+      "get_after_status": "200",
+      "body_after": "t9 keep me",
+      "request_header": "If-Match: \"stale\""
+    }
+  },
+  {
+    "id": "T10",
+    "variant": "pr40537",
+    "nextcloud_version": "28",
+    "status": "pass",
+    "expected": "Depth: 1 PROPFIND exposes ETag, content type, length, last-modified and subfolder ETag",
+    "observed": "4 responses, files carry ETag/content-type/length/last-modified and sub/ has an ETag",
+    "evidence": {
+      "mapping": {
+        "files": [
+          {
+            "href": "/remote.php/dav/files/rstest/remotestorage/f1.txt",
+            "etag": "\"938246b380cd4896efaa706594c361cc\"",
+            "contenttype": "text/plain",
+            "contentlength": "3",
+            "lastmodified": "Fri, 02 Oct 2026 20:21:29 GMT"
+          },
+          {
+            "href": "/remote.php/dav/files/rstest/remotestorage/f2.txt",
+            "etag": "\"7e76acec738ff08dcb158fe2dd301f1e\"",
+            "contenttype": "text/plain",
+            "contentlength": "10",
+            "lastmodified": "Fri, 02 Oct 2026 20:21:30 GMT"
+          }
+        ],
+        "collections": [
+          {
+            "href": "/remote.php/dav/files/rstest/remotestorage/sub/",
+            "etag": "\"6ac0124a7294f\""
+          }
+        ]
+      },
+      "response_count": 4,
+      "sub_is_collection": 1
+    }
+  }
+]
