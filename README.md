@@ -3,9 +3,10 @@
 Answers one question: **can remoteStorage.js sync against stock Nextcloud WebDAV, and if
 not, exactly what is missing?**
 
-Provenance: this harness implements the author's test plan, "remoteStorage.js × Nextcloud:
-History and Test Plan" (Sep 30 2026). Requirements R1–R7, cases T1–T14 and variants are
-defined there; [`REPORT.md`](REPORT.md) restates what matters and reports the results.
+Provenance: this harness implements [`PLAN.md`](PLAN.md), "remoteStorage.js × Nextcloud:
+History and Test Plan" (Sep 30 2026). It holds the history, requirements R1–R7, test cases
+T1–T14, variants, runbook and reporting targets. [`REPORT.md`](REPORT.md) reports the
+results.
 
 It is standalone: nothing here is part of remoteStorage.js.
 
@@ -43,6 +44,8 @@ Results land in `results/<version>-<variant>.json` (one JSON object per case) an
 
 | Path | Role |
 | --- | --- |
+| `PLAN.md` | the spec: history, requirements, test cases, runbook, reporting targets |
+| `REPORT.md` | results and verdict |
 | `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe` and `runner` services |
 | `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, collect |
 | `setup/` | per-variant Nextcloud configuration via `occ` |

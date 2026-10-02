@@ -2,8 +2,8 @@
 
 **Test report — 2026-10-02 · @Jono (harness and runs with agent assistance)**
 
-Status: **draft for review, not published.** Companion to "remoteStorage.js × Nextcloud:
-History and Test Plan" (Sep 30 2026). Harness and raw results live in this repository,
+Status: **draft for review, not published.** Companion to [`PLAN.md`](PLAN.md), "remoteStorage.js ×
+Nextcloud: History and Test Plan" (Sep 30 2026). Harness and raw results live in this repository,
 <https://github.com/jonocodes/remotestorage-nextcloud-harness>; nothing has been posted to
 the remoteStorage or Nextcloud issue threads or the forum yet.
 
@@ -55,7 +55,7 @@ Matrix and variants:
 
 Test identity: user `rstest`, storage root `/remote.php/dav/files/rstest/remotestorage/`
 (`$R`), every case starts from an empty `$R`. All paths and pass criteria are exactly as
-specified in the plan's test table. One criterion was amended in the plan itself, with the
+specified in the test table of [`PLAN.md`](PLAN.md). One criterion was amended in the plan itself, with the
 reason recorded there: T12 originally required a readable `ETag` on the DELETE response as
 well as PUT and GET. Nextcloud sends no ETag on DELETE at all, so that clause could never
 pass on any server configuration and tested nothing about CORS. A run under the original
