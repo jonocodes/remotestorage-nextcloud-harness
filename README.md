@@ -10,9 +10,11 @@ results.
 
 It is standalone: nothing here is part of remoteStorage.js.
 
-A second, parallel track, [`PLAN-app.md`](PLAN-app.md), plans a small Nextcloud app that makes
-Nextcloud a full remoteStorage server, so existing remoteStorage apps work unchanged. It will
-be reported separately.
+A second, parallel track, [`PLAN-app.md`](PLAN-app.md), builds a small Nextcloud app that makes
+Nextcloud a full remoteStorage server, so existing remoteStorage apps work unchanged:
+[jonocodes/nextcloud-remotestorage](https://github.com/jonocodes/nextcloud-remotestorage). Its
+integration cases live in `app/` (run with `RS_APP_DIR=../nextcloud-remotestorage ./app/run.sh`)
+and it will be reported separately.
 
 `results/` is committed on purpose. It holds the evidence `REPORT.md` cites, from run 6 on
 2026-10-02, plus `results/runs/run1–6.tsv`, the per-run status snapshots that back the
@@ -50,7 +52,8 @@ Results land in `results/<version>-<variant>.json` (one JSON object per case) an
 | --- | --- |
 | `PLAN.md` | the spec: history, requirements, test cases, runbook, reporting targets |
 | `REPORT.md` | results and verdict |
-| `PLAN-app.md` | second track: a thin Nextcloud app that makes Nextcloud a remoteStorage server (spike done, app not built) |
+| `PLAN-app.md` | second track: a thin Nextcloud app that makes Nextcloud a remoteStorage server ([jonocodes/nextcloud-remotestorage](https://github.com/jonocodes/nextcloud-remotestorage)); spike and build results |
+| `app/` | integration cases for the real app (`app/run.sh`, `app/probe.sh`, `app/snapshot.sh`; browser cases in `runner/app.spec.ts`); results in `results/app/` |
 | `spike/` | throwaway spike app `rsspike` and its checks (`spike/run.sh`, `spike/probe.sh`); results in `results/spike/` |
 | `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe` and `runner` services |
 | `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, token lifetimes, collect |

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>remoteStorage.js app</title>
+  <script src="/vendor/remotestorage.js"></script>
+</head>
+<body>
+  <pre id="log">rs app</pre>
+  <script>
+    // A minimal remoteStorage app: unmodified remoteStorage.js, notes:rw,
+    // caching on. After the OAuth redirect back, remoteStorage.js picks the
+    // token up from the URL fragment on load.
+    const rs = new RemoteStorage({ logging: false });
+    rs.access.claim("notes", "rw");
+    rs.caching.enable("/notes/");
+    window.rs = rs;
+    window.rsConnected = new Promise((resolve) => rs.on("connected", () => resolve(true)));
+    window.rsErrors = [];
+    rs.on("error", (error) => window.rsErrors.push(String(error)));
+    window.rsSync = () => new Promise((resolve) => {
+      rs.on("sync-done", () => resolve(true));
+      rs.startSync();
+    });
+  </script>
+</body>
+</html>

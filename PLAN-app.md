@@ -155,6 +155,60 @@ All run in this harness as a new variant `rsapp` (the app mounted into `custom_a
 AT11 and AT12 are the headline: one is the ecosystem's own conformance suite, the other is an
 unmodified remoteStorage.js app.
 
+### Build results (2026-10-02)
+
+The app is [jonocodes/nextcloud-remotestorage](https://github.com/jonocodes/nextcloud-remotestorage)
+0.1.0: 72 unit tests for its pure logic (`just test`), and the integration cases in this
+harness's `app/` (`app/run.sh`, `app/probe.sh`, `app/snapshot.sh`, `runner/app.spec.ts`).
+**All cases implemented so far pass on Nextcloud 35.0.1 and 34.0.4, with the app alone and
+next to WebAppPassword: 240/240 per run, identical over three consecutive runs; the committed
+evidence is from run 3, against app commit `ee61360`.** Evidence in
+`results/app/`; the app commit under test is in `results/app/*-app-version.txt`.
+
+| Case | Status | Notes |
+| --- | --- | --- |
+| AT1 | pass | WebFinger link, properties, CORS; unknown user and foreign host → 404. |
+| AT2 | pass | Real consent flow in Chromium: Allow → `#access_token=rs_…&token_type=bearer&scope&state`; Deny → `access_denied`; a `client_id` that is not the redirect origin → error page, no redirect; the token is listed in Settings → Security and **Disconnect** makes it 401. |
+| AT3 | pass | `notes:r`/`notes:rw`/`*:rw`, `/public/notes/` covered by `notes`, root needs `*`, nothing outside the root, non-remoteStorage methods → 405. |
+| AT4 | pass | From a page on another origin: PUT, GET, folder GET, stale `If-Match` 412 and DELETE, with every ETag readable. |
+| AT5 | pass | Listing format and metadata; every ETag equals WebDAV's `getetag`. |
+| AT6 | pass | PUT into a user with no storage root creates every parent; DELETE prunes emptied parents up to (not including) the root; PUT below a document → 409; PUT/DELETE on a folder → 405. |
+| AT7 | pass | 412 for stale `If-Match` (PUT, DELETE) and `If-None-Match: *`; 304 for documents and folders; an `If-Match` PUT to a missing path creates no folders. |
+| AT8 | pass | Root, module and parent folder ETags all change on create and on delete. |
+| AT9 | pass | Anonymous: public documents 200; public listings, writes and private documents 401. |
+| AT10 | pass | Basic-auth WebDAV responses (10 requests, volatile headers dropped) identical with the app disabled and enabled. |
+| AT11 | not run | Community `api-test-suite` (Ruby) not wired in yet. |
+| AT12 | pass | Unmodified remoteStorage.js 2.0.0-beta.9: `connect("rstest@nextcloud")` → WebFinger → Nextcloud login → consent → back with the token → sync a file into `notes/deep/a/` → visible via WebDAV → `remove()` + sync → the emptied folders are gone. |
+| C1–C6, A1–A3, W1–W2 | pass | CORS rules, request-only logins (a token request's cookies log nobody in), non-`rs_` bearer tokens untouched and unthrottled, bad `rs_` tokens throttled; with WebAppPassword exactly one `Access-Control-Allow-Origin`. |
+
+Changes from the plan, each recorded here rather than silently made:
+
+- **AT10 covers Basic-auth requests only.** Answering credential-less browser preflights under
+  the storage root is the one intended change (see the spike's CORS finding), so preflights are
+  not in the snapshot.
+- **Tokens are prefixed `rs_`.** The auth backend ignores, and never throttles, any other bearer
+  token, so core OAuth2 and SSO apps are unaffected (A2).
+- **Throttling sleeps on failure only.** In Nextcloud 34 and 35 `IThrottler::sleepDelayOrThrowOnMax()`
+  no longer sleeps (it blocks after the limit and returns the delay); the app sleeps itself
+  after a failed token, like core's `BruteForceMiddleware`.
+- **Not in the plan:** `occ remotestorage:token:issue` (for scripts and the curl checks), and
+  deleting a user's tokens with the user.
+
+Found by the harness while building (all fixed):
+
+- Route `oauth#authorize` resolves to class `OauthController`, not `OAuthController`; the
+  consent page returned an error until renamed.
+- Nextcloud generates the pretty OAuth URL (`/apps/remotestorage/oauth`, no `index.php`); both work.
+- The consent form needs the app's origin in CSP `form-action`, since Chrome applies it to the
+  redirect after the form post; with it, the redirect back works (AT2a, AT12).
+- **First-run wizard:** a brand-new user's first login shows Nextcloud's first-run wizard on top
+  of the consent page; the harness clicks Skip and Close, as a person would. A UX issue to
+  consider in the app, not a failure.
+
+Still open: AT11; nginx deployments (Nextcloud's documented nginx config answers
+`/.well-known/webfinger` with a 301, and browsers need CORS on that redirect; only the Apache
+images are tested); OAuth code flow with PKCE; app-store signing.
+
 ## Repositories
 
 - **The app:** its own repository (needed for app-store releases), app id `remotestorage`.
@@ -179,7 +233,7 @@ be published, pushed or posted; or a pass needs a looser criterion.
 - [x] Do the spikes pass (S1–S4)? — Yes, on 34 and 35, plus the remoteStorage.js client check; see "Spike results".
 - [ ] OAuth code flow with PKCE as well as implicit grant? (remoteStorage.js 2.0 can do PKCE for
       Dropbox; check what its rs discovery path accepts.)
-- [ ] Storage root name and whether users may change it.
+- [x] Storage root name and whether users may change it. — `remoteStorage` by default; admins can change it (`occ config:app:set remotestorage storage_root`); not per user.
 - [ ] App-store listing and signing: who holds the certificate?
 - [ ] Prior art: read what is recoverable of ownCloud's removed remoteStorage app for pitfalls
       before building.

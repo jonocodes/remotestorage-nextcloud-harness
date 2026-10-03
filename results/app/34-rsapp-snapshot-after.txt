@@ -1,0 +1,153 @@
+## GET document
+status 200
+body f16d05ec6b29248d
+content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
+content-length: 7
+content-type: text/plain;charset=utf-8
+etag: "9a665fce95b25e43ba9064ac2afeb2cf"
+oc-etag: "9a665fce95b25e43ba9064ac2afeb2cf"
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+x-accel-buffering: no
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## GET document with Origin
+status 200
+body f16d05ec6b29248d
+content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
+content-length: 7
+content-type: text/plain;charset=utf-8
+etag: "9a665fce95b25e43ba9064ac2afeb2cf"
+oc-etag: "9a665fce95b25e43ba9064ac2afeb2cf"
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+x-accel-buffering: no
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## GET folder
+status 200
+body 1c12fbf6e0c4498c
+content-length: 114
+content-type: text/html; charset=utf-8
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+vary: accept-encoding
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## PROPFIND root depth 1
+status 207
+body 67392ec7e1fb8969
+content-length: 1021
+content-type: application/xml; charset=utf-8
+dav: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-paginate, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar, 2
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+vary: brief,prefer
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## PROPFIND folder depth 1 with Origin
+status 207
+body 2f491d7bba2d4ffe
+content-length: 1020
+content-type: application/xml; charset=utf-8
+dav: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-paginate, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar, 2
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+vary: brief,prefer
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## HEAD document
+status 200
+body n/a (HEAD)
+content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
+content-length: 7
+content-type: text/plain;charset=utf-8
+etag: "9a665fce95b25e43ba9064ac2afeb2cf"
+oc-etag: "9a665fce95b25e43ba9064ac2afeb2cf"
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+x-accel-buffering: no
+x-accel-buffering: no
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## conditional GET
+status 200
+body f16d05ec6b29248d
+content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
+content-length: 7
+content-type: text/plain;charset=utf-8
+etag: "9a665fce95b25e43ba9064ac2afeb2cf"
+oc-etag: "9a665fce95b25e43ba9064ac2afeb2cf"
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+x-accel-buffering: no
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## PUT into a missing folder
+status 404
+body 78ae9c3d8002ac36
+content-length: 250
+content-type: application/xml; charset=utf-8
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## MKCOL existing
+status 405
+body c5437077750bcc35
+allow: options, get, head, delete, propfind, put, proppatch, copy, move, report, lock, unlock
+content-length: 247
+content-type: application/xml; charset=utf-8
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest
+## GET outside the root
+status 404
+body 4c583970e46d0f7c
+content-length: 262
+content-type: application/xml; charset=utf-8
+referrer-policy: no-referrer
+server: apache/2.4.68 (debian)
+x-content-type-options: nosniff
+x-frame-options: sameorigin
+x-permitted-cross-domain-policies: none
+x-powered-by: php/8.5.11
+x-robots-tag: noindex, nofollow
+x-user-id: rstest

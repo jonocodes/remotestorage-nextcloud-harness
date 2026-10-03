@@ -27,7 +27,7 @@ for version in "${VERSIONS[@]}"; do
     -e PLAYWRIGHT_JSON_OUTPUT_NAME="/harness/results/spike/${version}-client-raw.json" \
     runner npx playwright test spike.spec.ts --reporter=json,list >/dev/null || overall=1
   jq '[.suites[].specs[] | {id: (.title | split(" ")[0]), check: .title,
-       status: (if .ok then "pass" else "fail" end),
+       status: (.tests[0].status | if . == "expected" then "pass" elif . == "skipped" then "skipped" else "fail" end),
        observed: ([.tests[].results[].stdout[]?.text] | join("") | rtrimstr("\n"))}]' \
     "results/spike/${version}-client-raw.json" > "results/spike/${version}-client.json"
   rm -f "results/spike/${version}-client-raw.json"
