@@ -10,6 +10,10 @@ results.
 
 It is standalone: nothing here is part of remoteStorage.js.
 
+A second, parallel track, [`PLAN-app.md`](PLAN-app.md), plans a small Nextcloud app that makes
+Nextcloud a full remoteStorage server, so existing remoteStorage apps work unchanged. It will
+be reported separately.
+
 `results/` is committed on purpose. It holds the evidence `REPORT.md` cites, from run 6 on
 2026-10-02, plus `results/runs/run1–6.tsv`, the per-run status snapshots that back the
 reproducibility claim. Re-running `./run.sh` overwrites it, so `git diff results/` shows
@@ -46,6 +50,7 @@ Results land in `results/<version>-<variant>.json` (one JSON object per case) an
 | --- | --- |
 | `PLAN.md` | the spec: history, requirements, test cases, runbook, reporting targets |
 | `REPORT.md` | results and verdict |
+| `PLAN-app.md` | second track: a thin Nextcloud app that makes Nextcloud a remoteStorage server (planned, not built) |
 | `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe` and `runner` services |
 | `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, token lifetimes, collect |
 | `setup/` | per-variant Nextcloud configuration via `occ` |
