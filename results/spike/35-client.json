@@ -1,0 +1,14 @@
+[
+  {
+    "id": "SC1",
+    "check": "SC1 remoteStorage.js discovers, writes and reads without caching",
+    "status": "pass",
+    "observed": "[SC1] {\"connected\":{\"ok\":true},\"href\":\"http://nextcloud/remote.php/dav/files/rstest/remotestorage\",\"storageApi\":\"draft-dejong-remotestorage-22\",\"stamp\":\"from rs.js 1790990233300\",\"stored\":\"0c806409dffe9659257ab5690c5c50ed\",\"file\":{\"data\":\"from rs.js 1790990233300\",\"contentType\":\"text/plain;charset=UTF-8\",\"revision\":\"0c806409dffe9659257ab5690c5c50ed\"},\"listing\":{\"a.txt\":{\"ETag\":\"65c4612d314ba137d831b27d64381a3a\",\"Content-Type\":\"text/plain\",\"Content-Length\":5,\"Last-Modified\":\"Sat, 03 Oct 2026 01:17:09 GMT\"},\"sc1.txt\":{\"ETag\":\"0c806409dffe9659257ab5690c5c50ed\",\"Content-Type\":\"text/plain\",\"Content-Length\":24,\"Last-Modified\":\"Sat, 03 Oct 2026 01:17:13 GMT\"}}}"
+  },
+  {
+    "id": "SC2",
+    "check": "SC2 remoteStorage.js with caching: store, sync, read back in a fresh context",
+    "status": "pass",
+    "observed": "[SC2] {\"stamp\":\"synced 1790990233819\",\"read\":{\"connected\":{\"ok\":true},\"file\":{\"data\":\"synced 1790990233819\",\"contentType\":\"text/plain;charset=UTF-8\"}}}"
+  }
+]

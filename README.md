@@ -50,7 +50,8 @@ Results land in `results/<version>-<variant>.json` (one JSON object per case) an
 | --- | --- |
 | `PLAN.md` | the spec: history, requirements, test cases, runbook, reporting targets |
 | `REPORT.md` | results and verdict |
-| `PLAN-app.md` | second track: a thin Nextcloud app that makes Nextcloud a remoteStorage server (planned, not built) |
+| `PLAN-app.md` | second track: a thin Nextcloud app that makes Nextcloud a remoteStorage server (spike done, app not built) |
+| `spike/` | throwaway spike app `rsspike` and its checks (`spike/run.sh`, `spike/probe.sh`); results in `results/spike/` |
 | `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe` and `runner` services |
 | `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, token lifetimes, collect |
 | `setup/` | per-variant Nextcloud configuration via `occ` |

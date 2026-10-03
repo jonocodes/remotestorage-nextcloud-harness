@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>remoteStorage.js client probe</title>
+  <script src="/vendor/remotestorage.js"></script>
+</head>
+<body>
+  <pre id="log">rs client page</pre>
+  <script>
+    // Unmodified remoteStorage.js; the spec drives it through window.rsProbe.
+    window.rsProbe = {
+      connect(userAddress, token, options = {}) {
+        return new Promise((resolve) => {
+          const rs = new RemoteStorage(Object.assign({ logging: false }, options));
+          rs.access.claim("notes", "rw");
+          rs.on("connected", () => resolve({ ok: true, rs }));
+          rs.on("error", (error) => resolve({ ok: false, error: String(error) }));
+          window.rs = rs;
+          rs.connect(userAddress, token);
+        });
+      }
+    };
+  </script>
+</body>
+</html>

@@ -89,6 +89,49 @@ throwaway probe against the harness stack.
 Plus one client check: does remoteStorage.js's WebFinger lookup work over plain `http://` inside
 the harness, or does the harness need TLS on the Nextcloud container?
 
+### Spike results (2026-10-02)
+
+**All four spikes and the client check pass on Nextcloud 35.0.1 and 34.0.4; the design holds.**
+The throwaway app is `spike/rsspike/` (about 430 lines of PHP, comments included); `spike/run.sh` builds a fresh
+stack per version and runs `spike/probe.sh` (28 HTTP checks) plus `runner/spike.spec.ts`
+(2 remoteStorage.js checks). Two consecutive runs: 60/60 pass, identical. Evidence in
+`results/spike/`.
+
+| Spike | Answer |
+| --- | --- |
+| S1 | **Yes.** A backend added via `SabrePluginAuthInitEvent` runs *before* core's `BearerAuth` and Basic/cookie backends (`apps/dav/lib/Server.php`). On a valid token it calls `IUserSession::setVolatileActiveUser()` and `OC_Util::setupFS()`: a login for this request only, nothing written to the session. Unknown tokens fall through to core and get 401; scope, root and method limits give 403/405; Basic-auth requests are unchanged. |
+| S2 | **Yes.** A `method:GET` listener at priority 50 runs before Sabre's own GET (100) and returns the `folder-description` JSON for collections. Without a token, core's HTML "This is the WebDAV interface" page is unchanged. |
+| S3 | **Yes.** Document `ETag` header = PROPFIND `getetag` (quoted); listing item `ETag` = `getetag` without quotes; folder `ETag` header = the folder's `getetag`. |
+| S4 | **Yes, after a fix.** Anonymous GET/HEAD of documents under `public/` is let through as a read-only, public-only login; listings, writes and private paths get 401. |
+| Client | **Yes over plain HTTP** (`src/discover.ts` sets `tls_only: false`). Unmodified remoteStorage.js 2.0.0-beta.9 (`origin/vendor/`) connects as `rstest@nextcloud` via WebFinger, then stores, reads and lists directly (SC1), and with caching on syncs a file that a fresh browser context syncs back down (SC2). |
+
+Findings that change the real app's design:
+
+- **Folder-vs-document must come from the raw URL.** Sabre's `getPath()` strips the trailing
+  slash, and in remoteStorage that slash is what makes a path a folder. The first spike
+  version leaked the `public/` listing to anonymous requests because of this. Fixed with
+  defence in depth (raw-URL check in auth, refusal in the folder handler, and a 404 for a folder
+  addressed without its slash); S4b/S4c are the regression checks.
+- **Core does not throttle failed bearer tokens.** Ten wrong tokens in a row caused no delay.
+  Good for S1, but the app's tokens get no brute-force protection from core: use ≥256-bit
+  random tokens and the app's own throttling (`OCP\Security\Bruteforce\IThrottler`).
+- **CORS only for bearer-token and anonymous requests.** Preflights can't carry credentials,
+  so they are answered for any origin under the storage root; actual responses get
+  `Access-Control-Allow-Origin: *` only when the request used a bearer token or none (so a
+  bad token's 401 is readable). Basic-auth requests keep core's behaviour exactly (C5). This
+  replaces AR9's "only with an app token" wording for preflights.
+- **Core sets session cookies on every DAV response,** including Basic-auth requests and
+  anonymous 401s; not caused by the app. Harmless cross-origin: with `*`, browsers neither
+  send nor store credentials.
+- **WebFinger reaches Nextcloud** through the shipped `.htaccess` rewrite (without a handler,
+  core answers `{"message":"webfinger not supported"}`). Handlers must merge into a previous
+  `JrdResponse` (Circles also registers one) and add `Access-Control-Allow-Origin: *` via a
+  wrapping response, since `JrdResponse` sets no CORS.
+
+Not covered by the spike (to build next): the OAuth page and token table (the spike has one
+token in app config), PUT creating parents (the checks pre-create folders), DELETE pruning,
+`If-None-Match` 304 on folders, and AT10/AT11.
+
 ## Test cases
 
 All run in this harness as a new variant `rsapp` (the app mounted into `custom_apps/`), plus
@@ -133,7 +176,7 @@ be published, pushed or posted; or a pass needs a looser criterion.
 
 ## Open questions
 
-- [ ] Do the spikes pass (S1–S4)?
+- [x] Do the spikes pass (S1–S4)? — Yes, on 34 and 35, plus the remoteStorage.js client check; see "Spike results".
 - [ ] OAuth code flow with PKCE as well as implicit grant? (remoteStorage.js 2.0 can do PKCE for
       Dropbox; check what its rs discovery path accepts.)
 - [ ] Storage root name and whether users may change it.

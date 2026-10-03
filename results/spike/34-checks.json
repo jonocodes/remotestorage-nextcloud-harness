@@ -1,0 +1,198 @@
+[
+  {
+    "id": "S1a",
+    "check": "PUT document with token",
+    "expected": "201",
+    "observed": "201",
+    "status": "pass"
+  },
+  {
+    "id": "S1b",
+    "check": "GET document with token",
+    "expected": "200 hello",
+    "observed": "200 hello",
+    "status": "pass"
+  },
+  {
+    "id": "S1c",
+    "check": "unknown token refused",
+    "expected": "401",
+    "observed": "401",
+    "status": "pass"
+  },
+  {
+    "id": "S1d",
+    "check": "token outside its scope",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
+    "id": "S1e",
+    "check": "token outside the storage root",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
+    "id": "S1f",
+    "check": "non-remoteStorage method with token",
+    "expected": "405",
+    "observed": "405",
+    "status": "pass"
+  },
+  {
+    "id": "S1g",
+    "check": "Basic auth unaffected",
+    "expected": "200",
+    "observed": "200",
+    "status": "pass"
+  },
+  {
+    "id": "S1h",
+    "check": "good token not throttled after 10 bad ones (< 1 s)",
+    "expected": "200 fast",
+    "observed": "200 fast",
+    "status": "pass"
+  },
+  {
+    "id": "S2a",
+    "check": "folder GET with token",
+    "expected": "200 application/ld+json",
+    "observed": "200 application/ld+json",
+    "status": "pass"
+  },
+  {
+    "id": "S2b",
+    "check": "listing has folder-description context and a.txt",
+    "expected": "true",
+    "observed": "true",
+    "status": "pass"
+  },
+  {
+    "id": "S2c",
+    "check": "folder GET with Basic auth unchanged (core HTML page)",
+    "expected": "200 text/html",
+    "observed": "200 text/html",
+    "status": "pass"
+  },
+  {
+    "id": "S2d",
+    "check": "folder path without trailing slash is not a listing",
+    "expected": "404",
+    "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "S3a",
+    "check": "document GET ETag = PROPFIND getetag",
+    "expected": "\"cef5433ff850dc24fd3742d3ba0ba938\"",
+    "observed": "\"cef5433ff850dc24fd3742d3ba0ba938\"",
+    "status": "pass"
+  },
+  {
+    "id": "S3b",
+    "check": "listing item ETag = getetag without quotes",
+    "expected": "cef5433ff850dc24fd3742d3ba0ba938",
+    "observed": "cef5433ff850dc24fd3742d3ba0ba938",
+    "status": "pass"
+  },
+  {
+    "id": "S3c",
+    "check": "folder GET ETag = PROPFIND getetag of the folder",
+    "expected": "\"6ac057bc1b636\"",
+    "observed": "\"6ac057bc1b636\"",
+    "status": "pass"
+  },
+  {
+    "id": "S4a",
+    "check": "anonymous GET public document",
+    "expected": "200 pub",
+    "observed": "200 pub",
+    "status": "pass"
+  },
+  {
+    "id": "S4b",
+    "check": "anonymous GET public folder listing",
+    "expected": "401",
+    "observed": "401",
+    "status": "pass"
+  },
+  {
+    "id": "S4c",
+    "check": "anonymous GET public folder without slash",
+    "expected": "404",
+    "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "S4d",
+    "check": "anonymous PUT into public",
+    "expected": "401",
+    "observed": "401",
+    "status": "pass"
+  },
+  {
+    "id": "S4e",
+    "check": "anonymous GET private document",
+    "expected": "401",
+    "observed": "401",
+    "status": "pass"
+  },
+  {
+    "id": "C1",
+    "check": "credential-less preflight from any origin",
+    "expected": "204 *",
+    "observed": "204 *",
+    "status": "pass"
+  },
+  {
+    "id": "C2",
+    "check": "response exposes ETag",
+    "expected": "* yes",
+    "observed": "* yes",
+    "status": "pass"
+  },
+  {
+    "id": "C3",
+    "check": "error responses keep CORS",
+    "expected": "403 *",
+    "observed": "403 *",
+    "status": "pass"
+  },
+  {
+    "id": "C4",
+    "check": "no CORS outside the storage root",
+    "expected": "none",
+    "observed": "none",
+    "status": "pass"
+  },
+  {
+    "id": "C5",
+    "check": "Basic-auth request with an Origin gets no CORS (core behaviour kept)",
+    "expected": "200 none",
+    "observed": "200 none",
+    "status": "pass"
+  },
+  {
+    "id": "C6",
+    "check": "bad token 401 is readable cross-origin",
+    "expected": "401 *",
+    "observed": "401 *",
+    "status": "pass"
+  },
+  {
+    "id": "W1",
+    "check": "WebFinger answers with the remotestorage link, readable cross-origin",
+    "expected": "200 * http://nextcloud/remote.php/dav/files/rstest/remotestorage",
+    "observed": "200 * http://nextcloud/remote.php/dav/files/rstest/remotestorage",
+    "status": "pass"
+  },
+  {
+    "id": "W2",
+    "check": "WebFinger for an unknown user",
+    "expected": "404",
+    "observed": "404",
+    "status": "pass"
+  }
+]

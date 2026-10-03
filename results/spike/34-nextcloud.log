@@ -1,0 +1,99 @@
+[4m>>>> Executing external compose provider "/home/jono/.nix-profile/bin/docker-compose". Please see podman-compose(1) for how to disable this message. <<<<
+
+[0mnextcloud-1  | => Configuring PHP session handler...
+nextcloud-1  | ==> Using default PHP session handler
+nextcloud-1  | Initializing nextcloud 34.0.4.1 ...
+nextcloud-1  | New nextcloud instance
+nextcloud-1  | Installing with SQLite database
+nextcloud-1  | => Searching for hook scripts (*.sh) to run, located in the folder "/docker-entrypoint-hooks.d/pre-installation"
+nextcloud-1  | ==> Skipped: the "pre-installation" folder is empty (or does not exist)
+nextcloud-1  | Starting nextcloud installation
+nextcloud-1  | Nextcloud was successfully installed
+nextcloud-1  | Setting trusted domains…
+nextcloud-1  | System config value trusted_domains => 1 set to string nc.localhost
+nextcloud-1  | System config value trusted_domains => 2 set to string app.localhost
+nextcloud-1  | System config value trusted_domains => 3 set to string nextcloud
+nextcloud-1  | System config value trusted_domains => 4 set to string origin
+nextcloud-1  | System config value trusted_domains => 5 set to string localhost
+nextcloud-1  | System config value trusted_domains => 6 set to string 127.0.0.1
+nextcloud-1  | => Searching for hook scripts (*.sh) to run, located in the folder "/docker-entrypoint-hooks.d/post-installation"
+nextcloud-1  | ==> Skipped: the "post-installation" folder is empty (or does not exist)
+nextcloud-1  | Initializing finished
+nextcloud-1  | => Searching for hook scripts (*.sh) to run, located in the folder "/docker-entrypoint-hooks.d/before-starting"
+nextcloud-1  | ==> Skipped: the "before-starting" folder is empty (or does not exist)
+nextcloud-1  | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 10.89.1.3. Set the 'ServerName' directive globally to suppress this message
+nextcloud-1  | AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 10.89.1.3. Set the 'ServerName' directive globally to suppress this message
+nextcloud-1  | [Sat Oct 03 01:17:38.160615 2026] [mpm_prefork:notice] [pid 1:tid 1] AH00163: Apache/2.4.68 (Debian) PHP/8.5.11 configured -- resuming normal operations
+nextcloud-1  | [Sat Oct 03 01:17:38.160638 2026] [core:notice] [pid 1:tid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:40 +0000] "GET /status.php HTTP/1.1" 200 1034 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:42 +0000] "MKCOL /remote.php/dav/files/rstest/remotestorage HTTP/1.1" 201 1443 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:45 +0000] "MKCOL /remote.php/dav/files/rstest/remotestorage/notes HTTP/1.1" 201 1445 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:46 +0000] "MKCOL /remote.php/dav/files/rstest/remotestorage/public HTTP/1.1" 201 1451 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:46 +0000] "MKCOL /remote.php/dav/files/rstest/remotestorage/other HTTP/1.1" 201 1447 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:46 +0000] "PUT /remote.php/dav/files/rstest/remotestorage/other/x.txt HTTP/1.1" 201 1574 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:47 +0000] "PUT /remote.php/dav/files/rstest/remotestorage/public/p.txt HTTP/1.1" 201 1582 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:47 +0000] "DELETE /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 404 1644 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:47 +0000] "PUT /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 201 1315 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 200 1378 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1730 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/other/x.txt HTTP/1.1" 403 1330 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/ HTTP/1.1" 403 1321 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "PROPFIND /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 405 1425 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 200 1635 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1736 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1740 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1734 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1730 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1738 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1734 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1734 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1732 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1730 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1738 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:48 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 200 1376 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:49 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 200 1438 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:49 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 200 1544 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:49 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes HTTP/1.1" 404 1335 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:49 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 200 1372 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:49 +0000] "PROPFIND /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 207 2204 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:49 +0000] "PROPFIND /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 207 2204 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:49 +0000] "PROPFIND /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 207 2215 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:49 +0000] "GET /remote.php/dav/files/rstest/remotestorage/public/p.txt HTTP/1.1" 200 1372 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "GET /remote.php/dav/files/rstest/remotestorage/public/ HTTP/1.1" 401 1823 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "GET /remote.php/dav/files/rstest/remotestorage/public HTTP/1.1" 404 1331 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "PUT /remote.php/dav/files/rstest/remotestorage/public/q.txt HTTP/1.1" 401 1815 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1817 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 204 1366 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 200 1511 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "GET /remote.php/dav/files/rstest/remotestorage/other/x.txt HTTP/1.1" 403 1463 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:50 +0000] "GET /remote.php/dav/files/rstest/ HTTP/1.1" 200 1540 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - rstest [03/Oct/2026:01:17:50 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 200 1637 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 401 1863 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "GET /.well-known/webfinger?resource=acct:rstest@nextcloud HTTP/1.1" 200 1846 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.5 - - [03/Oct/2026:01:17:50 +0000] "GET /.well-known/webfinger?resource=acct:nobody@nextcloud HTTP/1.1" 404 1427 "-" "curl/8.14.1"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /.well-known/webfinger?resource=acct:rstest@nextcloud HTTP/1.1" 200 1739 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/sc1.txt HTTP/1.1" 204 1427 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "PUT /remote.php/dav/files/rstest/remotestorage/notes/sc1.txt HTTP/1.1" 201 1501 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/sc1.txt HTTP/1.1" 200 1580 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 204 1435 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 200 1758 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /.well-known/webfinger?resource=acct:rstest@nextcloud HTTP/1.1" 200 1737 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 204 1421 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/sc2.txt HTTP/1.1" 204 1424 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 200 1756 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "PUT /remote.php/dav/files/rstest/remotestorage/notes/sc2.txt HTTP/1.1" 201 1497 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 204 1419 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/sc1.txt HTTP/1.1" 204 1425 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/sc1.txt HTTP/1.1" 200 1584 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 200 1564 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /.well-known/webfinger?resource=acct:rstest@nextcloud HTTP/1.1" 200 1741 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 204 1419 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/ HTTP/1.1" 200 1912 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 204 1423 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/sc2.txt HTTP/1.1" 204 1422 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/sc1.txt HTTP/1.1" 204 1428 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/sc2.txt HTTP/1.1" 200 1574 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/sc1.txt HTTP/1.1" 200 1580 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/a.txt HTTP/1.1" 200 1558 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "OPTIONS /remote.php/dav/files/rstest/remotestorage/notes/sc2.txt HTTP/1.1" 204 1425 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
+nextcloud-1  | 10.89.1.4 - - [03/Oct/2026:01:17:52 +0000] "GET /remote.php/dav/files/rstest/remotestorage/notes/sc2.txt HTTP/1.1" 304 1281 "http://origin/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"
