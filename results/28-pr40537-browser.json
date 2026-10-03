@@ -11,12 +11,12 @@
       },
       "status": 207,
       "headers": {
-        "content-length": "480",
+        "content-length": "472",
         "content-type": "application/xml; charset=utf-8",
         "dav": "1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar",
         "vary": "Brief,Prefer"
       },
-      "body": "<?xml version=\"1.0\"?>\n<d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\" xmlns:oc=\"http://owncloud.org/ns\" xmlns:nc=\"http://nextcloud.org/ns\"><d:response><d:href>/remote.php/dav/files/rstest/remotestorage/</d:href><d:propstat><d:prop><d:getlastmodified>Fri, 02 Oct 2026 20:21:30 GMT</d:getlastmodified><d:resourcetype><d:collection/></d:resourcetype><d:quota-used-bytes>13</d:quota-used-bytes><d:quota-available-bytes>-3</d:quota-available-bytes><d:getetag>&quot;6ac0124a75fdc&quot;</d:ge"
+      "body": "<?xml version=\"1.0\"?>\n<d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\" xmlns:oc=\"http://owncloud.org/ns\" xmlns:nc=\"http://nextcloud.org/ns\"><d:response><d:href>/remote.php/dav/files/rstest/remotestorage/</d:href><d:propstat><d:prop><d:getlastmodified>Sat, 03 Oct 2026 00:09:06 GMT</d:getlastmodified><d:resourcetype><d:collection/></d:resourcetype><d:quota-used-bytes>13</d:quota-used-bytes><d:quota-available-bytes>-3</d:quota-available-bytes><d:getetag>&quot;6ac047a2e07dd&quot;</d:ge"
     },
     "variant": "pr40537",
     "nextcloud_version": "28"
@@ -25,7 +25,7 @@
     "id": "T12",
     "status": "pass",
     "expected": "PUT/GET/DELETE succeed and response.headers.get('ETag') is non-null on PUT and GET (plan T12, amended 2026-10-02)",
-    "observed": "PUT/GET/DELETE succeeded; ETag visible on PUT \"1905cc331a878c48f3ca4e42c9c5abb1\" and GET \"1905cc331a878c48f3ca4e42c9c5abb1\"; DELETE ETag not sent",
+    "observed": "PUT/GET/DELETE succeeded; ETag visible on PUT \"50389ed33ed157447a3adf88222f9102\" and GET \"50389ed33ed157447a3adf88222f9102\"; DELETE ETag not sent",
     "evidence": {
       "statuses": {
         "put": 201,
@@ -33,8 +33,8 @@
         "delete": 204
       },
       "etags": {
-        "put": "\"1905cc331a878c48f3ca4e42c9c5abb1\"",
-        "get": "\"1905cc331a878c48f3ca4e42c9c5abb1\"",
+        "put": "\"50389ed33ed157447a3adf88222f9102\"",
+        "get": "\"50389ed33ed157447a3adf88222f9102\"",
         "delete": null
       },
       "errors": {}
@@ -52,7 +52,7 @@
       "staleHeaders": {
         "content-length": "526",
         "content-type": "application/xml; charset=utf-8",
-        "etag": "\"947f2d1fa7dd4b3b98a14478ab5abce3\"",
+        "etag": "\"a490ae3b7c86670e6b50d1d9ca3db4c9\"",
         "vary": "Origin"
       },
       "readBackStatus": 200,
@@ -69,6 +69,24 @@
     "evidence": {
       "ok": false,
       "error": "TypeError: Failed to fetch"
+    },
+    "variant": "pr40537",
+    "nextcloud_version": "28"
+  },
+  {
+    "id": "T15",
+    "status": "fail",
+    "expected": "popup to /apps/webapppassword/?target-origin=<origin> posts {loginName, token, webdavUrl} back to the opener; the token works for a cross-origin PROPFIND; a foreign target-origin is refused",
+    "observed": "no postMessage reached the opener within 30 s (popup: {\"closed\":false,\"url\":\"http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin\",\"text\":\"Nextcloud\\nPage not found\\n\\nThe page could not be found on the server or you may not be allowed to view it.\\n\\nBack to Nextcloud\\n\\nNextcloud – a safe home for all your data\"})",
+    "evidence": {
+      "landing": {
+        "url": "http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin"
+      },
+      "popup": {
+        "closed": false,
+        "url": "http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin",
+        "text": "Nextcloud\nPage not found\n\nThe page could not be found on the server or you may not be allowed to view it.\n\nBack to Nextcloud\n\nNextcloud – a safe home for all your data"
+      }
     },
     "variant": "pr40537",
     "nextcloud_version": "28"

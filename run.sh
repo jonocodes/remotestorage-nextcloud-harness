@@ -52,11 +52,12 @@ for version in "${VERSIONS[@]}"; do
         || overall=1
     fi
 
-    if [ "${#CASES[@]}" -eq 0 ] || printf '%s\n' "${CASES[@]}" | grep -qE '^T1[1-4]$'; then
+    if [ "${#CASES[@]}" -eq 0 ] || printf '%s\n' "${CASES[@]}" | grep -qE '^T1[1-5]$'; then
       docker compose exec -T \
         -e "VARIANT=${variant}" -e "NC_VERSION=${version}" \
-        runner npx playwright test --grep 'T1[1-4]' \
+        runner npx playwright test --grep 'T1[1-5]' \
         || overall=1
+      ./scripts/token-lifetimes.sh || overall=1
     fi
 
     for part in curl browser; do

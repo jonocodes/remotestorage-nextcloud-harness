@@ -8,14 +8,14 @@
     "observed": "all three ETags changed (root=yes a/=yes a/b/=yes)",
     "evidence": {
       "before": {
-        "root": "\"6ac011cac39bc\"",
-        "a/": "\"6ac011cac39bc\"",
-        "a/b/": "\"6ac011cabd564\""
+        "root": "\"6ac046fff17e3\"",
+        "a/": "\"6ac046fff17e3\"",
+        "a/b/": "\"6ac046ffede2c\""
       },
       "after": {
-        "root": "\"6ac011cbbdb23\"",
-        "a/": "\"6ac011cbbdb23\"",
-        "a/b/": "\"6ac011cbbdb23\""
+        "root": "\"6ac04700ef7cb\"",
+        "a/": "\"6ac04700ef7cb\"",
+        "a/b/": "\"6ac04700ef7cb\""
       }
     }
   },
@@ -28,14 +28,14 @@
     "observed": "all three ETags changed on overwrite (root=yes a/=yes a/b/=yes)",
     "evidence": {
       "before": {
-        "root": "\"6ac011ce0bac2\"",
-        "a/": "\"6ac011ce0bac2\"",
-        "a/b/": "\"6ac011ce0bac2\""
+        "root": "\"6ac0470366096\"",
+        "a/": "\"6ac0470366096\"",
+        "a/b/": "\"6ac0470366096\""
       },
       "after": {
-        "root": "\"6ac011cf2d06f\"",
-        "a/": "\"6ac011cf2d06f\"",
-        "a/b/": "\"6ac011cf2d06f\""
+        "root": "\"6ac0470493c15\"",
+        "a/": "\"6ac0470493c15\"",
+        "a/b/": "\"6ac0470493c15\""
       }
     }
   },
@@ -48,14 +48,14 @@
     "observed": "all three ETags changed on delete (root=yes a/=yes a/b/=yes)",
     "evidence": {
       "before": {
-        "root": "\"6ac011d203eb2\"",
-        "a/": "\"6ac011d203eb2\"",
-        "a/b/": "\"6ac011d203eb2\""
+        "root": "\"6ac04706e2b8f\"",
+        "a/": "\"6ac04706e2b8f\"",
+        "a/b/": "\"6ac04706e2b8f\""
       },
       "after": {
-        "root": "\"6ac011d31bb38\"",
-        "a/": "\"6ac011d31bb38\"",
-        "a/b/": "\"6ac011d31bb38\""
+        "root": "\"6ac04708096c3\"",
+        "a/": "\"6ac04708096c3\"",
+        "a/b/": "\"6ac04708096c3\""
       }
     }
   },
@@ -65,12 +65,12 @@
     "nextcloud_version": "34",
     "status": "pass",
     "expected": "root ETag changes on the first PROPFIND after PUT returns",
-    "observed": "root ETag changed on the first read (189ms after PUT returned)",
+    "observed": "root ETag changed on the first read (182ms after PUT returned)",
     "evidence": {
-      "before": "\"6ac011d44ec62\"",
-      "first_read_etag": "\"6ac011d4db70c\"",
-      "first_read_ms": 189,
-      "change_latency_ms": 189
+      "before": "\"6ac0470951cab\"",
+      "first_read_etag": "\"6ac04709d0c03\"",
+      "first_read_ms": 182,
+      "change_latency_ms": 182
     }
   },
   {
@@ -81,10 +81,10 @@
     "expected": "PUT under x/ leaves sibling y/ ETag unchanged",
     "observed": "sibling y/ ETag unchanged; root changed=yes",
     "evidence": {
-      "y_before": "\"6ac011d64a8e6\"",
-      "y_after": "\"6ac011d64a8e6\"",
-      "root_before": "\"6ac011d64e3b4\"",
-      "root_after": "\"6ac011d7141c7\""
+      "y_before": "\"6ac0470b522a0\"",
+      "y_after": "\"6ac0470b522a0\"",
+      "root_before": "\"6ac0470b5758a\"",
+      "root_after": "\"6ac0470c1bc0a\""
     }
   },
   {
@@ -96,11 +96,11 @@
     "observed": "GET ETag equals PROPFIND getetag after quote normalization",
     "evidence": {
       "get_status": "200",
-      "get_etag": "\"b89338b475900ab41aa60959eb06145d\"",
-      "propfind_getetag": "\"b89338b475900ab41aa60959eb06145d\"",
+      "get_etag": "\"8fb0b16012c0434d235a78470a362216\"",
+      "propfind_getetag": "\"8fb0b16012c0434d235a78470a362216\"",
       "normalized": {
-        "get": "b89338b475900ab41aa60959eb06145d",
-        "propfind": "b89338b475900ab41aa60959eb06145d"
+        "get": "8fb0b16012c0434d235a78470a362216",
+        "propfind": "8fb0b16012c0434d235a78470a362216"
       },
       "weak": "no"
     }
@@ -157,23 +157,23 @@
         "files": [
           {
             "href": "/remote.php/dav/files/rstest/remotestorage/f1.txt",
-            "etag": "\"ded97beaf311a014f10a5a8d38ddc193\"",
+            "etag": "\"2a24e432fc0076d203de541ac67998f6\"",
             "contenttype": "text/plain",
             "contentlength": "3",
-            "lastmodified": "Fri, 02 Oct 2026 20:19:42 GMT"
+            "lastmodified": "Sat, 03 Oct 2026 00:06:42 GMT"
           },
           {
             "href": "/remote.php/dav/files/rstest/remotestorage/f2.txt",
-            "etag": "\"725df1d95768230728a4331c7807ad2d\"",
+            "etag": "\"94b89dd22f584c27bbe6700200a5a36a\"",
             "contenttype": "text/plain",
             "contentlength": "10",
-            "lastmodified": "Fri, 02 Oct 2026 20:19:42 GMT"
+            "lastmodified": "Sat, 03 Oct 2026 00:06:42 GMT"
           }
         ],
         "collections": [
           {
             "href": "/remote.php/dav/files/rstest/remotestorage/sub/",
-            "etag": "\"6ac011decba4f\""
+            "etag": "\"6ac04712c068d\""
           }
         ]
       },

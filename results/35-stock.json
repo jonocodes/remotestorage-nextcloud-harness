@@ -8,14 +8,14 @@
     "observed": "all three ETags changed (root=yes a/=yes a/b/=yes)",
     "evidence": {
       "before": {
-        "root": "\"6ac0115926d3c\"",
-        "a/": "\"6ac0115926d3c\"",
-        "a/b/": "\"6ac011591eed5\""
+        "root": "\"6ac0466cbc35d\"",
+        "a/": "\"6ac0466cbc35d\"",
+        "a/b/": "\"6ac0466cbb4dd\""
       },
       "after": {
-        "root": "\"6ac0115a1e902\"",
-        "a/": "\"6ac0115a1e902\"",
-        "a/b/": "\"6ac0115a1e902\""
+        "root": "\"6ac0466d7de71\"",
+        "a/": "\"6ac0466d7de71\"",
+        "a/b/": "\"6ac0466d7de71\""
       }
     }
   },
@@ -28,14 +28,14 @@
     "observed": "all three ETags changed on overwrite (root=yes a/=yes a/b/=yes)",
     "evidence": {
       "before": {
-        "root": "\"6ac0115bcf7c1\"",
-        "a/": "\"6ac0115bcf7c1\"",
-        "a/b/": "\"6ac0115bcf7c1\""
+        "root": "\"6ac0466f21f9f\"",
+        "a/": "\"6ac0466f21f9f\"",
+        "a/b/": "\"6ac0466f21f9f\""
       },
       "after": {
-        "root": "\"6ac0115cd508f\"",
-        "a/": "\"6ac0115cd508f\"",
-        "a/b/": "\"6ac0115cd508f\""
+        "root": "\"6ac0466fdc883\"",
+        "a/": "\"6ac0466fdc883\"",
+        "a/b/": "\"6ac0466fdc883\""
       }
     }
   },
@@ -48,14 +48,14 @@
     "observed": "all three ETags changed on delete (root=yes a/=yes a/b/=yes)",
     "evidence": {
       "before": {
-        "root": "\"6ac0115f4cac7\"",
-        "a/": "\"6ac0115f4cac7\"",
-        "a/b/": "\"6ac0115f4cac7\""
+        "root": "\"6ac04672282a0\"",
+        "a/": "\"6ac04672282a0\"",
+        "a/b/": "\"6ac04672282a0\""
       },
       "after": {
-        "root": "\"6ac0116062b0a\"",
-        "a/": "\"6ac0116062b0a\"",
-        "a/b/": "\"6ac0116062b0a\""
+        "root": "\"6ac0467338aa2\"",
+        "a/": "\"6ac0467338aa2\"",
+        "a/b/": "\"6ac0467338aa2\""
       }
     }
   },
@@ -65,12 +65,12 @@
     "nextcloud_version": "35",
     "status": "pass",
     "expected": "root ETag changes on the first PROPFIND after PUT returns",
-    "observed": "root ETag changed on the first read (191ms after PUT returned)",
+    "observed": "root ETag changed on the first read (175ms after PUT returned)",
     "evidence": {
-      "before": "\"6ac011619ff5a\"",
-      "first_read_etag": "\"6ac0116247f88\"",
-      "first_read_ms": 191,
-      "change_latency_ms": 191
+      "before": "\"6ac0467426957\"",
+      "first_read_etag": "\"6ac0467483299\"",
+      "first_read_ms": 175,
+      "change_latency_ms": 175
     }
   },
   {
@@ -81,10 +81,10 @@
     "expected": "PUT under x/ leaves sibling y/ ETag unchanged",
     "observed": "sibling y/ ETag unchanged; root changed=yes",
     "evidence": {
-      "y_before": "\"6ac01163e4f7f\"",
-      "y_after": "\"6ac01163e4f7f\"",
-      "root_before": "\"6ac01163e7eb9\"",
-      "root_after": "\"6ac01164ba3a2\""
+      "y_before": "\"6ac04675c7eb9\"",
+      "y_after": "\"6ac04675c7eb9\"",
+      "root_before": "\"6ac04675cc9ae\"",
+      "root_after": "\"6ac0467696bbc\""
     }
   },
   {
@@ -96,11 +96,11 @@
     "observed": "GET ETag equals PROPFIND getetag after quote normalization",
     "evidence": {
       "get_status": "200",
-      "get_etag": "\"53cbdf8b90518286451eb1b3201e7a19\"",
-      "propfind_getetag": "\"53cbdf8b90518286451eb1b3201e7a19\"",
+      "get_etag": "\"321c8740f7c209afe791d65750be762c\"",
+      "propfind_getetag": "\"321c8740f7c209afe791d65750be762c\"",
       "normalized": {
-        "get": "53cbdf8b90518286451eb1b3201e7a19",
-        "propfind": "53cbdf8b90518286451eb1b3201e7a19"
+        "get": "321c8740f7c209afe791d65750be762c",
+        "propfind": "321c8740f7c209afe791d65750be762c"
       },
       "weak": "no"
     }
@@ -157,23 +157,23 @@
         "files": [
           {
             "href": "/remote.php/dav/files/rstest/remotestorage/f1.txt",
-            "etag": "\"a24e8561020ff137cf98e107ce455662\"",
+            "etag": "\"5cdf7466d93a5fe9104ade747592a9af\"",
             "contenttype": "text/plain",
             "contentlength": "3",
-            "lastmodified": "Fri, 02 Oct 2026 20:17:47 GMT"
+            "lastmodified": "Sat, 03 Oct 2026 00:04:12 GMT"
           },
           {
             "href": "/remote.php/dav/files/rstest/remotestorage/f2.txt",
-            "etag": "\"9e62ffeeb5da8fdf0a7501b6ca559510\"",
+            "etag": "\"304b8410e3e2cf0f0dbd41e42f170a1e\"",
             "contenttype": "text/plain",
             "contentlength": "10",
-            "lastmodified": "Fri, 02 Oct 2026 20:17:47 GMT"
+            "lastmodified": "Sat, 03 Oct 2026 00:04:13 GMT"
           }
         ],
         "collections": [
           {
             "href": "/remote.php/dav/files/rstest/remotestorage/sub/",
-            "etag": "\"6ac0116bd8b41\""
+            "etag": "\"6ac0467d8a54c\""
           }
         ]
       },
@@ -242,6 +242,24 @@
     "evidence": {
       "ok": false,
       "error": "TypeError: Failed to fetch"
+    },
+    "variant": "stock",
+    "nextcloud_version": "35"
+  },
+  {
+    "id": "T15",
+    "status": "fail",
+    "expected": "popup to /apps/webapppassword/?target-origin=<origin> posts {loginName, token, webdavUrl} back to the opener; the token works for a cross-origin PROPFIND; a foreign target-origin is refused",
+    "observed": "no postMessage reached the opener within 30 s (popup: {\"closed\":false,\"url\":\"http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin\",\"text\":\"Nextcloud\\nPage not found\\n\\nThe page could not be found on the server or you may not be allowed to view it.\\n\\nBack to Nextcloud\\n\\nNextcloud – a safe home for all your data\"})",
+    "evidence": {
+      "landing": {
+        "url": "http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin"
+      },
+      "popup": {
+        "closed": false,
+        "url": "http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin",
+        "text": "Nextcloud\nPage not found\n\nThe page could not be found on the server or you may not be allowed to view it.\n\nBack to Nextcloud\n\nNextcloud – a safe home for all your data"
+      }
     },
     "variant": "stock",
     "nextcloud_version": "35"

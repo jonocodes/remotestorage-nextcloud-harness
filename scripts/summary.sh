@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 tmp="$(mktemp)"
 for f in results/*.json; do
   case "$f" in
-    *-curl.json|*-browser.json) continue ;;
+    *-curl.json|*-browser.json|*-tokens.json) continue ;;
   esac
   jq -r '.[] | [.id, (.nextcloud_version + "/" + .variant), .status] | @tsv' "$f" >> "$tmp"
 done

@@ -77,7 +77,7 @@ Seven behaviors decide feasibility; the first four are expected to pass on stock
 | R3 | Conditional writes: `If-Match` and `If-None-Match: *` on PUT, `If-Match` on DELETE return 412 when they don't match | Conflict detection | Likely pass (SabreDAV). |
 | R4 | Listing mapping: `PROPFIND Depth: 1` yields ETag, content type, length and last-modified per child, and an ETag per subfolder | Building the JSON folder description | Pass. |
 | R5 | CORS: a browser on another origin can run PROPFIND, GET, PUT and DELETE with an `Authorization` header and read the `ETag` response header | Option A only | Fail on stock; test with WebAppPassword and PR #40537. |
-| R6 | Login Flow v2 from the browser: start the flow, poll, receive an app password | Option A's connect step | Unknown. The polling endpoint also needs CORS. |
+| R6 | Connect from the browser: obtain a working credential without the user pasting a password — via Login Flow v2, or (added 2026-10-02) WebAppPassword's popup flow | Option A's connect step | Unknown. The polling endpoint also needs CORS. |
 | R7 | Scoping: restrict an app password to one folder | Matches remoteStorage's per-module OAuth scopes | Known gap. Record the mitigation chosen, not a test. |
 
 R5 must check the `Access-Control-Expose-Headers` header specifically. Without it the browser hides `ETag`, and sync silently breaks even when requests succeed.
@@ -114,7 +114,7 @@ Any agent with a shell works: Claude Code or OpenCode for orchestration, Playwri
 
 ## Test cases
 
-Fourteen cases cover R1–R6; all paths are under `/remote.php/dav/files/rstest/remotestorage/` (written `$R`), and every case starts from an empty `$R`.
+Fifteen cases cover R1–R6 (T15 added 2026-10-02); all paths are under `/remote.php/dav/files/rstest/remotestorage/` (written `$R`), and every case starts from an empty `$R`.
 
 | Case | Req | Runs in | Steps | Pass when |
 | --- | --- | --- | --- | --- |
@@ -132,14 +132,15 @@ Fourteen cases cover R1–R6; all paths are under `/remote.php/dav/files/rstest/
 | T12 | R5 | browser | From the origin page, PUT, GET and DELETE with auth; read `ETag` from each response. | All succeed; `response.headers.get('ETag')` is non-null on PUT and GET. *Amended 2026-10-02: originally required on DELETE too, but Nextcloud sends no ETag on DELETE responses even to same-origin clients and remoteStorage.js never reads one, so that clause tested nothing CORS-related and was unsatisfiable.* |
 | T13 | R5 | browser | Repeat T7 from the browser. | 412 is visible to the page, not masked as a network error. |
 | T14 | R6 | browser | POST `/index.php/login/v2` from the origin; approve the login in a second Nextcloud tab; poll the endpoint from the origin. | Page receives `server`, `loginName` and `appPassword`; the app password works for T11. |
+| T15 | R6 | browser | *Added 2026-10-02.* From the origin page, a user click opens `/index.php/apps/webapppassword/?target-origin=<origin>` in a popup; log in there; wait for `postMessage` on the opener; PROPFIND with the received token; then load the same URL with a foreign `target-origin`. | Opener receives `{type: "webapppassword", loginName, token, webdavUrl}` from the Nextcloud origin; the token works for T11; the foreign origin gets 403 and no token. Record the token's lifetime (`scripts/token-lifetimes.sh`). |
 
-Expected matrix: T1–T10 pass on every variant. T11–T14 fail on `stock`; the `webapppassword` and `pr40537` results are the main finding. In T14, approving the login is the step an LLM browser agent may need to drive.
+Expected matrix: T1–T10 pass on every variant. T11–T15 fail on `stock`; the `webapppassword` and `pr40537` results are the main finding. In T14, approving the login is the step an LLM browser agent may need to drive.
 
 ## LLM runbook
 
 An agent with a shell, Docker and Playwright follows these steps unattended and stops only at the conditions listed.
 
-1. **Build the harness** if it doesn't exist yet: `compose.yaml`, `setup/<variant>.sh`, `probes/curl/*.sh` (T1–T10), `origin/probe.html` and `runner/probe.spec.ts` (T11–T14).
+1. **Build the harness** if it doesn't exist yet: `compose.yaml`, `setup/<variant>.sh`, `probes/curl/*.sh` (T1–T10), `origin/probe.html` and `runner/probe.spec.ts` (T11–T15).
 2. **Pick the matrix.** Default: the latest two Nextcloud major versions × `stock` and `webapppassword`. Add `pr40537` only if the branch builds.
 3. **For each version × variant:**
    1. `docker compose down -v`, then `up -d` with that version.
@@ -184,7 +185,7 @@ Frame the Nextcloud posts as "remoteStorage.js speaking Nextcloud WebDAV," not "
 
 ## Results
 
-Run 2026-10-02: Nextcloud 35.0.1 and 34.0.4 × `stock`/`webapppassword`, plus PR #40537 on 28.0.14.1. R1–R4 pass on stock; R5 fails on stock (preflight rejected with 401, no CORS headers) and passes with WebAppPassword; R6 (Login Flow v2 from the browser) fails everywhere; three consecutive runs produced identical statuses for all 70 case-results, confirmed by hand with browser-faithful `curl`. T12's criterion was amended (see the test table) after the runs showed the DELETE clause could never pass on any server configuration. Full write-up: [`REPORT.md`](REPORT.md); raw evidence in `results/`.
+Run 2026-10-02: Nextcloud 35.0.1 and 34.0.4 × `stock`/`webapppassword`, plus PR #40537 on 28.0.14.1. R1–R4 pass on stock; R5 fails on stock (preflight rejected with 401, no CORS headers) and passes with WebAppPassword; R6 via Login Flow v2 (T14) fails everywhere, but via WebAppPassword's popup flow (T15, added after the first runs; run 6) it passes on both WebAppPassword configurations, with 24-hour tokens; three consecutive runs produced identical statuses for all 70 case-results, confirmed by hand with browser-faithful `curl`. T12's criterion was amended (see the test table) after the runs showed the DELETE clause could never pass on any server configuration. Full write-up: [`REPORT.md`](REPORT.md); raw evidence in `results/`.
 
 ## Sources
 

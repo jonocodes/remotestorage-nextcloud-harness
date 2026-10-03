@@ -2,7 +2,7 @@
 
 **Test report — 2026-10-02 · @Jono (harness and runs with agent assistance)**
 
-Status: **draft for review, not published.** Companion to [`PLAN.md`](PLAN.md), "remoteStorage.js ×
+Status: **reviewed 2026-10-02; not yet posted to the issue threads or forum.** Companion to [`PLAN.md`](PLAN.md), "remoteStorage.js ×
 Nextcloud: History and Test Plan" (Sep 30 2026). Harness and raw results live in this repository,
 <https://github.com/jonocodes/remotestorage-nextcloud-harness>; nothing has been posted to
 the remoteStorage or Nextcloud issue threads or the forum yet.
@@ -18,28 +18,34 @@ the remoteStorage or Nextcloud issue threads or the forum yet.
   exposes `ETag` on PUT and GET, and refuses origins that are not on its list. (T12's
   criterion was amended in the plan: Nextcloud sends no ETag on DELETE responses at all,
   even to same-origin `curl`, and remoteStorage.js never reads one.)
-- **R6 fails everywhere.** The initial `POST /index.php/login/v2` from another origin is
-  blocked on stock and on WebAppPassword; WebAppPassword's CORS covers DAV routes only.
-  Option A's connect step needs a workaround or an upstream fix.
+- **R6: Login Flow v2 fails everywhere, but WebAppPassword's own connect flow works.**
+  The initial `POST /index.php/login/v2` from another origin is blocked on stock and on
+  WebAppPassword (T14); WebAppPassword's CORS covers DAV routes only. WebAppPassword's popup
+  flow (T15, added after the first runs) needs no CORS: the user logs in to Nextcloud in a
+  popup, which hands a token back to the app by `postMessage`. It passes on 34 and 35, the
+  token works for cross-origin DAV, and foreign origins are refused. Its tokens expire after
+  24 hours with no refresh mechanism, so the user reconnects daily (a self-closing popup).
 - **PR #40537 is stale and does not run as written.** It is still a draft, its branch is
   based on Nextcloud 28.0.0 dev (not current master), and `apps/dav/lib/Server.php` uses an
   undefined `IUserSession` constant and lacks its `OCP` imports. With the DAV-relevant subset
   applied to 28.0.14.1 and those fixed, it behaves like WebAppPassword on T11–T14 (T11–T13
-  pass, T14 fails). Its preflight
+  pass, T14 fails; T15 does not apply, as the PR has no connect flow). Its preflight
   answers `Access-Control-Allow-Origin: *` for any origin; the allow-list is only enforced
   on the actual response.
-- **Verdict:** Option A is viable on servers whose admin can enable DAV CORS, once the
-  connect step is solved (recommendation: app-password paste as the interim path). Option B
-  remains the only CORS-independent route and can rely on the ETag behaviour verified here.
+- **Verdict:** Option A is viable today on servers with WebAppPassword: it supplies both the
+  DAV CORS and the connect step. Connect via its popup flow, with app-password paste as the
+  fallback for a permanent credential. Option B remains the only CORS-independent route and
+  can rely on the ETag behaviour verified here.
 - Three consecutive full runs produced **identical statuses for all 70 case-results**, and
   the key findings were re-checked by hand with browser-faithful `curl` requests. A fifth run
-  under the amended T12 criterion matched them exactly.
+  under the amended T12 criterion matched them exactly, and a sixth run with T15 added left
+  T1–T14 unchanged.
 
 ## Method
 
 The harness (this repository) runs one `docker compose` stack per variant: Nextcloud
 (SQLite), a Caddy-served probe page on a second origin, an Alpine `curl`/`xmllint`/`jq`
-container for T1–T10 and a Playwright 1.63 container for T11–T14. Pass/fail comes from the
+container for T1–T10 and a Playwright 1.63 container for T11–T15. Pass/fail comes from the
 scripts; the JSON in `results/` is the source of truth. `scripts/summary.sh` renders the
 matrix.
 
@@ -76,7 +82,7 @@ Two deliberate implementation notes:
 Reproducibility: three full runs (all five configurations each) produced identical statuses
 for all 70 case-results, with zero harness errors. Run 4 used T12's original wording and differed only
 in T12 on 35/webapppassword, 34/webapppassword and 28/pr40537 (pass → fail). Run 5, under
-the amended criterion, is identical to runs 1–3; the results in this report are from run 5. T4 first-read latency ranged 171–216 ms
+the amended criterion, is identical to runs 1–3. Run 6 added T15 and left all 70 T1–T14 results unchanged; the results in this report are from run 6. T4 first-read latency ranged 171–216 ms
 across all runs and variants. Raw response headers for every run are saved as
 `results/<version>-<variant>-cors-headers.txt`; preflights there carry no `Authorization`
 header, exactly as a browser sends them, and each file also records a non-allow-listed
@@ -105,6 +111,7 @@ harness.
 | T12 | pass | fail | pass | fail | pass |
 | T13 | pass | fail | pass | fail | pass |
 | T14 | fail | fail | fail | fail | fail |
+| T15 | fail | fail | pass | fail | pass |
 
 ## Findings
 
@@ -190,26 +197,63 @@ header sync depends on is covered), and the responses do not send `Vary: Origin`
 is only a shared-cache concern for authenticated DAV responses, not a correctness problem in
 this test.
 
-### R6 — Login Flow v2 from the browser (T14): fail on every variant
+### R6 — Connect from the browser: Login Flow v2 fails everywhere (T14); WebAppPassword's popup flow passes (T15)
 
-`POST /index.php/login/v2` from the origin page throws `TypeError: Failed to fetch` on
-stock and on WebAppPassword. The server does answer (200 with the flow JSON) but without
-`Access-Control-Allow-Origin`, so the page cannot read it; an OPTIONS preflight to
-`/login/v2/poll` returns 405. The flow is not a DAV route, so WebAppPassword's CORS does not
-cover it; stock does not either. This is independent of the storage path, and it is the one
-hard blocker for Option A's connect step. Upstream context:
+**Login Flow v2 (T14).** `POST /index.php/login/v2` from the origin page throws
+`TypeError: Failed to fetch` on stock and on WebAppPassword. The server does answer (200 with
+the flow JSON) but without `Access-Control-Allow-Origin`, so the page cannot read it; an
+OPTIONS preflight to `/login/v2/poll` returns 405. The flow is not a DAV route, so
+WebAppPassword's CORS does not cover it; stock does not either. Upstream context:
 [nextcloud/server#34898](https://github.com/nextcloud/server/issues/34898) (CORS support in
 login v2 and OAuth2 flow, still open).
 
-Workarounds for Option A, in preference order:
+**WebAppPassword's popup flow (T15).** WebAppPassword ships its own connect flow
+(`templates/index.php`, `js/script.js`, `PageController::createToken` in v26.8.0) that
+avoids CORS entirely:
 
-1. **App-password paste** (no server changes): the user creates an app password in
-   Nextcloud settings and pastes it; the backend validates it with a PROPFIND. Ugly but
-   works on stock with CORS enabled.
-2. **Login Flow v2 via a small redirect page or extension** if the app controls one; still
-   blocked by CORS on the poll endpoint from a third-party origin.
-3. **Upstream fix**: extend the CORS allow-list (PR #40537 or WebAppPassword) to the login
-   flow endpoints. Not available today.
+1. The app, on a user click, opens `/index.php/apps/webapppassword/?target-origin=<app origin>`
+   in a popup.
+2. Nextcloud redirects to its normal login page (so two-factor and SSO apply), then back.
+3. Same-origin inside the popup, the page POSTs to `/apps/webapppassword/create` with the
+   session's request token. Nextcloud creates an app token and the page calls
+   `window.opener.postMessage({type: "webapppassword", loginName, token, webdavUrl}, targetOrigin)`.
+   Origins not on the allow-list get a 403 page without the script.
+
+Results on 34/webapppassword and 35/webapppassword: the popup landed on
+`/login?redirect_url=/index.php/apps/webapppassword/?target-origin=…`; after login, the
+opener received the message from `http://nextcloud` with a 72-character token and
+`webdavUrl` `http://nextcloud/remote.php/dav/files/rstest/`; a cross-origin PROPFIND with
+`loginName:token` returned 207; the same logged-in session asking for
+`target-origin=http://evil.example` got 403 and no script. T15 fails on stock and on the PR
+build only because the app is not installed there (the popup shows "Page not found").
+
+**Token lifetime.** `results/<v>-webapppassword-tokens.json` records the token's
+`oc_authtoken` row: `expires` is exactly 86 400 s after issue, matching
+`Application::TOKEN_LIFETIME = 86400` (a hard-coded constant); a background job removes
+expired tokens. There is no refresh token, so after 24 hours the app has to open the popup
+again. If the user is still logged in to Nextcloud in that browser, the popup completes
+without typing, but it needs a click to get past popup blockers.
+
+For comparison, the existing remoteStorage.js backends: Dropbox access tokens are also short-lived,
+but the Dropbox backend uses OAuth2 PKCE with `token_access_type: 'offline'` and silently
+refreshes on 401 (`src/dropbox.ts`, `Authorize.refreshAccessToken` in `src/authorize.ts`).
+The Google Drive backend has no refresh logic and asks the user to reconnect when its token expires.
+A WebAppPassword connect therefore sits between the two: no silent refresh, but a longer
+interval than Google Drive's.
+
+Connect options for Option A, in preference order:
+
+1. **WebAppPassword popup flow** (T15): works today wherever WebAppPassword is the CORS
+   provider, which Option A needs anyway. Reconnect daily via the same popup.
+2. **App-password paste** as a fallback for users who want a permanent credential: the
+   user creates an app password in Nextcloud settings and pastes it; the backend validates
+   it with a PROPFIND. Works with any DAV CORS provider, including the PR.
+3. **Upstream, for silent renewal:** Nextcloud's OAuth2 app already issues refresh tokens
+   (`grant_type=refresh_token`), but it requires a client secret, has no PKCE and sends no
+   CORS on its token endpoint, so a browser app cannot use it. Adding PKCE and CORS there
+   would let a Nextcloud backend work exactly like the Dropbox one. CORS on login/v2
+   (#34898) would remove the WebAppPassword dependency for connect. Making WebAppPassword's
+   lifetime configurable would only lengthen the window, and is not recommended over these.
 
 ### R7 — Scoping: known gap, recommendation
 
@@ -266,9 +310,9 @@ sync uses and read every ETag the server sends (verified on 34 and 35). Two cond
 
 1. CORS must be enabled by an admin (WebAppPassword, or the PR once rebased and fixed).
    Without it the backend cannot work in a browser at all.
-2. Connect cannot use Login Flow v2 from the browser (R6). Ship the app-password-paste path
-   first; treat login flow as a follow-up that needs upstream CORS.
-   Scope with a dedicated user (R7).
+2. Connect cannot use Login Flow v2 from the browser (R6). On WebAppPassword servers, use
+   its popup flow (T15: 24-hour tokens, reconnect via the same popup), with app-password
+   paste as the fallback and the only option on the PR. Scope with a dedicated user (R7).
 
 A backend would implement `configure`/`connect` plus `get`/`put`/`delete`; folder listings
 come back from `get()` as an items map keyed by child name with `ETag` per child and the
@@ -280,8 +324,10 @@ discovery, OAuth scoping and its own index on top of WebDAV. It depends on the s
 Nextcloud behaviours and they all pass, including the recursive ETags a proxy needs to avoid
 a full crawl. It still requires someone to run a service holding users' WebDAV credentials.
 
-**Recommendation.** Build Option A as the user-facing path for Nextcloud, with the
-app-password connect fallback, and keep Option B for servers where CORS cannot be enabled.
+**Recommendation.** Build Option A as the user-facing path for Nextcloud, connecting via
+WebAppPassword's popup flow with app-password paste as the fallback, and keep Option B for
+servers where CORS cannot be enabled. Raise PKCE + CORS for Nextcloud's OAuth2 app upstream
+as the route to silent token renewal.
 Push the two PR fixes upstream and, if the branch is rebased, offer these results on the PR.
 
 ## Open questions from the plan
@@ -306,8 +352,8 @@ VERSIONS=28 VARIANTS=pr40537 ./run.sh      # builds the patched PR image
 ```
 
 Raw artefacts: `results/<version>-<variant>.json` (one object per case), `-curl.json` /
-`-browser.json` (per stage), `-cors-headers.txt` (raw headers), `-nextcloud.log`, and
-`results/fixtures/`, and per-run status snapshots in `results/runs/run1–5.tsv`. Session
+`-browser.json` (per stage), `-cors-headers.txt` (raw headers), `-tokens.json` (app-token lifetimes), `-nextcloud.log`, and
+`results/fixtures/`, and per-run status snapshots in `results/runs/run1–6.tsv`. Session
 cookie values in the header captures are redacted. See `README.md` for the runbook and stop
 conditions.
 
@@ -333,9 +379,11 @@ conditions.
 > Origins not on the list are refused at the preflight (401).
 >
 > **Login Flow v2 from a browser is still blocked** on both stock and WebAppPassword:
-> `POST /index.php/login/v2` is not a DAV route and gets no CORS headers. CORS on login/v2
-> and the poll endpoint would remove the last blocker for browser-based clients.
-> (#34898, #3131)
+> `POST /index.php/login/v2` is not a DAV route and gets no CORS headers. WebAppPassword's
+> own popup + `postMessage` flow does work (token usable cross-origin, foreign origins get
+> 403), but its tokens last 24 hours with no refresh. CORS on login/v2 and the poll
+> endpoint, or PKCE + CORS on the OAuth2 app's token endpoint, would give browser-based
+> clients a standard connect with renewal. (#34898, #3131)
 >
 > **PR #40537:** still a draft; branch based on 28.0.0 dev, so it does not run against
 > current Nextcloud, and `apps/dav/lib/Server.php` has an undefined `IUserSession` constant
@@ -354,3 +402,4 @@ conditions.
 | `results/<v>-<variant>-nextcloud.log` | Container log for the run (version, install, access log) |
 | `results/fixtures/<v>-<variant>/` | T10 PROPFIND XML and its JSON mapping |
 | `results/<v>-<variant>-browser.json` | Browser cases including control and per-request statuses/ETags |
+| `results/<v>-<variant>-tokens.json` | Every app token Nextcloud holds after the browser cases, with `expires` and `lifetime_seconds` (T15's WebAppPassword token: 86400) |

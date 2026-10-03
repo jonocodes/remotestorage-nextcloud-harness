@@ -396,6 +396,155 @@ test("T14 login flow v2 from the browser", async ({ page, context }) => {
   );
 });
 
+interface WapMessage {
+  origin: string;
+  data: { type?: string; loginName?: string; token?: string; webdavUrl?: string };
+}
+
+const WAP_PATH = "/index.php/apps/webapppassword/";
+const FOREIGN_ORIGIN = "http://evil.example";
+
+test("T15 WebAppPassword connect flow from the browser", async ({ page }) => {
+  await withResult(
+    "T15",
+    "popup to /apps/webapppassword/?target-origin=<origin> posts {loginName, token, webdavUrl} back to the opener; the token works for a cross-origin PROPFIND; a foreign target-origin is refused",
+    async () => {
+      await page.goto(`${ORIGIN_URL}/probe.html`);
+      await page.evaluate(
+        ({ ncUrl, wapPath, origin }) => {
+          const store = window as unknown as { __wap: unknown[] };
+          store.__wap = [];
+          window.addEventListener("message", (event) => {
+            store.__wap.push({ origin: event.origin, data: event.data });
+          });
+          const button = document.createElement("button");
+          button.id = "connect";
+          button.textContent = "Connect";
+          button.onclick = () => {
+            window.open(
+              `${ncUrl.replace(/\/+$/, "")}${wapPath}?target-origin=${encodeURIComponent(origin)}`,
+              "wap",
+              "width=500,height=600"
+            );
+          };
+          document.body.appendChild(button);
+        },
+        { ncUrl: NC_URL, wapPath: WAP_PATH, origin: ORIGIN_URL }
+      );
+
+      // A real click, so the popup is user-initiated as it would be in an app.
+      const popupPromise = page.waitForEvent("popup");
+      await page.click("#connect");
+      const popup = await popupPromise;
+      await popup.waitForLoadState("domcontentloaded");
+      const landing = { url: popup.url() };
+
+      const userField = popup.locator("input#user, input[name='user']").first();
+      if (await userField.count()) {
+        await userField.fill(NC_USER);
+        await popup.locator("input#password, input[name='password']").first().fill(NC_PASS);
+        await popup.locator("button[type='submit'], input[type='submit']").first().click();
+      }
+
+      const received = await page
+        .waitForFunction(
+          () => ((window as unknown as { __wap: unknown[] }).__wap ?? []).length > 0,
+          null,
+          { timeout: 30000 }
+        )
+        .then(() => page.evaluate(() => (window as unknown as { __wap: WapMessage[] }).__wap[0]))
+        .catch(() => null);
+
+      const popupState = popup.isClosed()
+        ? { closed: true }
+        : {
+            closed: false,
+            url: popup.url(),
+            text: (await popup.locator("body").innerText().catch(() => "")).slice(0, 300)
+          };
+
+      if (!received) {
+        await popup.close().catch(() => undefined);
+        return {
+          status: "fail",
+          observed: `no postMessage reached the opener within 30 s (popup: ${JSON.stringify(popupState)})`,
+          evidence: { landing, popup: popupState }
+        };
+      }
+
+      const message = received.data ?? {};
+      const credentialsOk =
+        message.type === "webapppassword" &&
+        Boolean(message.loginName && message.token && message.webdavUrl);
+
+      const verify = await page.evaluate(
+        async ({ loginName, token }) => {
+          try {
+            const response = await fetch(window.probe.dav(""), {
+              method: "PROPFIND",
+              headers: { Authorization: `Basic ${btoa(`${loginName}:${token}`)}`, Depth: "0" },
+              credentials: "omit"
+            });
+            return { ok: true, status: response.status };
+          } catch (error) {
+            return { ok: false, error: String(error) };
+          }
+        },
+        { loginName: message.loginName ?? "", token: message.token ?? "" }
+      );
+
+      // Same logged-in popup session, but a target-origin that is not on the allow-list.
+      const foreign: { status: number | null; postsMessage: boolean } = { status: null, postsMessage: false };
+      if (!popup.isClosed()) {
+        const response = await popup.goto(
+          `${NC_URL}${WAP_PATH}?target-origin=${encodeURIComponent(FOREIGN_ORIGIN)}`
+        );
+        const html = response ? await response.text() : "";
+        foreign.status = response ? response.status() : null;
+        foreign.postsMessage = /webapppassword\/js\/script/.test(html);
+        await popup.close();
+      }
+
+      const ncOrigin = new URL(NC_URL).origin;
+      const failures: string[] = [];
+      if (received.origin !== ncOrigin) {
+        failures.push(`message origin ${received.origin} (expected ${ncOrigin})`);
+      }
+      if (!credentialsOk) {
+        failures.push("message missing type/loginName/token/webdavUrl");
+      }
+      if (!verify.ok || verify.status !== 207) {
+        failures.push(`token PROPFIND ${verify.ok ? verify.status : verify.error}`);
+      }
+      if (foreign.status !== 403 || foreign.postsMessage) {
+        failures.push(
+          `foreign target-origin not refused (HTTP ${foreign.status}, script=${foreign.postsMessage})`
+        );
+      }
+
+      return {
+        status: failures.length === 0 ? "pass" : "fail",
+        observed:
+          failures.length === 0
+            ? `opener received loginName=${message.loginName} token(${message.token?.length} chars) webdavUrl=${message.webdavUrl}; token PROPFIND 207; foreign origin refused with 403`
+            : failures.join("; "),
+        evidence: {
+          landing,
+          messageOrigin: received.origin,
+          message: {
+            type: message.type,
+            loginName: message.loginName,
+            token: message.token ? `<redacted ${message.token.length} chars>` : null,
+            webdavUrl: message.webdavUrl
+          },
+          verify,
+          foreign
+        }
+      };
+    }
+  );
+});
+
 test.afterAll(() => {
   fs.mkdirSync(RESULTS_DIR, { recursive: true });
   const file = path.join(RESULTS_DIR, `${NC_VERSION}-${VARIANT}-browser.json`);

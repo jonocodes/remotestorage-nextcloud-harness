@@ -5,13 +5,13 @@ not, exactly what is missing?**
 
 Provenance: this harness implements [`PLAN.md`](PLAN.md), "remoteStorage.js × Nextcloud:
 History and Test Plan" (Sep 30 2026). It holds the history, requirements R1–R7, test cases
-T1–T14, variants, runbook and reporting targets. [`REPORT.md`](REPORT.md) reports the
+T1–T15, variants, runbook and reporting targets. [`REPORT.md`](REPORT.md) reports the
 results.
 
 It is standalone: nothing here is part of remoteStorage.js.
 
-`results/` is committed on purpose. It holds the evidence `REPORT.md` cites, from run 5 on
-2026-10-02, plus `results/runs/run1–5.tsv`, the per-run status snapshots that back the
+`results/` is committed on purpose. It holds the evidence `REPORT.md` cites, from run 6 on
+2026-10-02, plus `results/runs/run1–6.tsv`, the per-run status snapshots that back the
 reproducibility claim. Re-running `./run.sh` overwrites it, so `git diff results/` shows
 any behaviour change. Session cookie values in the raw header captures are redacted; they
 came from throwaway containers.
@@ -21,8 +21,8 @@ came from throwaway containers.
 Server-side cases (T1–T10) run with `curl` in a container and cover R1–R4: recursive folder
 ETags, ETag consistency, conditional writes and PROPFIND listing fidelity.
 
-Browser cases (T11–T14) run in headless Chromium from a second origin and cover R5 (CORS,
-including `Access-Control-Expose-Headers: ETag`) and R6 (Login Flow v2 from the browser).
+Browser cases (T11–T15) run in headless Chromium from a second origin and cover R5 (CORS,
+including `Access-Control-Expose-Headers: ETag`) and R6 (connect from the browser: Login Flow v2 in T14, WebAppPassword's popup flow in T15).
 R7 (scoping) is a known gap, recorded not tested.
 
 ## Quickstart
@@ -38,7 +38,7 @@ Requires Docker with Compose v2 and network access to pull `nextcloud`, `caddy` 
 `mcr.microsoft.com/playwright` images.
 
 Results land in `results/<version>-<variant>.json` (one JSON object per case) and
-`results/<version>-<variant>-nextcloud.log`.
+`results/<version>-<variant>-nextcloud.log`, plus `-tokens.json` with app-token lifetimes.
 
 ## Layout
 
@@ -47,12 +47,13 @@ Results land in `results/<version>-<variant>.json` (one JSON object per case) an
 | `PLAN.md` | the spec: history, requirements, test cases, runbook, reporting targets |
 | `REPORT.md` | results and verdict |
 | `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe` and `runner` services |
-| `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, collect |
+| `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, token lifetimes, collect |
 | `setup/` | per-variant Nextcloud configuration via `occ` |
 | `probes/curl/` | T1–T10, one script per case, JSON on stdout; `cors-headers.sh` captures raw CORS headers for every variant |
 | `origin/` | Caddy-served `probe.html`; the browser's origin |
-| `runner/` | Playwright spec for T11–T14, baked into a pinned Playwright image |
+| `runner/` | Playwright spec for T11–T15, baked into a pinned Playwright image |
 | `docker/curl-probe/` | Alpine + curl + xmllint + jq |
+| `scripts/` | `wait-for-nextcloud.sh`, `summary.sh` (matrix), `token-lifetimes.sh` (reads `oc_authtoken` expiry) |
 | `docker/pr40537/` | experimental image for the CORS-on-DAV pull request |
 | `results/` | machine-readable results, fixtures and logs |
 
@@ -71,7 +72,7 @@ Variants get an idempotent setup script in `setup/`. Adding one is one script.
 Nextcloud 35.0.1 and 34.0.4, plus the PR variant on 28.0.14.1. Three consecutive full runs
 produced identical statuses for all 70 case-results, and the key findings were re-checked by
 hand with browser-faithful `curl` requests. T12's criterion was amended in the plan
-(DELETE never carries an ETag); run 5 under the amended spec matched runs 1–3 exactly. Regenerate with `./scripts/summary.sh`;
+(DELETE never carries an ETag); run 5 under the amended spec matched runs 1–3 exactly, and run 6 added T15 with T1–T14 unchanged. Regenerate with `./scripts/summary.sh`;
 the full write-up is in [`REPORT.md`](REPORT.md).
 
 | Case | 28/pr40537 | 34/stock | 34/webapppassword | 35/stock | 35/webapppassword |
@@ -81,6 +82,7 @@ the full write-up is in [`REPORT.md`](REPORT.md).
 | T12 PUT/GET/DELETE + ETag | pass | fail | pass | fail | pass |
 | T13 stale If-Match | pass | fail | pass | fail | pass |
 | T14 login flow v2 | fail | fail | fail | fail | fail |
+| T15 WebAppPassword popup connect | fail | fail | pass | fail | pass |
 
 T12 checks that PUT/GET/DELETE succeed and that PUT and GET expose `ETag` (plan T12,
 amended: Nextcloud sends no ETag on DELETE at all, and remoteStorage.js never reads one).
@@ -99,10 +101,15 @@ Findings:
   `occ config:app:set webapppassword origins`) T11–T13 pass: PROPFIND, PUT/GET/DELETE and
   `If-Match` all work, and the page can read `ETag` on PUT and GET responses. Origins not on
   WebAppPassword's list are refused at the preflight.
-- **R6 fails everywhere.** The initial `POST /index.php/login/v2` from another origin is
-  blocked on stock and on WebAppPassword, whose CORS covers WebDAV routes only. Option A's
-  connect step needs another mechanism (or upstream CORS on login/v2, cf.
+- **R6: Login Flow v2 fails everywhere; WebAppPassword's popup flow passes.** The initial
+  `POST /index.php/login/v2` from another origin is blocked on stock and on WebAppPassword,
+  whose CORS covers WebDAV routes only (T14; upstream:
   [nextcloud/server#34898](https://github.com/nextcloud/server/issues/34898)).
+  WebAppPassword's own connect flow needs no CORS: a popup to
+  `/index.php/apps/webapppassword/?target-origin=<origin>` logs in and `postMessage`s a token
+  to the opener. On 34 and 35 the token works for a cross-origin PROPFIND and a foreign
+  origin gets 403 (T15). Tokens expire after exactly 86 400 s with no refresh, so the user
+  reconnects daily.
 - **PR #40537 is stale and broken as written.** It is still a draft, its branch is based on
   28.0.0 dev (running it against 35 trips the one-major-version upgrade guard), and
   `apps/dav/lib/Server.php` uses an undefined `IUserSession` constant. With the DAV subset
@@ -110,8 +117,8 @@ Findings:
   answers `Access-Control-Allow-Origin: *` for any origin; only the actual response checks
   the allow-list.
 - **Verdict inputs.** Option A is viable on a Nextcloud whose admin can enable DAV CORS
-  (WebAppPassword today, PR #40537 once rebased and fixed), but Login Flow v2 from the
-  browser is unsolved. Option B does not depend on CORS and can rely on the recursive ETags
+  (WebAppPassword today, PR #40537 once rebased and fixed). On WebAppPassword servers,
+  connect works through its popup flow, with app-password paste as the fallback. Option B does not depend on CORS and can rely on the recursive ETags
   that pass everywhere, at the cost of running a credential-holding proxy.
 
 Open questions from the plan that this run answers: PR #40537 is still a draft and does not

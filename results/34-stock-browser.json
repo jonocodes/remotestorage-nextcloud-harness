@@ -63,5 +63,23 @@
     },
     "variant": "stock",
     "nextcloud_version": "34"
+  },
+  {
+    "id": "T15",
+    "status": "fail",
+    "expected": "popup to /apps/webapppassword/?target-origin=<origin> posts {loginName, token, webdavUrl} back to the opener; the token works for a cross-origin PROPFIND; a foreign target-origin is refused",
+    "observed": "no postMessage reached the opener within 30 s (popup: {\"closed\":false,\"url\":\"http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin\",\"text\":\"Nextcloud\\nPage not found\\n\\nThe page could not be found on the server or you may not be allowed to view it.\\n\\nBack to Nextcloud\\n\\nNextcloud – a safe home for all your data\"})",
+    "evidence": {
+      "landing": {
+        "url": "http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin"
+      },
+      "popup": {
+        "closed": false,
+        "url": "http://nextcloud/index.php/apps/webapppassword/?target-origin=http%3A%2F%2Forigin",
+        "text": "Nextcloud\nPage not found\n\nThe page could not be found on the server or you may not be allowed to view it.\n\nBack to Nextcloud\n\nNextcloud – a safe home for all your data"
+      }
+    },
+    "variant": "stock",
+    "nextcloud_version": "34"
   }
 ]

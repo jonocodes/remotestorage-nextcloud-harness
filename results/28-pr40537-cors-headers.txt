@@ -4,7 +4,7 @@
 
 ## OPTIONS preflight for PROPFIND (allowed origin)
 HTTP/1.1 200 OK
-Date: Fri, 02 Oct 2026 20:21:11 GMT
+Date: Sat, 03 Oct 2026 00:08:45 GMT
 Server: Apache/2.4.62 (Debian)
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
@@ -13,13 +13,13 @@ X-Permitted-Cross-Domain-Policies: none
 X-Robots-Tag: noindex, nofollow
 X-XSS-Protection: 1; mode=block
 X-Powered-By: PHP/8.2.27
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Set-Cookie: oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Content-Security-Policy: default-src 'none';
 Set-Cookie: nc_sameSiteCookielax=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
 Set-Cookie: nc_sameSiteCookiestrict=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Access-Control-Allow-Headers: OC-Checksum,OC-Total-Length,OCS-APIREQUEST,X-OC-Mtime,OC-RequestAppPassword,Accept,Authorization,Brief,Content-Length,Content-Range,Content-Type,Date,Depth,Destination,Host,If,If-Match,If-Modified-Since,If-None-Match,If-Range,If-Unmodified-Since,Location,Lock-Token,Overwrite,Prefer,Range,Schedule-Reply,Timeout,User-Agent,X-Expected-Entity-Length,Accept-Language,Access-Control-Request-Method,Access-Control-Allow-Origin,Cache-Control,ETag,OC-Autorename,OC-CalDav-Import,OC-Chunked,OC-Etag,OC-FileId,OC-LazyOps,OC-Total-File-Length,Origin,X-Request-ID,X-Requested-With
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: OPTIONS,GET,HEAD,DELETE,PROPFIND,PUT,PROPPATCH,COPY,MOVE,REPORT,MKCOL
@@ -29,7 +29,7 @@ Content-Type: text/html; charset=UTF-8
 
 ## PROPFIND Depth: 1
 HTTP/1.1 207 Multi-Status
-Date: Fri, 02 Oct 2026 20:21:11 GMT
+Date: Sat, 03 Oct 2026 00:08:45 GMT
 Server: Apache/2.4.62 (Debian)
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
@@ -38,31 +38,31 @@ X-Permitted-Cross-Domain-Policies: none
 X-Robots-Tag: noindex, nofollow
 X-XSS-Protection: 1; mode=block
 X-Powered-By: PHP/8.2.27
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Set-Cookie: oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Content-Security-Policy: default-src 'none';
 Set-Cookie: nc_sameSiteCookielax=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
 Set-Cookie: nc_sameSiteCookiestrict=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: cookie_test=<redacted>; expires=Fri, 02 Oct 2026 21:21:11 GMT; Max-Age=3600
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: cookie_test=<redacted>; expires=Sat, 03 Oct 2026 01:08:45 GMT; Max-Age=3600
 Access-Control-Allow-Origin: http://origin
 Access-Control-Allow-Headers: OC-Checksum,OC-Total-Length,OCS-APIREQUEST,X-OC-Mtime,OC-RequestAppPassword,Accept,Authorization,Brief,Content-Length,Content-Range,Content-Type,Date,Depth,Destination,Host,If,If-Match,If-Modified-Since,If-None-Match,If-Range,If-Unmodified-Since,Location,Lock-Token,Overwrite,Prefer,Range,Schedule-Reply,Timeout,User-Agent,X-Expected-Entity-Length,Accept-Language,Access-Control-Request-Method,Access-Control-Allow-Origin,Cache-Control,ETag,OC-Autorename,OC-CalDav-Import,OC-Chunked,OC-Etag,OC-FileId,OC-LazyOps,OC-Total-File-Length,Origin,X-Request-ID,X-Requested-With
 Access-Control-Expose-Headers: Content-Location,DAV,ETag,Link,Lock-Token,OC-ETag,OC-Checksum,OC-FileId,OC-JobStatus-Location,OC-RequestAppPassword,Vary,Webdav-Location,X-Sabre-Status
 Access-Control-Allow-Methods: OPTIONS,GET,HEAD,DELETE,PROPFIND,PUT,PROPPATCH,COPY,MOVE,REPORT
 Vary: Brief,Prefer
 DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar
-X-Request-Id: Ta10qlGjnrzxKfn86CVu
-X-Debug-Token: Ta10qlGjnrzxKfn86CVu
+X-Request-Id: dsk1dQpdPQgKMgrnRKqI
+X-Debug-Token: dsk1dQpdPQgKMgrnRKqI
 Content-Length: 1016
 Content-Type: application/xml; charset=utf-8
 
 
 ## GET
 HTTP/1.1 200 OK
-Date: Fri, 02 Oct 2026 20:21:11 GMT
+Date: Sat, 03 Oct 2026 00:08:45 GMT
 Server: Apache/2.4.62 (Debian)
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
@@ -71,27 +71,27 @@ X-Permitted-Cross-Domain-Policies: none
 X-Robots-Tag: noindex, nofollow
 X-XSS-Protection: 1; mode=block
 X-Powered-By: PHP/8.2.27
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Set-Cookie: oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Content-Security-Policy: default-src 'none';
 Set-Cookie: nc_sameSiteCookielax=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
 Set-Cookie: nc_sameSiteCookiestrict=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: cookie_test=<redacted>; expires=Fri, 02 Oct 2026 21:21:11 GMT; Max-Age=3600
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: cookie_test=<redacted>; expires=Sat, 03 Oct 2026 01:08:45 GMT; Max-Age=3600
 Access-Control-Allow-Origin: http://origin
 Access-Control-Allow-Headers: OC-Checksum,OC-Total-Length,OCS-APIREQUEST,X-OC-Mtime,OC-RequestAppPassword,Accept,Authorization,Brief,Content-Length,Content-Range,Content-Type,Date,Depth,Destination,Host,If,If-Match,If-Modified-Since,If-None-Match,If-Range,If-Unmodified-Since,Location,Lock-Token,Overwrite,Prefer,Range,Schedule-Reply,Timeout,User-Agent,X-Expected-Entity-Length,Accept-Language,Access-Control-Request-Method,Access-Control-Allow-Origin,Cache-Control,ETag,OC-Autorename,OC-CalDav-Import,OC-Chunked,OC-Etag,OC-FileId,OC-LazyOps,OC-Total-File-Length,Origin,X-Request-ID,X-Requested-With
 Access-Control-Expose-Headers: Content-Location,DAV,ETag,Link,Lock-Token,OC-ETag,OC-Checksum,OC-FileId,OC-JobStatus-Location,OC-RequestAppPassword,Vary,Webdav-Location,X-Sabre-Status
 Access-Control-Allow-Methods: OPTIONS,GET,HEAD,DELETE,PROPFIND,PUT,PROPPATCH,COPY,MOVE,REPORT
 Vary: Origin
-Last-Modified: Fri, 02 Oct 2026 20:21:11 GMT
-ETag: "a42ed16a7b0ae312c2c8154a340afb52"
+Last-Modified: Sat, 03 Oct 2026 00:08:45 GMT
+ETag: "e56114128aa826870f3c916c63a349c4"
 Content-Length: 13
-X-Request-Id: 26ns9ME9tYMNQu3O1KNY
-OC-ETag: "a42ed16a7b0ae312c2c8154a340afb52"
-X-Debug-Token: 26ns9ME9tYMNQu3O1KNY
+X-Request-Id: NAMBQeAY2KdR1lFv3CaP
+OC-ETag: "e56114128aa826870f3c916c63a349c4"
+X-Debug-Token: NAMBQeAY2KdR1lFv3CaP
 Content-Disposition: attachment; filename*=UTF-8''cors-evidence.txt; filename="cors-evidence.txt"
 X-Accel-Buffering: no
 Content-Type: text/plain;charset=UTF-8
@@ -99,7 +99,7 @@ Content-Type: text/plain;charset=UTF-8
 
 ## PUT
 HTTP/1.1 204 No Content
-Date: Fri, 02 Oct 2026 20:21:11 GMT
+Date: Sat, 03 Oct 2026 00:08:45 GMT
 Server: Apache/2.4.62 (Debian)
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
@@ -108,31 +108,31 @@ X-Permitted-Cross-Domain-Policies: none
 X-Robots-Tag: noindex, nofollow
 X-XSS-Protection: 1; mode=block
 X-Powered-By: PHP/8.2.27
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Set-Cookie: oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Content-Security-Policy: default-src 'none';
 Set-Cookie: nc_sameSiteCookielax=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
 Set-Cookie: nc_sameSiteCookiestrict=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: cookie_test=<redacted>; expires=Fri, 02 Oct 2026 21:21:12 GMT; Max-Age=3600
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: cookie_test=<redacted>; expires=Sat, 03 Oct 2026 01:08:45 GMT; Max-Age=3600
 Access-Control-Allow-Origin: http://origin
 Access-Control-Allow-Headers: OC-Checksum,OC-Total-Length,OCS-APIREQUEST,X-OC-Mtime,OC-RequestAppPassword,Accept,Authorization,Brief,Content-Length,Content-Range,Content-Type,Date,Depth,Destination,Host,If,If-Match,If-Modified-Since,If-None-Match,If-Range,If-Unmodified-Since,Location,Lock-Token,Overwrite,Prefer,Range,Schedule-Reply,Timeout,User-Agent,X-Expected-Entity-Length,Accept-Language,Access-Control-Request-Method,Access-Control-Allow-Origin,Cache-Control,ETag,OC-Autorename,OC-CalDav-Import,OC-Chunked,OC-Etag,OC-FileId,OC-LazyOps,OC-Total-File-Length,Origin,X-Request-ID,X-Requested-With
 Access-Control-Expose-Headers: Content-Location,DAV,ETag,Link,Lock-Token,OC-ETag,OC-Checksum,OC-FileId,OC-JobStatus-Location,OC-RequestAppPassword,Vary,Webdav-Location,X-Sabre-Status
 Access-Control-Allow-Methods: OPTIONS,GET,HEAD,DELETE,PROPFIND,PUT,PROPPATCH,COPY,MOVE,REPORT
 Vary: Origin
-OC-FileId: 00000108ocuyreslabz8
-ETag: "32a1ff0d90a2f4007e6a923527a39063"
-X-Request-Id: R9SoIvFEn79YnGytGeRX
-OC-ETag: "32a1ff0d90a2f4007e6a923527a39063"
-X-Debug-Token: R9SoIvFEn79YnGytGeRX
+OC-FileId: 00000108ocnwzj2iyb41
+ETag: "e56114128aa826870f3c916c63a349c4"
+X-Request-Id: JhBnsjppVKB1GTdZsGZO
+OC-ETag: "e56114128aa826870f3c916c63a349c4"
+X-Debug-Token: JhBnsjppVKB1GTdZsGZO
 
 
 ## DELETE
 HTTP/1.1 204 No Content
-Date: Fri, 02 Oct 2026 20:21:12 GMT
+Date: Sat, 03 Oct 2026 00:08:45 GMT
 Server: Apache/2.4.62 (Debian)
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
@@ -141,28 +141,28 @@ X-Permitted-Cross-Domain-Policies: none
 X-Robots-Tag: noindex, nofollow
 X-XSS-Protection: 1; mode=block
 X-Powered-By: PHP/8.2.27
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Set-Cookie: oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Content-Security-Policy: default-src 'none';
 Set-Cookie: nc_sameSiteCookielax=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
 Set-Cookie: nc_sameSiteCookiestrict=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: cookie_test=<redacted>; expires=Fri, 02 Oct 2026 21:21:12 GMT; Max-Age=3600
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: cookie_test=<redacted>; expires=Sat, 03 Oct 2026 01:08:45 GMT; Max-Age=3600
 Access-Control-Allow-Origin: http://origin
 Access-Control-Allow-Headers: OC-Checksum,OC-Total-Length,OCS-APIREQUEST,X-OC-Mtime,OC-RequestAppPassword,Accept,Authorization,Brief,Content-Length,Content-Range,Content-Type,Date,Depth,Destination,Host,If,If-Match,If-Modified-Since,If-None-Match,If-Range,If-Unmodified-Since,Location,Lock-Token,Overwrite,Prefer,Range,Schedule-Reply,Timeout,User-Agent,X-Expected-Entity-Length,Accept-Language,Access-Control-Request-Method,Access-Control-Allow-Origin,Cache-Control,ETag,OC-Autorename,OC-CalDav-Import,OC-Chunked,OC-Etag,OC-FileId,OC-LazyOps,OC-Total-File-Length,Origin,X-Request-ID,X-Requested-With
 Access-Control-Expose-Headers: Content-Location,DAV,ETag,Link,Lock-Token,OC-ETag,OC-Checksum,OC-FileId,OC-JobStatus-Location,OC-RequestAppPassword,Vary,Webdav-Location,X-Sabre-Status
 Access-Control-Allow-Methods: OPTIONS,GET,HEAD,DELETE,PROPFIND,PUT,PROPPATCH,COPY,MOVE,REPORT
 Vary: Origin
-X-Request-Id: 1Y2yGWINgREtw8lT8O2N
-X-Debug-Token: 1Y2yGWINgREtw8lT8O2N
+X-Request-Id: urC5fsUASW6v3fSUqDIq
+X-Debug-Token: urC5fsUASW6v3fSUqDIq
 
 
 ## OPTIONS preflight for PROPFIND (foreign origin, not allow-listed)
 HTTP/1.1 200 OK
-Date: Fri, 02 Oct 2026 20:21:12 GMT
+Date: Sat, 03 Oct 2026 00:08:45 GMT
 Server: Apache/2.4.62 (Debian)
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
@@ -171,13 +171,13 @@ X-Permitted-Cross-Domain-Policies: none
 X-Robots-Tag: noindex, nofollow
 X-XSS-Protection: 1; mode=block
 X-Powered-By: PHP/8.2.27
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Set-Cookie: oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Content-Security-Policy: default-src 'none';
 Set-Cookie: nc_sameSiteCookielax=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
 Set-Cookie: nc_sameSiteCookiestrict=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Access-Control-Allow-Headers: OC-Checksum,OC-Total-Length,OCS-APIREQUEST,X-OC-Mtime,OC-RequestAppPassword,Accept,Authorization,Brief,Content-Length,Content-Range,Content-Type,Date,Depth,Destination,Host,If,If-Match,If-Modified-Since,If-None-Match,If-Range,If-Unmodified-Since,Location,Lock-Token,Overwrite,Prefer,Range,Schedule-Reply,Timeout,User-Agent,X-Expected-Entity-Length,Accept-Language,Access-Control-Request-Method,Access-Control-Allow-Origin,Cache-Control,ETag,OC-Autorename,OC-CalDav-Import,OC-Chunked,OC-Etag,OC-FileId,OC-LazyOps,OC-Total-File-Length,Origin,X-Request-ID,X-Requested-With
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: OPTIONS,GET,HEAD,DELETE,PROPFIND,PUT,PROPPATCH,COPY,MOVE,REPORT,MKCOL
@@ -187,7 +187,7 @@ Content-Type: text/html; charset=UTF-8
 
 ## PROPFIND Depth: 0 (foreign origin, not allow-listed)
 HTTP/1.1 207 Multi-Status
-Date: Fri, 02 Oct 2026 20:21:12 GMT
+Date: Sat, 03 Oct 2026 00:08:46 GMT
 Server: Apache/2.4.62 (Debian)
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
@@ -196,27 +196,27 @@ X-Permitted-Cross-Domain-Policies: none
 X-Robots-Tag: noindex, nofollow
 X-XSS-Protection: 1; mode=block
 X-Powered-By: PHP/8.2.27
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Set-Cookie: oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Content-Security-Policy: default-src 'none';
 Set-Cookie: nc_sameSiteCookielax=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
 Set-Cookie: nc_sameSiteCookiestrict=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: cookie_test=<redacted>; expires=Fri, 02 Oct 2026 21:21:12 GMT; Max-Age=3600
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: cookie_test=<redacted>; expires=Sat, 03 Oct 2026 01:08:46 GMT; Max-Age=3600
 Vary: Brief,Prefer
 DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar
-X-Request-Id: jGNRweI3jNPIEDxxVZxH
-X-Debug-Token: jGNRweI3jNPIEDxxVZxH
+X-Request-Id: ColwHDa0ZFKmUELGRR9O
+X-Debug-Token: ColwHDa0ZFKmUELGRR9O
 Content-Length: 594
 Content-Type: application/xml; charset=utf-8
 
 
 ## POST /index.php/login/v2 (allowed origin, unauthenticated)
 HTTP/1.1 200 OK
-Date: Fri, 02 Oct 2026 20:21:12 GMT
+Date: Sat, 03 Oct 2026 00:08:46 GMT
 Server: Apache/2.4.62 (Debian)
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
@@ -225,14 +225,14 @@ X-Permitted-Cross-Domain-Policies: none
 X-Robots-Tag: noindex, nofollow
 X-XSS-Protection: 1; mode=block
 X-Powered-By: PHP/8.2.27
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Set-Cookie: oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
 Content-Security-Policy: default-src 'none';base-uri 'none';manifest-src 'self';frame-ancestors 'none'
 Set-Cookie: nc_sameSiteCookielax=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
 Set-Cookie: nc_sameSiteCookiestrict=<redacted>; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocuyreslabz8=<redacted>; path=/; HttpOnly; SameSite=Lax
-X-Request-Id: QZUTVbxwfnsURQMTtlnZ
+Set-Cookie: ocnwzj2iyb41=<redacted>; path=/; HttpOnly; SameSite=Lax
+X-Request-Id: RTnTsKFlQNrWlOxxqwov
 Cache-Control: no-cache, no-store, must-revalidate
 Feature-Policy: autoplay 'none';camera 'none';fullscreen 'none';geolocation 'none';microphone 'none';payment 'none'
 Content-Length: 374
