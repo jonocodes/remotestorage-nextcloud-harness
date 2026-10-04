@@ -9,7 +9,7 @@
     "id": "AT4",
     "check": "AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the token",
     "status": "pass",
-    "observed": "[AT4] {\"put\":[201,\"\\\"8b96bcd473a91212d3b996f41aebaeae\\\"\"],\"get\":[200,\"\\\"8b96bcd473a91212d3b996f41aebaeae\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac08990317be\\\"\"],\"stale\":412,\"del\":204}"
+    "observed": "[AT4] {\"put\":[201,\"\\\"628f05b9d1b932c2a78c2af54b5180c3\\\"\"],\"get\":[200,\"\\\"628f05b9d1b932c2a78c2af54b5180c3\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac1d04160ce0\\\"\"],\"stale\":412,\"del\":200}"
   },
   {
     "id": "AT2b",
@@ -27,12 +27,12 @@
     "id": "AT2d",
     "check": "AT2d settings: the token is listed and Disconnect revokes it",
     "status": "pass",
-    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://origin notes:rw 2026-10-03 04:50 UTC 2026-10-03 04:50 UTC Disconnect\" remaining=0 after-revoke=401"
+    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://origin notes:rw 2026-10-04 04:04 UTC 2026-10-04 04:04 UTC Disconnect\" remaining=0 after-revoke=401"
   },
   {
     "id": "AT12",
-    "check": "AT12 unmodified remoteStorage.js: connect via WebFinger + OAuth redirect, sync nested data, delete",
+    "check": "AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete",
     "status": "pass",
-    "observed": "[AT12] connected=true stored={\"ok\":true,\"errors\":[]} webdav=\"at12 1791003066606\" removed=true deep-after-delete=404"
+    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791086699756\"; B connected=true B={\"read\":\"at12 1791086699756\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791086699756 edited on device B\"; deep-after-delete=404"
   }
 ]

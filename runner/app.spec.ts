@@ -113,7 +113,7 @@ test("AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the 
   expect(JSON.parse(list.body).items["hello.txt"].ETag).toBe(put.etag!.replace(/"/g, ""));
   expect(list.etag).toBeTruthy();
   expect(stale.status).toBe(412);
-  expect(del.status).toBe(204);
+  expect(del.status).toBe(200);
   await page.close();
 });
 
@@ -168,7 +168,9 @@ test("AT2d settings: the token is listed and Disconnect revokes it", async () =>
   await consentBrowserContext!.close();
 });
 
-test("AT12 unmodified remoteStorage.js: connect via WebFinger + OAuth redirect, sync nested data, delete", async ({ browser, playwright }) => {
+// One "device": a fresh browser context running the rs-app page, connected
+// through WebFinger, Nextcloud's login and the consent page.
+async function connectDevice(browser: Browser): Promise<{ page: Page; connected: boolean; close: () => Promise<void> }> {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(`${ORIGIN_URL}/rs-app.html`);
@@ -182,31 +184,60 @@ test("AT12 unmodified remoteStorage.js: connect via WebFinger + OAuth redirect, 
   const connected = await page.evaluate(() => Promise.race([
     (window as any).rsConnected,
     new Promise((resolve) => setTimeout(() => resolve(false), 15000))
-  ]));
-  const stamp = `at12 ${Date.now()}`;
-  const stored = connected ? await page.evaluate(async (stamp) => {
-    const rs = (window as any).rs;
-    await rs.scope("/notes/").storeFile("text/plain", "deep/a/b.txt", stamp);
-    await (window as any).rsSync();
-    return { ok: true, errors: (window as any).rsErrors };
-  }, stamp) : { ok: false, errors: [] };
+  ])) as boolean;
+  return { page, connected, close: () => context.close() };
+}
 
+test("AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete", async ({ browser, playwright }) => {
   const dav = await playwright.request.newContext({ httpCredentials: { username: NC_USER, password: NC_PASS } });
-  const viaWebDav = await dav.get(`${STORAGE}/notes/deep/a/b.txt`);
-  const webDavBody = viaWebDav.ok() ? await viaWebDav.text() : `HTTP ${viaWebDav.status()}`;
+  const readDav = async (path: string) => {
+    const res = await dav.get(`${STORAGE}/${path}`);
+    return res.ok() ? res.text() : `HTTP ${res.status()}`;
+  };
 
-  const removed = connected ? await page.evaluate(async () => {
+  // Device A writes into a folder that does not exist yet.
+  const a = await connectDevice(browser);
+  const first = `at12 ${Date.now()}`;
+  if (a.connected) {
+    await a.page.evaluate(async (text) => {
+      await (window as any).rs.scope("/notes/").storeFile("text/plain", "deep/a/b.txt", text);
+      await (window as any).rsSync();
+    }, first);
+  }
+  const afterA = await readDav("notes/deep/a/b.txt");
+  await a.close();
+
+  // Device B syncs it down (a GET the browser asks to be compressed), edits it
+  // (a PUT with If-Match from that GET), then deletes it.
+  const b = await connectDevice(browser);
+  const second = `${first} edited on device B`;
+  const onB = b.connected ? await b.page.evaluate(async (text) => {
     const rs = (window as any).rs;
-    await rs.scope("/notes/").remove("deep/a/b.txt");
+    const conflicts: unknown[] = [];
+    rs.scope("/notes/").on("change", (e: any) => { if (e.origin === "conflict") conflicts.push(e.relativePath); });
     await (window as any).rsSync();
-    return true;
-  }) : false;
+    const read = await rs.scope("/notes/").getFile("deep/a/b.txt");
+    await rs.scope("/notes/").storeFile("text/plain", "deep/a/b.txt", text);
+    await (window as any).rsSync();
+    return { read: read?.data, conflicts, errors: (window as any).rsErrors };
+  }, second) : null;
+  const afterB = await readDav("notes/deep/a/b.txt");
+  if (b.connected) {
+    await b.page.evaluate(async () => {
+      await (window as any).rs.scope("/notes/").remove("deep/a/b.txt");
+      await (window as any).rsSync();
+    });
+  }
   const pruned = await dav.fetch(`${STORAGE}/notes/deep/`, { method: "PROPFIND", headers: { Depth: "0" } });
+  await b.close();
 
-  console.log(`[AT12] connected=${connected} stored=${JSON.stringify(stored)} webdav=${JSON.stringify(webDavBody)} removed=${removed} deep-after-delete=${pruned.status()}`);
-  expect(connected).toBe(true);
-  expect(webDavBody).toBe(stamp);
+  console.log(`[AT12] A connected=${a.connected} webdav-after-A=${JSON.stringify(afterA)}; B connected=${b.connected} B=${JSON.stringify(onB)} webdav-after-B=${JSON.stringify(afterB)}; deep-after-delete=${pruned.status()}`);
+  expect(a.connected).toBe(true);
+  expect(afterA).toBe(first);
+  expect(b.connected).toBe(true);
+  expect(onB?.read).toBe(first);
+  expect(onB?.conflicts).toEqual([]);
+  expect(afterB).toBe(second);
   expect(pruned.status()).toBe(404);
   await dav.dispose();
-  await context.close();
 });

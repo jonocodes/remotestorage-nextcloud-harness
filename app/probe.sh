@@ -30,24 +30,33 @@ etag_of() { req "$@" >/dev/null; hdr etag; }
 put() { curl -s -o /dev/null -w '%{http_code}' -H "$RW" -X PUT -H 'Content-Type: text/plain' --data-binary "$2" "$S/$1"; }
 
 # --- AT1 WebFinger -----------------------------------------------------------
-code="$(req "$NC/.well-known/webfinger?resource=acct:${NC_USER:-rstest}@nextcloud")"
+# Follow redirects like a browser (nginx's official config answers with a 301).
+code="$(req -L -H "$ORIGIN" "$NC/.well-known/webfinger?resource=acct:${NC_USER:-rstest}@nextcloud")"
+hops="$(grep -c '^HTTP/' /tmp/hdr)"
+cors_hops="$(grep -ci '^access-control-allow-origin: \*' /tmp/hdr)"
 link='.links[] | select(.rel=="http://tools.ietf.org/id/draft-dejong-remotestorage")'
-check AT1a "WebFinger link href is the storage root, readable cross-origin" "200 * $S" \
-  "$code $(hdr access-control-allow-origin) $(jq -r "$link | .href" /tmp/body)"
+check AT1a "WebFinger link href is the storage root" "200 $S" \
+  "$code $(jq -r "$link | .href" /tmp/body)"
 auth_url="$(jq -r "$link | .properties[\"http://tools.ietf.org/html/rfc6749#section-4.2\"]" /tmp/body)"
 version="$(jq -r "$link | .properties[\"http://remotestorage.io/spec/version\"]" /tmp/body)"
 # Nextcloud generates the pretty URL (no index.php) when rewrites are on; both work.
 check AT1b "WebFinger advertises the OAuth dialog and spec version" "yes draft-dejong-remotestorage-22" \
   "$(grep -qE "^$NC(/index\.php)?/apps/remotestorage/oauth\$" <<< "$auth_url" && echo yes || echo "no ($auth_url)") $version"
-check AT1c "WebFinger for an unknown user" 404 "$(req "$NC/.well-known/webfinger?resource=acct:nobody@nextcloud")"
-check AT1d "WebFinger for another host" 404 "$(req "$NC/.well-known/webfinger?resource=acct:${NC_USER:-rstest}@other.example")"
+check AT1c "WebFinger for an unknown user" 404 "$(req -L "$NC/.well-known/webfinger?resource=acct:nobody@nextcloud")"
+check AT1d "WebFinger for another host" 404 "$(req -L "$NC/.well-known/webfinger?resource=acct:${NC_USER:-rstest}@other.example")"
+check AT1e "every WebFinger response a browser sees carries CORS (redirects included)" "all" \
+  "$( [ "$cors_hops" -ge "$hops" ] && echo all || echo "$cors_hops of $hops responses")"
+# remoteStorage.js (webfinger.js 3) fetches with redirect: "manual"; in a browser that yields an
+# opaque response, so any redirect breaks discovery whatever its headers.
+check AT1f "WebFinger answered without a redirect" 1 "$hops"
 
 # --- AT6 PUT creates parents, DELETE prunes them -----------------------------
 check AT6a "PUT into a storage with no root folder creates every parent" 201 "$(put notes/a/b/c.txt deep)"
 check AT6b "created parents are listed" "true" \
   "$(req -H "$RW" "$S/notes/a/" >/dev/null; jq -r '.items | has("b/")' /tmp/body)"
-check AT6c "DELETE the only document" 204 "$(req -H "$RW" -X DELETE "$S/notes/a/b/c.txt")"
-check AT6d "empty parents pruned up to the module folder" 404 "$(req -H "$RW" "$S/notes/")"
+check AT6c "DELETE the only document (remoteStorage answers 200, not 204)" 200 "$(req -H "$RW" -X DELETE "$S/notes/a/b/c.txt")"
+check AT6d "empty parents pruned up to the module folder" 404 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/notes/")"
+check AT6i "GET of a missing folder lists it as empty" "200 0" "$(req -H "$RW" "$S/notes/") $(jq -r '.items | length' /tmp/body)"
 check AT6e "storage root itself is kept" 207 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/")"
 put notes/doc.txt doc >/dev/null
 check AT6f "PUT below a document" 409 "$(put notes/doc.txt/x.txt x)"
@@ -79,6 +88,11 @@ check AT5d "listing subfolder ETag = getetag without quotes" "$(propfind_etag no
 check AT5e "folder ETag header = folder getetag" "$(propfind_etag notes/)" "$folder_etag"
 check AT5f "document ETag header = getetag" "$(propfind_etag notes/doc.txt)" "$(etag_of -H "$RW" "$S/notes/doc.txt")"
 check AT5g "folder path without its slash is not a listing" 404 "$(req -H "$RW" "$S/notes")"
+put_typed() { curl -s -o /dev/null -w '%{http_code}' -H "$RW" -X PUT -H "Content-Type: $2" --data-binary "$3" "$S/$1"; }
+put_typed notes/typed.json 'application/json; charset=utf-8' '{"a":1}' >/dev/null
+check AT5h "a document keeps the Content-Type it was PUT with (GET, HEAD, listing)" \
+  "application/json; charset=utf-8|application/json; charset=utf-8|application/json; charset=utf-8" \
+  "$(req -H "$RW" "$S/notes/typed.json" >/dev/null; hdr content-type)|$(req -I -H "$RW" "$S/notes/typed.json" >/dev/null; hdr content-type)|$(req -H "$RW" "$S/notes/" >/dev/null; jq -r '.items["typed.json"]["Content-Type"]' /tmp/body)"
 
 # --- AT7 conditional requests --------------------------------------------------
 current="$(etag_of -H "$RW" "$S/notes/doc.txt")"
@@ -89,9 +103,25 @@ check AT7d "document unchanged after failed preconditions" doc "$(curl -s -H "$R
 check AT7e "If-None-Match current ETag on a document" 304 "$(req -H "$RW" -H "If-None-Match: $current" "$S/notes/doc.txt")"
 folder_now="$(etag_of -H "$RW" "$S/notes/")"
 check AT7f "If-None-Match current ETag on a folder" 304 "$(req -H "$RW" -H "If-None-Match: $folder_now" "$S/notes/")"
-check AT7g "If-Match current ETag PUT succeeds" 204 "$(req -H "$RW" -X PUT -H "If-Match: $current" --data-binary doc2 "$S/notes/doc.txt")"
+check AT7g "If-Match current ETag PUT succeeds (200, not 204)" 200 "$(req -H "$RW" -X PUT -H "If-Match: $current" --data-binary doc2 "$S/notes/doc.txt")"
 check AT7h "If-Match PUT to a missing document creates no folders" "412 404" \
-  "$(req -H "$RW" -X PUT -H 'If-Match: "x"' --data-binary x "$S/notes/ghost/g.txt") $(req -H "$RW" "$S/notes/ghost/")"
+  "$(req -H "$RW" -X PUT -H 'If-Match: "x"' --data-binary x "$S/notes/ghost/g.txt") $(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/notes/ghost/")"
+# Browsers always ask for compression; the ETag of a compressed read must work for the next write.
+long="$(printf 'line of text for compression %.0s' $(seq 1 40))"
+put_typed notes/gz.txt text/plain "$long" >/dev/null
+req -H "$RW" -H 'Accept-Encoding: gzip, deflate, br' "$S/notes/gz.txt" >/dev/null
+gz_etag="$(hdr etag)"; gz_enc="$(hdr content-encoding)"
+check AT7i "write with If-Match from a compressed read succeeds" 200 \
+  "$(req -H "$RW" -X PUT -H "If-Match: $gz_etag" -H 'Content-Type: text/plain' --data-binary changed "$S/notes/gz.txt")"
+check AT7j "compression as served (informational: identity on Apache with mod_php)" "${gz_enc:-identity}" "${gz_enc:-identity}"
+# Nextcloud derives file ETags from mtime in whole seconds + inode + size: a same-size
+# overwrite within one second must still get a new ETag, or If-Match cannot detect it.
+put_typed notes/fast.txt text/plain aaaa >/dev/null
+fast1="$(etag_of -H "$RW" "$S/notes/fast.txt")"
+curl -s -o /dev/null -H "$RW" -X PUT -H 'Content-Type: text/plain' --data-binary bbbb -D /tmp/fast-hdr "$S/notes/fast.txt"
+fast2="$(grep -i '^etag:' /tmp/fast-hdr | tr -d '\r' | cut -d' ' -f2)"
+check AT7k "same-size overwrite within a second gets a new ETag; the old one is then stale" "changed 412 bbbb" \
+  "$( [ -n "$fast2" ] && [ "$fast1" != "$fast2" ] && echo changed || echo "same ($fast1)") $(req -H "$RW" -X PUT -H "If-Match: $fast1" --data-binary cccc "$S/notes/fast.txt") $(curl -s -H "$RW" "$S/notes/fast.txt")"
 
 # --- AT8 folder ETags propagate to the root ------------------------------------
 before="$(etag_of -H "$ALL" "$S/") $(etag_of -H "$RW" "$S/notes/") $(etag_of -H "$RW" "$S/notes/sub/")"
@@ -113,14 +143,14 @@ check AT9d "anonymous PUT into public" 401 "$(req -X PUT --data-binary x "$S/pub
 check AT9e "anonymous GET of a private document" 401 "$(req "$S/notes/doc.txt")"
 
 # --- CORS ------------------------------------------------------------------------
-check C1 "credential-less preflight from any origin" "204 *" \
+check C1 "credential-less preflight from any origin echoes it" "204 http://any.example" \
   "$(req -X OPTIONS -H "$ORIGIN" -H 'Access-Control-Request-Method: PUT' \
      -H 'Access-Control-Request-Headers: authorization,content-type,if-match' "$S/notes/doc.txt") $(hdr access-control-allow-origin)"
 req -H "$RW" -H "$ORIGIN" "$S/notes/doc.txt" >/dev/null
-check C2 "token response: any origin, ETag exposed" "* yes" \
-  "$(hdr access-control-allow-origin) $(hdr access-control-expose-headers | grep -qi etag && echo yes || echo no)"
-check C3 "error responses keep CORS" "403 *" "$(req -H "$RW" -H "$ORIGIN" "$S/photos/x") $(hdr access-control-allow-origin)"
-check C4 "bad token 401 is readable cross-origin" "401 *" \
+check C2 "token response: origin echoed, ETag exposed, no credentials" "http://any.example yes no" \
+  "$(hdr access-control-allow-origin) $(hdr access-control-expose-headers | grep -qi etag && echo yes || echo no) $(has_hdr access-control-allow-credentials)"
+check C3 "error responses keep CORS" "403 http://any.example" "$(req -H "$RW" -H "$ORIGIN" "$S/photos/x") $(hdr access-control-allow-origin)"
+check C4 "bad token 401 is readable cross-origin" "401 http://any.example" \
   "$(req -H "Authorization: Bearer rs_$(printf 'x%.0s' {1..43})" -H "$ORIGIN" "$S/notes/doc.txt") $(hdr access-control-allow-origin)"
 check C5 "Basic-auth request with an Origin gets no CORS" "200 no" \
   "$(req "${BASIC[@]}" -H "$ORIGIN" "$S/notes/doc.txt") $(has_hdr access-control-allow-origin)"

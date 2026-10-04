@@ -177,7 +177,7 @@ evidence is from run 3, against app commit `ee61360`.** Evidence in
 | AT8 | pass | Root, module and parent folder ETags all change on create and on delete. |
 | AT9 | pass | Anonymous: public documents 200; public listings, writes and private documents 401. |
 | AT10 | pass | Basic-auth WebDAV responses (10 requests, volatile headers dropped) identical with the app disabled and enabled. |
-| AT11 | not run | Community `api-test-suite` (Ruby) not wired in yet. |
+| AT11 | not run | Community `api-test-suite` (Ruby) not wired in yet (done in the second round below). |
 | AT12 | pass | Unmodified remoteStorage.js 2.0.0-beta.9: `connect("rstest@nextcloud")` → WebFinger → Nextcloud login → consent → back with the token → sync a file into `notes/deep/a/` → visible via WebDAV → `remove()` + sync → the emptied folders are gone. |
 | C1–C6, A1–A3, W1–W2 | pass | CORS rules, request-only logins (a token request's cookies log nobody in), non-`rs_` bearer tokens untouched and unthrottled, bad `rs_` tokens throttled; with WebAppPassword exactly one `Access-Control-Allow-Origin`. |
 
@@ -205,9 +205,60 @@ Found by the harness while building (all fixed):
   of the consent page; the harness clicks Skip and Close, as a person would. A UX issue to
   consider in the app, not a failure.
 
-Still open: AT11; nginx deployments (Nextcloud's documented nginx config answers
-`/.well-known/webfinger` with a 301, and browsers need CORS on that redirect; only the Apache
-images are tested); OAuth code flow with PKCE; app-store signing.
+Still open at this point: AT11; nginx deployments; OAuth code flow with PKCE; app-store signing.
+
+### Second round (2026-10-03): nginx, AT11, spec corrections — app 0.2.0
+
+**Result: all cases pass on Nextcloud 34 and 35 behind Apache (67/67), Apache next to
+WebAppPassword (69/69) and nginx with two config additions (67/67); with nginx's official config
+unchanged, only discovery-related cases fail (63/67), as expected.** Three consecutive runs gave
+identical statuses apart from that config change; the committed evidence is from the third, against
+app commit `be660b2`. Evidence in `results/app/`; the community
+suite's raw output in `results/app/*-api-test-suite.txt`.
+
+**nginx.** New variants run php-fpm behind nginx in the nextcloud container's network namespace
+(`compose.nginx.yaml`), with Nextcloud's official config verbatim (`docker/nginx/nginx.conf`) or
+with one added `location` (`nginx-webfinger-rewrite.conf`). The official config answers
+`/.well-known/webfinger` with a 301. Adding `Access-Control-Allow-Origin` to that redirect does
+not help: remoteStorage.js's WebFinger library (webfinger.js 3) fetches with
+`redirect: "manual"`, which a browser turns into an opaque response, so it can follow no
+redirect at all. An internal `rewrite` fixes it. New checks: AT1e (every WebFinger response in
+the chain carries CORS) and AT1f (no redirect).
+nginx also gzips JSON (including folder listings) and turns compressed responses' ETags weak,
+which the suite flags; the fixed config turns gzip off for requests with an `rs_` token
+(`if ($http_authorization ~ "^Bearer rs_") { gzip off; }` in the PHP location), checked by the
+full matrix including the browser cases.
+**AT11** runs the community suite (`docker/api-test-suite`, pinned to `55cc9a2`, Ruby 2.7) as its
+own empty user `rssuite`, with `rsother` as the second account. The first run against app 0.1.0
+passed 42 of 53. AT11 passes when every failing suite test is listed, with its reason, in
+`docker/api-test-suite/known-false-positives.txt`; that file has one entry (anonymous 401s
+differ only by Nextcloud's per-request session cookies). This is a recorded exception, not a
+loosened criterion: any other failure fails AT11.
+
+**Spec corrections in the app (0.2.0)**, each found by AT11 or the new checks:
+
+- Content-Type is stored per file id and ETag and returned on GET/HEAD and in listings (AT5h).
+- Same-size overwrites within one second got the same ETag from Nextcloud's local storage
+  (`md5(mtime seconds, inode, device, size)`); the app now forces a fresh ETag and propagates it
+  (AT7k).
+- Compressed responses changed the ETag clients send back (`-gzip` on Apache, `W/` on nginx),
+  causing false 412s; the app normalises conditional headers and disables compression on
+  Apache + mod_php (AT7i; AT12's second device edits after a compressed read).
+- Overwrites and deletes answer 200, not 204; preflights are answered even when they carry a
+  token, echoing the origin (never with credentials).
+- Missing and empty folders list as empty (AT6i), and empty subfolders are not listed. Files_Trashbin's
+  `afterMethod:GET` hook threw `NotFound` for missing folders; the app sends that response
+  itself.
+
+AT12 now uses two devices: device B connects separately, syncs, reads (compressed), edits and
+deletes; no conflicts.
+
+Changes to checks: DELETE and overwrite expectations moved from 204 to 200, CORS from `*` to the
+echoed origin, and "pruned"/"missing folder" checks to WebDAV PROPFIND, all because the app's
+behaviour changed to match the spec.
+
+Still open: PKCE (deferred, see open questions), the first-run wizard, app-store signing,
+databases other than SQLite.
 
 ## Repositories
 
@@ -231,8 +282,9 @@ be published, pushed or posted; or a pass needs a looser criterion.
 ## Open questions
 
 - [x] Do the spikes pass (S1–S4)? — Yes, on 34 and 35, plus the remoteStorage.js client check; see "Spike results".
-- [ ] OAuth code flow with PKCE as well as implicit grant? (remoteStorage.js 2.0 can do PKCE for
-      Dropbox; check what its rs discovery path accepts.)
+- [x] OAuth code flow with PKCE as well as implicit grant? — Deferred (2026-10-03): remoteStorage.js
+      2.0.0-beta.9 uses PKCE only for Dropbox (built-in token URL); for remoteStorage servers it always
+      sends `response_type=token`, and the spec defines no token-endpoint discovery.
 - [x] Storage root name and whether users may change it. — `remoteStorage` by default; admins can change it (`occ config:app:set remotestorage storage_root`); not per user.
 - [ ] App-store listing and signing: who holds the certificate?
 - [ ] Prior art: read what is recoverable of ownCloud's removed remoteStorage app for pitfalls

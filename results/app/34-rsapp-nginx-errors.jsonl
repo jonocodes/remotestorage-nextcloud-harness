@@ -1,0 +1,6 @@
+{"app":"core","message":"unable to rename, destination directory is not writable : /var/www/html/data/files_trashbin/versions"}
+{"app":"core","message":"unable to rename, destination directory is not writable : /var/www/html/data/files_trashbin/versions"}
+{"app":"core","message":"unable to rename, destination directory is not writable : /var/www/html/data/files_trashbin/versions"}
+{"app":"files_versions","message":"Version file some-subdir has incorrect name format"}
+{"app":"core","message":"unable to rename, destination directory is not writable : /var/www/html/data/files_trashbin/versions"}
+{"app":"files_versions","message":"Version file api-test has incorrect name format"}

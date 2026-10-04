@@ -1,0 +1,38 @@
+[
+  {
+    "id": "AT2a",
+    "check": "AT2a consent: allow returns a token in the redirect fragment",
+    "status": "pass",
+    "observed": "[wizard] first-run wizard shown over the consent page; skipping and closing it\n[AT2a] consent page names origin+scope: true; fragment keys: access_token,token_type,scope,state; state=s-allow; token_type=bearer"
+  },
+  {
+    "id": "AT4",
+    "check": "AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the token",
+    "status": "pass",
+    "observed": "[AT4] {\"put\":[201,\"\\\"c543794a20577b3bc0a4f702217d0d67\\\"\"],\"get\":[200,\"\\\"c543794a20577b3bc0a4f702217d0d67\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac1d4f5868b4\\\"\"],\"stale\":412,\"del\":200}"
+  },
+  {
+    "id": "AT2b",
+    "check": "AT2b consent: deny returns access_denied",
+    "status": "pass",
+    "observed": "[AT2b] {\"error\":\"access_denied\",\"state\":\"s-deny\"}"
+  },
+  {
+    "id": "AT2c",
+    "check": "AT2c consent: a client_id that is not the redirect origin gets an error page, no redirect",
+    "status": "pass",
+    "observed": "[AT2c] url=http://nextcloud/index.php/apps/remotestorage/oauth?client_id=http%3A//evil.example&redirect_uri=http%3A//origin/callback.html&scope=notes%3Arw&response_type=token&state=s-bad status=undefined invalid=true"
+  },
+  {
+    "id": "AT2d",
+    "check": "AT2d settings: the token is listed and Disconnect revokes it",
+    "status": "pass",
+    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://origin notes:rw 2026-10-04 04:24 UTC 2026-10-04 04:24 UTC Disconnect\" remaining=0 after-revoke=401"
+  },
+  {
+    "id": "AT12",
+    "check": "AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete",
+    "status": "pass",
+    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791087903878\"; B connected=true B={\"read\":\"at12 1791087903878\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791087903878 edited on device B\"; deep-after-delete=404"
+  }
+]

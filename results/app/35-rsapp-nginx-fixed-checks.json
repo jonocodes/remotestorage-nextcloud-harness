@@ -1,0 +1,429 @@
+[
+  {
+    "id": "AT1a",
+    "check": "WebFinger link href is the storage root",
+    "expected": "200 http://nextcloud/remote.php/dav/files/rstest/remoteStorage",
+    "observed": "200 http://nextcloud/remote.php/dav/files/rstest/remoteStorage",
+    "status": "pass"
+  },
+  {
+    "id": "AT1b",
+    "check": "WebFinger advertises the OAuth dialog and spec version",
+    "expected": "yes draft-dejong-remotestorage-22",
+    "observed": "yes draft-dejong-remotestorage-22",
+    "status": "pass"
+  },
+  {
+    "id": "AT1c",
+    "check": "WebFinger for an unknown user",
+    "expected": "404",
+    "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "AT1d",
+    "check": "WebFinger for another host",
+    "expected": "404",
+    "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "AT1e",
+    "check": "every WebFinger response a browser sees carries CORS (redirects included)",
+    "expected": "all",
+    "observed": "all",
+    "status": "pass"
+  },
+  {
+    "id": "AT1f",
+    "check": "WebFinger answered without a redirect",
+    "expected": "1",
+    "observed": "1",
+    "status": "pass"
+  },
+  {
+    "id": "AT6a",
+    "check": "PUT into a storage with no root folder creates every parent",
+    "expected": "201",
+    "observed": "201",
+    "status": "pass"
+  },
+  {
+    "id": "AT6b",
+    "check": "created parents are listed",
+    "expected": "true",
+    "observed": "true",
+    "status": "pass"
+  },
+  {
+    "id": "AT6c",
+    "check": "DELETE the only document (remoteStorage answers 200, not 204)",
+    "expected": "200",
+    "observed": "200",
+    "status": "pass"
+  },
+  {
+    "id": "AT6d",
+    "check": "empty parents pruned up to the module folder",
+    "expected": "404",
+    "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "AT6i",
+    "check": "GET of a missing folder lists it as empty",
+    "expected": "200 0",
+    "observed": "200 0",
+    "status": "pass"
+  },
+  {
+    "id": "AT6e",
+    "check": "storage root itself is kept",
+    "expected": "207",
+    "observed": "207",
+    "status": "pass"
+  },
+  {
+    "id": "AT6f",
+    "check": "PUT below a document",
+    "expected": "409",
+    "observed": "409",
+    "status": "pass"
+  },
+  {
+    "id": "AT6g",
+    "check": "PUT to a folder path",
+    "expected": "405",
+    "observed": "405",
+    "status": "pass"
+  },
+  {
+    "id": "AT6h",
+    "check": "DELETE a folder path",
+    "expected": "405",
+    "observed": "405",
+    "status": "pass"
+  },
+  {
+    "id": "AT3a",
+    "check": "notes:r reads notes",
+    "expected": "200",
+    "observed": "200",
+    "status": "pass"
+  },
+  {
+    "id": "AT3b",
+    "check": "notes:r cannot write",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
+    "id": "AT3c",
+    "check": "notes:rw cannot read another module",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
+    "id": "AT3d",
+    "check": "notes:rw cannot list the root",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
+    "id": "AT3e",
+    "check": "*:rw lists the root",
+    "expected": "200",
+    "observed": "200",
+    "status": "pass"
+  },
+  {
+    "id": "AT3f",
+    "check": "notes:rw writes public/notes/",
+    "expected": "201",
+    "observed": "201",
+    "status": "pass"
+  },
+  {
+    "id": "AT3g",
+    "check": "notes:rw cannot write public/photos/",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
+    "id": "AT3h",
+    "check": "token cannot reach files outside the root",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
+    "id": "AT3i",
+    "check": "WebDAV methods outside remoteStorage are refused",
+    "expected": "405",
+    "observed": "405",
+    "status": "pass"
+  },
+  {
+    "id": "AT5a",
+    "check": "folder GET returns a folder description",
+    "expected": "200 application/ld+json",
+    "observed": "200 application/ld+json",
+    "status": "pass"
+  },
+  {
+    "id": "AT5b",
+    "check": "listing items and document metadata",
+    "expected": "doc.txt sub/ text/plain 3",
+    "observed": "doc.txt sub/ text/plain 3",
+    "status": "pass"
+  },
+  {
+    "id": "AT5c",
+    "check": "listing document ETag = getetag without quotes",
+    "expected": "31a845957f2b9762459a3bf6e4157a9a",
+    "observed": "31a845957f2b9762459a3bf6e4157a9a",
+    "status": "pass"
+  },
+  {
+    "id": "AT5d",
+    "check": "listing subfolder ETag = getetag without quotes",
+    "expected": "6ac1d24788287",
+    "observed": "6ac1d24788287",
+    "status": "pass"
+  },
+  {
+    "id": "AT5e",
+    "check": "folder ETag header = folder getetag",
+    "expected": "\"6ac1d24788287\"",
+    "observed": "\"6ac1d24788287\"",
+    "status": "pass"
+  },
+  {
+    "id": "AT5f",
+    "check": "document ETag header = getetag",
+    "expected": "\"31a845957f2b9762459a3bf6e4157a9a\"",
+    "observed": "\"31a845957f2b9762459a3bf6e4157a9a\"",
+    "status": "pass"
+  },
+  {
+    "id": "AT5g",
+    "check": "folder path without its slash is not a listing",
+    "expected": "404",
+    "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "AT5h",
+    "check": "a document keeps the Content-Type it was PUT with (GET, HEAD, listing)",
+    "expected": "application/json; charset=utf-8|application/json; charset=utf-8|application/json; charset=utf-8",
+    "observed": "application/json; charset=utf-8|application/json; charset=utf-8|application/json; charset=utf-8",
+    "status": "pass"
+  },
+  {
+    "id": "AT7a",
+    "check": "stale If-Match PUT",
+    "expected": "412",
+    "observed": "412",
+    "status": "pass"
+  },
+  {
+    "id": "AT7b",
+    "check": "stale If-Match DELETE",
+    "expected": "412",
+    "observed": "412",
+    "status": "pass"
+  },
+  {
+    "id": "AT7c",
+    "check": "If-None-Match: * on an existing document",
+    "expected": "412",
+    "observed": "412",
+    "status": "pass"
+  },
+  {
+    "id": "AT7d",
+    "check": "document unchanged after failed preconditions",
+    "expected": "doc",
+    "observed": "doc",
+    "status": "pass"
+  },
+  {
+    "id": "AT7e",
+    "check": "If-None-Match current ETag on a document",
+    "expected": "304",
+    "observed": "304",
+    "status": "pass"
+  },
+  {
+    "id": "AT7f",
+    "check": "If-None-Match current ETag on a folder",
+    "expected": "304",
+    "observed": "304",
+    "status": "pass"
+  },
+  {
+    "id": "AT7g",
+    "check": "If-Match current ETag PUT succeeds (200, not 204)",
+    "expected": "200",
+    "observed": "200",
+    "status": "pass"
+  },
+  {
+    "id": "AT7h",
+    "check": "If-Match PUT to a missing document creates no folders",
+    "expected": "412 404",
+    "observed": "412 404",
+    "status": "pass"
+  },
+  {
+    "id": "AT7i",
+    "check": "write with If-Match from a compressed read succeeds",
+    "expected": "200",
+    "observed": "200",
+    "status": "pass"
+  },
+  {
+    "id": "AT7j",
+    "check": "compression as served (informational: identity on Apache with mod_php)",
+    "expected": "identity",
+    "observed": "identity",
+    "status": "pass"
+  },
+  {
+    "id": "AT7k",
+    "check": "same-size overwrite within a second gets a new ETag; the old one is then stale",
+    "expected": "changed 412 bbbb",
+    "observed": "changed 412 bbbb",
+    "status": "pass"
+  },
+  {
+    "id": "AT8a",
+    "check": "create: root, module and parent folder ETags all change",
+    "expected": "3",
+    "observed": "3",
+    "status": "pass"
+  },
+  {
+    "id": "AT8b",
+    "check": "delete: root, module and parent folder ETags all change",
+    "expected": "3",
+    "observed": "3",
+    "status": "pass"
+  },
+  {
+    "id": "AT9a",
+    "check": "anonymous GET of a public document",
+    "expected": "200 pub",
+    "observed": "200 pub",
+    "status": "pass"
+  },
+  {
+    "id": "AT9b",
+    "check": "anonymous GET of a public listing",
+    "expected": "401",
+    "observed": "401",
+    "status": "pass"
+  },
+  {
+    "id": "AT9c",
+    "check": "anonymous GET of a public folder without its slash",
+    "expected": "404",
+    "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "AT9d",
+    "check": "anonymous PUT into public",
+    "expected": "401",
+    "observed": "401",
+    "status": "pass"
+  },
+  {
+    "id": "AT9e",
+    "check": "anonymous GET of a private document",
+    "expected": "401",
+    "observed": "401",
+    "status": "pass"
+  },
+  {
+    "id": "C1",
+    "check": "credential-less preflight from any origin echoes it",
+    "expected": "204 http://any.example",
+    "observed": "204 http://any.example",
+    "status": "pass"
+  },
+  {
+    "id": "C2",
+    "check": "token response: origin echoed, ETag exposed, no credentials",
+    "expected": "http://any.example yes no",
+    "observed": "http://any.example yes no",
+    "status": "pass"
+  },
+  {
+    "id": "C3",
+    "check": "error responses keep CORS",
+    "expected": "403 http://any.example",
+    "observed": "403 http://any.example",
+    "status": "pass"
+  },
+  {
+    "id": "C4",
+    "check": "bad token 401 is readable cross-origin",
+    "expected": "401 http://any.example",
+    "observed": "401 http://any.example",
+    "status": "pass"
+  },
+  {
+    "id": "C5",
+    "check": "Basic-auth request with an Origin gets no CORS",
+    "expected": "200 no",
+    "observed": "200 no",
+    "status": "pass"
+  },
+  {
+    "id": "C6",
+    "check": "no CORS outside the storage root",
+    "expected": "no",
+    "observed": "no",
+    "status": "pass"
+  },
+  {
+    "id": "A1",
+    "check": "cookies from a token request do not log anyone in",
+    "expected": "401",
+    "observed": "401",
+    "status": "pass"
+  },
+  {
+    "id": "A2",
+    "check": "non-rs_ bearer tokens pass through to core, unthrottled by the app",
+    "expected": "0",
+    "observed": "0",
+    "status": "pass"
+  },
+  {
+    "id": "A3",
+    "check": "repeated bad rs_ tokens are throttled (7th attempt > 1 s)",
+    "expected": "slowed",
+    "observed": "slowed",
+    "status": "pass"
+  },
+  {
+    "id": "AT10",
+    "check": "Basic-auth WebDAV responses identical with the app disabled and enabled",
+    "expected": "no diff",
+    "observed": "no diff",
+    "status": "pass"
+  },
+  {
+    "id": "AT11",
+    "check": "remotestorage/api-test-suite: every failing test is a documented false positive",
+    "expected": "no failures outside docker/api-test-suite/known-false-positives.txt",
+    "observed": "53 tests, 263 assertions, 1 failures, 0 errors, 0 skips; known false positives failing: Requests::in a public folder::GET directory listing without a token|test_0002_doesn't expose if folder is empty",
+    "status": "pass"
+  }
+]

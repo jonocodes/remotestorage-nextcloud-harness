@@ -54,6 +54,9 @@ Results land in `results/<version>-<variant>.json` (one JSON object per case) an
 | `REPORT.md` | results and verdict |
 | `PLAN-app.md` | second track: a thin Nextcloud app that makes Nextcloud a remoteStorage server ([jonocodes/nextcloud-remotestorage](https://github.com/jonocodes/nextcloud-remotestorage)); spike and build results |
 | `app/` | integration cases for the real app (`app/run.sh`, `app/probe.sh`, `app/snapshot.sh`; browser cases in `runner/app.spec.ts`); results in `results/app/` |
+| `REPORT-app.md` | report on the remoteStorage app (draft) |
+| `compose.nginx.yaml`, `docker/nginx/` | nginx + php-fpm variants: Nextcloud's official config, and with the WebFinger rewrite |
+| `docker/api-test-suite/` | the community server suite, pinned (AT11), and its documented false positives |
 | `spike/` | throwaway spike app `rsspike` and its checks (`spike/run.sh`, `spike/probe.sh`); results in `results/spike/` |
 | `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe` and `runner` services |
 | `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, token lifetimes, collect |

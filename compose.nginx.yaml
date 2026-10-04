@@ -1,0 +1,13 @@
+# nginx + php-fpm instead of the Apache image (variants *-nginx*). nginx shares
+# the nextcloud container's network namespace, so http://nextcloud and
+# `docker compose exec nextcloud` keep working unchanged.
+# Use with: COMPOSE_FILE=compose.yaml:compose.nginx.yaml NC_IMAGE=nextcloud:<v>-fpm
+services:
+  web:
+    image: nginx:1.29-alpine
+    network_mode: "service:nextcloud"
+    depends_on:
+      - nextcloud
+    volumes:
+      - nextcloud-data:/var/www/html:ro
+      - ./docker/nginx/${NGINX_CONF:-nginx.conf}:/etc/nginx/nginx.conf:ro

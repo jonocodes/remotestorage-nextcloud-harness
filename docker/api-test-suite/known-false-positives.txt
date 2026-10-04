@@ -1,0 +1,4 @@
+# Suite tests that fail for reasons outside the app, each with its evidence.
+# Format: <describe block>|<test name>|<reason>. app/run.sh scores AT11 as pass only
+# if every failing test is listed here; anything else fails AT11.
+Requests::in a public folder::GET directory listing without a token|test_0002_doesn't expose if folder is empty|Compares every response header of two anonymous 401s. Both are identical (status, body, all headers) except the random session cookies Nextcloud core sets on every request, so the test cannot pass on Nextcloud whatever the app does; no existence information leaks (checked 2026-10-03).

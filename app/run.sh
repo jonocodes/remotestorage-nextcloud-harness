@@ -4,6 +4,8 @@
 # stack per Nextcloud version × variant:
 #   rsapp                 the app alone
 #   rsapp+webapppassword  the app next to WebAppPassword (coexistence)
+#   rsapp-nginx           php-fpm behind nginx with Nextcloud's official config
+#   rsapp-nginx-fixed     the same, but WebFinger rewritten internally instead of redirected
 # Results: results/app/<version>-<variant>-*.json
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -25,9 +27,19 @@ overall=0
 for version in "${VERSIONS[@]}"; do
   for variant in "${VARIANTS[@]}"; do
     export NC_VERSION="$version" NC_IMAGE="nextcloud:${version}-apache" VARIANT="$variant"
+    # *-nginx*: php-fpm image behind nginx with Nextcloud's official config; -fixed serves
+    # WebFinger without the redirect (docker/nginx/).
+    unset COMPOSE_FILE NGINX_CONF
+    if [[ "$variant" == *nginx* ]]; then
+      export COMPOSE_FILE=compose.yaml:compose.nginx.yaml NC_IMAGE="nextcloud:${version}-fpm"
+      export NGINX_CONF=nginx.conf
+      [[ "$variant" == *fixed* ]] && NGINX_CONF=nginx-webfinger-rewrite.conf
+    fi
     out="results/app/${version}-${variant}"
     echo "=== app: Nextcloud ${version} / ${variant} ==="
-    docker compose down -v --remove-orphans
+    # Tear down with both files: nginx shares the nextcloud network namespace, and
+    # podman refuses to remove nextcloud while it is attached.
+    COMPOSE_FILE=compose.yaml:compose.nginx.yaml docker compose down -v --remove-orphans
     docker compose build curl-probe runner
     docker compose up -d
     ./scripts/wait-for-nextcloud.sh
@@ -57,6 +69,8 @@ for version in "${VERSIONS[@]}"; do
       -e WAP_ORIGIN="$wap_origin" \
       curl-probe bash /harness/app/probe.sh > "${out}-checks.json" || overall=1
     jq --argjson at10 "$at10" '. + [$at10]' "${out}-checks.json" > "${out}-checks.tmp" && mv "${out}-checks.tmp" "${out}-checks.json"
+    at11="$(./app/api-test-suite.sh "${out}-api-test-suite.txt")"
+    jq --argjson at11 "$at11" '. + [$at11]' "${out}-checks.json" > "${out}-checks.tmp" && mv "${out}-checks.tmp" "${out}-checks.json"
 
     docker compose exec -T -e VARIANT="$variant" -e NC_VERSION="$version" \
       -e PLAYWRIGHT_JSON_OUTPUT_NAME="/harness/results/app/${version}-${variant}-browser-raw.json" \

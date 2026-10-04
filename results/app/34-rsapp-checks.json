@@ -1,9 +1,9 @@
 [
   {
     "id": "AT1a",
-    "check": "WebFinger link href is the storage root, readable cross-origin",
-    "expected": "200 * http://nextcloud/remote.php/dav/files/rstest/remoteStorage",
-    "observed": "200 * http://nextcloud/remote.php/dav/files/rstest/remoteStorage",
+    "check": "WebFinger link href is the storage root",
+    "expected": "200 http://nextcloud/remote.php/dav/files/rstest/remoteStorage",
+    "observed": "200 http://nextcloud/remote.php/dav/files/rstest/remoteStorage",
     "status": "pass"
   },
   {
@@ -28,6 +28,20 @@
     "status": "pass"
   },
   {
+    "id": "AT1e",
+    "check": "every WebFinger response a browser sees carries CORS (redirects included)",
+    "expected": "all",
+    "observed": "all",
+    "status": "pass"
+  },
+  {
+    "id": "AT1f",
+    "check": "WebFinger answered without a redirect",
+    "expected": "1",
+    "observed": "1",
+    "status": "pass"
+  },
+  {
     "id": "AT6a",
     "check": "PUT into a storage with no root folder creates every parent",
     "expected": "201",
@@ -43,9 +57,9 @@
   },
   {
     "id": "AT6c",
-    "check": "DELETE the only document",
-    "expected": "204",
-    "observed": "204",
+    "check": "DELETE the only document (remoteStorage answers 200, not 204)",
+    "expected": "200",
+    "observed": "200",
     "status": "pass"
   },
   {
@@ -53,6 +67,13 @@
     "check": "empty parents pruned up to the module folder",
     "expected": "404",
     "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "AT6i",
+    "check": "GET of a missing folder lists it as empty",
+    "expected": "200 0",
+    "observed": "200 0",
     "status": "pass"
   },
   {
@@ -163,29 +184,29 @@
   {
     "id": "AT5c",
     "check": "listing document ETag = getetag without quotes",
-    "expected": "af584f508da374a0f5c0dbc29f0618c5",
-    "observed": "af584f508da374a0f5c0dbc29f0618c5",
+    "expected": "2b54363aa380bc2f7aa4e5e2624c2e84",
+    "observed": "2b54363aa380bc2f7aa4e5e2624c2e84",
     "status": "pass"
   },
   {
     "id": "AT5d",
     "check": "listing subfolder ETag = getetag without quotes",
-    "expected": "6ac08a78752c4",
-    "observed": "6ac08a78752c4",
+    "expected": "6ac1d2e6b3191",
+    "observed": "6ac1d2e6b3191",
     "status": "pass"
   },
   {
     "id": "AT5e",
     "check": "folder ETag header = folder getetag",
-    "expected": "\"6ac08a78752c4\"",
-    "observed": "\"6ac08a78752c4\"",
+    "expected": "\"6ac1d2e6b3191\"",
+    "observed": "\"6ac1d2e6b3191\"",
     "status": "pass"
   },
   {
     "id": "AT5f",
     "check": "document ETag header = getetag",
-    "expected": "\"af584f508da374a0f5c0dbc29f0618c5\"",
-    "observed": "\"af584f508da374a0f5c0dbc29f0618c5\"",
+    "expected": "\"2b54363aa380bc2f7aa4e5e2624c2e84\"",
+    "observed": "\"2b54363aa380bc2f7aa4e5e2624c2e84\"",
     "status": "pass"
   },
   {
@@ -193,6 +214,13 @@
     "check": "folder path without its slash is not a listing",
     "expected": "404",
     "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "AT5h",
+    "check": "a document keeps the Content-Type it was PUT with (GET, HEAD, listing)",
+    "expected": "application/json; charset=utf-8|application/json; charset=utf-8|application/json; charset=utf-8",
+    "observed": "application/json; charset=utf-8|application/json; charset=utf-8|application/json; charset=utf-8",
     "status": "pass"
   },
   {
@@ -239,9 +267,9 @@
   },
   {
     "id": "AT7g",
-    "check": "If-Match current ETag PUT succeeds",
-    "expected": "204",
-    "observed": "204",
+    "check": "If-Match current ETag PUT succeeds (200, not 204)",
+    "expected": "200",
+    "observed": "200",
     "status": "pass"
   },
   {
@@ -249,6 +277,27 @@
     "check": "If-Match PUT to a missing document creates no folders",
     "expected": "412 404",
     "observed": "412 404",
+    "status": "pass"
+  },
+  {
+    "id": "AT7i",
+    "check": "write with If-Match from a compressed read succeeds",
+    "expected": "200",
+    "observed": "200",
+    "status": "pass"
+  },
+  {
+    "id": "AT7j",
+    "check": "compression as served (informational: identity on Apache with mod_php)",
+    "expected": "identity",
+    "observed": "identity",
+    "status": "pass"
+  },
+  {
+    "id": "AT7k",
+    "check": "same-size overwrite within a second gets a new ETag; the old one is then stale",
+    "expected": "changed 412 bbbb",
+    "observed": "changed 412 bbbb",
     "status": "pass"
   },
   {
@@ -302,30 +351,30 @@
   },
   {
     "id": "C1",
-    "check": "credential-less preflight from any origin",
-    "expected": "204 *",
-    "observed": "204 *",
+    "check": "credential-less preflight from any origin echoes it",
+    "expected": "204 http://any.example",
+    "observed": "204 http://any.example",
     "status": "pass"
   },
   {
     "id": "C2",
-    "check": "token response: any origin, ETag exposed",
-    "expected": "* yes",
-    "observed": "* yes",
+    "check": "token response: origin echoed, ETag exposed, no credentials",
+    "expected": "http://any.example yes no",
+    "observed": "http://any.example yes no",
     "status": "pass"
   },
   {
     "id": "C3",
     "check": "error responses keep CORS",
-    "expected": "403 *",
-    "observed": "403 *",
+    "expected": "403 http://any.example",
+    "observed": "403 http://any.example",
     "status": "pass"
   },
   {
     "id": "C4",
     "check": "bad token 401 is readable cross-origin",
-    "expected": "401 *",
-    "observed": "401 *",
+    "expected": "401 http://any.example",
+    "observed": "401 http://any.example",
     "status": "pass"
   },
   {
@@ -368,6 +417,13 @@
     "check": "Basic-auth WebDAV responses identical with the app disabled and enabled",
     "expected": "no diff",
     "observed": "no diff",
+    "status": "pass"
+  },
+  {
+    "id": "AT11",
+    "check": "remotestorage/api-test-suite: every failing test is a documented false positive",
+    "expected": "no failures outside docker/api-test-suite/known-false-positives.txt",
+    "observed": "53 tests, 263 assertions, 1 failures, 0 errors, 0 skips; known false positives failing: Requests::in a public folder::GET directory listing without a token|test_0002_doesn't expose if folder is empty",
     "status": "pass"
   }
 ]
