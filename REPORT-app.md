@@ -2,7 +2,7 @@
 
 **Test report — 2026-10-03 · @Jono (app, harness and runs with agent assistance)**
 
-Status: **draft for review; not posted anywhere.** Companion to [`PLAN-app.md`](PLAN-app.md)
+Status: **reviewed 2026-10-03; posted to remotestorage.js #1320.** Companion to [`PLAN-app.md`](PLAN-app.md)
 (the plan and its dated results) and to [`REPORT.md`](REPORT.md) (what stock Nextcloud and
 WebAppPassword can do). The app is
 [jonocodes/nextcloud-remotestorage](https://github.com/jonocodes/nextcloud-remotestorage);
