@@ -1,0 +1,12 @@
+=== B1 My Favorite Drinks @ b51503e ===
+[4m>>>> Executing external compose provider "/home/jono/.nix-profile/bin/docker-compose". Please see podman-compose(1) for how to disable this message. <<<<
+
+[0m
+Running 1 test using 1 worker
+
+  ✓  1 explore/explore-mfav.spec.ts:43:5 › B1 My Favorite Drinks: connect, add, sync, reload, delete (21.1s)
+
+  1 passed (21.5s)
+--- checks ---
+pass	B1	
+wrote explore/sessions/myfavoritedrinks/result.json; artifacts in explore/sessions/myfavoritedrinks/artifacts

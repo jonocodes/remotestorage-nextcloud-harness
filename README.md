@@ -58,7 +58,8 @@ Results land in `results/<version>-<variant>.json` (one JSON object per case) an
 | `compose.nginx.yaml`, `docker/nginx/` | nginx + php-fpm variants: Nextcloud's official config, and with the WebFinger rewrite |
 | `docker/api-test-suite/` | the community server suite, pinned (AT11), and its documented false positives |
 | `spike/` | throwaway spike app `rsspike` and its checks (`spike/run.sh`, `spike/probe.sh`); results in `results/spike/` |
-| `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe` and `runner` services |
+| `explore/` | third track: exploratory testing against real third-party remoteStorage clients — plan [`explore/PLAN-explore.md`](explore/PLAN-explore.md); run scripts in `explore/clients/`, evidence in `explore/sessions/`; the findings report lives in the app repo (`TESTING.md`) |
+| `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe`, `runner` and `client-probe` (third-party clients) services |
 | `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, token lifetimes, collect |
 | `setup/` | per-variant Nextcloud configuration via `occ` |
 | `probes/curl/` | T1–T10, one script per case, JSON on stdout; `cors-headers.sh` captures raw CORS headers for every variant |

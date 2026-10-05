@@ -1,0 +1,52 @@
+{
+  "client": "rs-backup",
+  "phase": "A2",
+  "user": "rstest",
+  "checks": [
+    {
+      "id": "A2-byte:notes/hello.txt",
+      "status": "pass",
+      "observed": "5eb63bbbe01eeed093cb22bb8f5acdc3"
+    },
+    {
+      "id": "A2-byte:notes/sub/nested.json",
+      "status": "pass",
+      "observed": "bb6cb5c68df4652941caf652a366f2d8"
+    },
+    {
+      "id": "A2-byte:notes/blob.bin",
+      "status": "pass",
+      "observed": "8a96f80afff8777c4d95ab953b3224d0"
+    },
+    {
+      "id": "A2-byte:notes/typed.json",
+      "status": "pass",
+      "observed": "bb6cb5c68df4652941caf652a366f2d8"
+    },
+    {
+      "id": "A2-ctype:hello.txt",
+      "status": "pass",
+      "observed": "text/plain"
+    },
+    {
+      "id": "A2-ctype:typed.json",
+      "status": "pass",
+      "observed": "text/plain"
+    },
+    {
+      "id": "A2-ctype:blob.bin",
+      "status": "pass",
+      "observed": "application/x-bin"
+    },
+    {
+      "id": "A2-empty-folder",
+      "status": "pass",
+      "observed": "notes/empty absent (listings omit empty folders)"
+    },
+    {
+      "id": "A2-sidecar",
+      "status": "pass",
+      "observed": "000_ not restored"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+=== B2 Notes Together @ 321c5a1 ===
+[4m>>>> Executing external compose provider "/home/jono/.nix-profile/bin/docker-compose". Please see podman-compose(1) for how to disable this message. <<<<
+
+[0m
+Running 1 test using 1 worker
+
+  ✓  1 explore/explore-nt.spec.ts:90:5 › B2 Notes Together: connect, create, server, second device, delete (26.3s)
+
+  1 passed (26.7s)
+--- checks ---
+pass	B2	
+wrote explore/sessions/notes-together/result.json; artifacts in explore/sessions/notes-together/artifacts

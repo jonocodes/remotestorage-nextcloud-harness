@@ -1,0 +1,10 @@
+{
+  "name": "rs-client-probe",
+  "private": true,
+  "dependencies": {
+    "rs-backup": "1.10.0"
+  },
+  "overrides": {
+    "webfinger.js": "2.7.1"
+  }
+}

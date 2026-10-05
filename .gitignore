@@ -1,3 +1,7 @@
 node_modules/
 runner/test-results/
 runner/playwright-report/
+
+# exploratory client checkouts and build outputs (explore/PLAN-explore.md)
+explore/clients/*/checkout/
+explore/sessions/*/artifacts/

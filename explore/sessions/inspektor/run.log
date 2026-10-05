@@ -1,0 +1,13 @@
+=== B3 RS Inspektor @ b499d16 ===
+seeded /b3/ (hello.json, notes.txt, pic.png, sub/deep.txt)
+[4m>>>> Executing external compose provider "/home/jono/.nix-profile/bin/docker-compose". Please see podman-compose(1) for how to disable this message. <<<<
+
+[0m
+Running 1 test using 1 worker
+
+  ✓  1 explore/explore-inspektor.spec.ts:65:5 › B3 RS Inspektor: connect, browse, view JSON + image, delete (13.9s)
+
+  1 passed (14.3s)
+--- checks ---
+pass	B3	
+wrote explore/sessions/inspektor/result.json; artifacts in explore/sessions/inspektor/artifacts
