@@ -54,7 +54,10 @@ check AT1f "WebFinger answered without a redirect" 1 "$hops"
 check AT6a "PUT into a storage with no root folder creates every parent" 201 "$(put notes/a/b/c.txt deep)"
 check AT6b "created parents are listed" "true" \
   "$(req -H "$RW" "$S/notes/a/" >/dev/null; jq -r '.items | has("b/")' /tmp/body)"
+etag6c="$(etag_of -H "$RW" "$S/notes/a/b/c.txt")"
 check AT6c "DELETE the only document (remoteStorage answers 200, not 204)" 200 "$(req -H "$RW" -X DELETE "$S/notes/a/b/c.txt")"
+# remoteStorage spec >= 2: the DELETE response carries the deleted document's ETag.
+check AT6c2 "DELETE response carries the deleted document's ETag" "$etag6c" "$(hdr etag)"
 check AT6d "empty parents pruned up to the module folder" 404 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/notes/")"
 check AT6i "GET of a missing folder lists it as empty" "200 0" "$(req -H "$RW" "$S/notes/") $(jq -r '.items | length' /tmp/body)"
 check AT6e "storage root itself is kept" 207 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/")"

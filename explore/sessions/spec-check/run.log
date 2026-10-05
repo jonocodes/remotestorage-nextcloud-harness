@@ -1,8 +1,8 @@
 === C1 spec-check @ e969675 ===
 [4m>>>> Executing external compose provider "/home/jono/.nix-profile/bin/docker-compose". Please see podman-compose(1) for how to disable this message. <<<<
 
-[0mError: executing /home/jono/.nix-profile/bin/docker-compose exec -T -e DOTENV_CONFIG_QUIET=true -e SERVER_URL=http://nextcloud -e ACCOUNT_HANDLE=rstest -e TOKEN_READ_WRITE=rs_itcbRzHVJXdNxmoZjAYZF5ghGf3nmWjzfCexQSTNs9u -e TOKEN_READ_ONLY=rs_jGEuYnWXPBaafmnM05TFyUrMTMGJF84JUC9jpjReTaw -e TOKEN_GLOBAL=rs_5DYca3QehywmX3dF38HYZY0UCnTPrS0uzrpSPNSftLk client-probe sh -c cd /harness/explore/clients/spec-check/checkout && npx mocha --reporter json > /harness/explore/sessions/spec-check/artifacts/mocha.json 2> /harness/explore/sessions/spec-check/artifacts/mocha.err: exit status 6
-spec-check: 64 passing, 6 pending, 6 failing
+[0mError: executing /home/jono/.nix-profile/bin/docker-compose exec -T -e DOTENV_CONFIG_QUIET=true -e SERVER_URL=http://nextcloud -e ACCOUNT_HANDLE=rstest -e TOKEN_READ_WRITE=rs_SY0XEW4VN9FHID6XxPqAQW8g5u25CCpAGeok0RbEg9m -e TOKEN_READ_ONLY=rs_qsZoluJuezMGFLs5PXjoUtQJwjirmkuCXA4zSJAxpG0 -e TOKEN_GLOBAL=rs_2AWbW5PGHR9hdTBYOytsqSxQNJER6qAyV3EpJ5FQHX3 client-probe sh -c cd /harness/explore/clients/spec-check/checkout && npx mocha --reporter json > /harness/explore/sessions/spec-check/artifacts/mocha.json 2> /harness/explore/sessions/spec-check/artifacts/mocha.err: exit status 4
+spec-check: 66 passing, 6 pending, 4 failing
 known failures: other user rejects HEAD; other user rejects GET; other user rejects PUT; other user rejects DELETE; delete without folder removes file; delete with folder removes file
 unexpected failures: []
 wrote explore/sessions/spec-check/result.json (raw: explore/sessions/spec-check/artifacts/mocha.json)

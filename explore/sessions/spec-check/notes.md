@@ -8,8 +8,9 @@ Run: `explore/clients/spec-check/run.sh` → `result.json` (pass), `artifacts/mo
 
 ## Result
 
-**64 passing, 6 pending, 6 failing — every failure is known and explained.** A second
-conformance data point alongside AT11's community `api-test-suite`.
+**66 passing, 6 pending, 4 failing — every failure is known and explained.** A second
+conformance data point alongside AT11's community `api-test-suite`. (The first run was
+64/6/6; the two DELETE-ETag cases below were fixed and now pass.)
 
 Tokens: `api-test-suite:rw`, `api-test-suite:r`, `*:rw` (issued with
 `occ remotestorage:token:issue`). WebFinger reported `draft-dejong-remotestorage-22`, so the
@@ -21,7 +22,7 @@ Covered and passing: OPTIONS preflight (CORS headers incl. `ETag` in
 update/delete, `If-Match`/`If-None-Match`, `Content-Range`, binary file, list, root folder,
 public folder with and without a token.
 
-## The 6 failures
+## The 4 failures
 
 **4 × "other user rejects HEAD/GET/PUT/DELETE" — vacuous test for this app's URL shape.**
 spec-check tries to retarget another account by replacing `/<account>` at the *end* of the
@@ -36,13 +37,10 @@ rstest *:rw token → /files/rsbackup2/remoteStorage/probe.txt
   GET 403   HEAD 403   DELETE 403   PUT 403      (nothing written to either account)
 ```
 
-**2 × "delete {without,with} folder removes file" — DELETE response carries no ETag.**
-spec-check (spec ≥ 2) expects the deleted item's ETag on the DELETE response
-(`generate.js:533`); Nextcloud core sends none on DELETE. This is the same deviation the
-harness recorded for T12 ("DELETE never carries an ETag"), and remoteStorage.js never reads
-one. **Genuine spec deviation, inherited from Nextcloud, low impact.** A candidate app
-improvement: the app already rewrites DELETE to answer 200, so it could also attach the ETag
-it read before deleting.
+**Fixed (was "delete {without,with} folder removes file").** spec-check (spec ≥ 2) expects the
+deleted item's ETag on the DELETE response; Nextcloud core sends none. The app now returns it
+(`RsPlugin::rememberDeleteETag` + `afterDelete`), so both cases pass. This was the only
+app-side gap the exploration found.
 
 ## Notes
 

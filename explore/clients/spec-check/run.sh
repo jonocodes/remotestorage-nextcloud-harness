@@ -43,13 +43,12 @@ dce \
 # dotenv can print a banner before the JSON; keep only from the first '{'.
 awk 'f || /^\{/ { f = 1; print }' "$ART/mocha.json" > "$ART/mocha.clean.json"
 
-# Known client/test assumptions that do not hold for this app's URL shape / Nextcloud:
+# Known client/test assumption that does not hold for this app's URL shape:
 #  - "other user rejects *": spec-check rewrites a baseURL ending in /<account>; ours
 #    ends in /remoteStorage, so no rewrite happens and it re-tests the same account.
 #    Cross-user rejection was verified separately (403, nothing written).
-#  - "delete * removes file": it expects an ETag on the DELETE response; Nextcloud core
-#    sends none, and remoteStorage.js never reads one (harness T12 amendment).
-KNOWN='["other user rejects HEAD","other user rejects GET","other user rejects PUT","other user rejects DELETE","delete without folder removes file","delete with folder removes file"]'
+# The DELETE-ETag cases now pass: the app returns the deleted document's ETag.
+KNOWN='["other user rejects HEAD","other user rejects GET","other user rejects PUT","other user rejects DELETE"]'
 
 stats="$(jq -r '"\(.stats.passes) passing, \(.stats.pending) pending, \(.stats.failures) failing"' "$ART/mocha.clean.json")"
 fail_titles="$(jq -c '[.failures[].fullTitle]' "$ART/mocha.clean.json")"
