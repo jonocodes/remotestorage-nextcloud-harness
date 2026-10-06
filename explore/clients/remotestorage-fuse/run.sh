@@ -63,7 +63,7 @@ log "base_url=$BASE_URL"
 cleanup() { dce client-probe sh -c 'umount /mnt/rs 2>/dev/null || fusermount -u /mnt/rs 2>/dev/null || true'; }
 trap cleanup EXIT
 
-dce -e B="$BASE_URL" -e T="$TOKEN" client-probe sh -c '
+T="$TOKEN" dce -e B="$BASE_URL" -e T client-probe sh -c '
   cd /harness/'"$ART"'
   M=/mnt/rs; mkdir -p "$M"; umount "$M" 2>/dev/null || true
   /harness/'"$CO"'/rs-mount -o base_url="$B",token="$T" "$M" 2>/tmp/mount.err
@@ -76,7 +76,7 @@ else
 fi
 
 # Capture the raw client behaviour (tolerate failures), plus the server's own listing.
-dce -e T="$TOKEN" client-probe sh -c '
+T="$TOKEN" dce -e T client-probe sh -c '
   { echo "--- ls -1 /mnt/rs ---"; ls -1 /mnt/rs 2>&1; } > /harness/'"$ART"'/ls-root.txt
   { echo "--- ls /mnt/rs/notes ---"; ls -la /mnt/rs/notes 2>&1; } > /harness/'"$ART"'/ls-notes.txt
   { echo "--- cat /mnt/rs/notes/hello.txt ---"; cat /mnt/rs/notes/hello.txt 2>&1; } > /harness/'"$ART"'/cat-hello.txt

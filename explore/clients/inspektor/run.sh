@@ -37,11 +37,11 @@ fi
 
 $DC up -d inspektor runner >/dev/null
 
-TOKEN="$(issue "$NC_USER" '*:rw')"
+export RS_TOKEN="$(issue "$NC_USER" '*:rw')"
 S="http://nextcloud/remote.php/dav/files/${NC_USER}/remoteStorage"
 # Seed a fixed tree (app token: PUT creates parents).
 dce curl-probe curl -sS -o /dev/null -u "${NC_USER}:${NC_PASS}" -X DELETE "$S/b3" || true
-dce -e T="$TOKEN" curl-probe sh -c '
+T="$RS_TOKEN" dce -e T curl-probe sh -c '
   S=http://nextcloud/remote.php/dav/files/rstest/remoteStorage/b3
   H="Authorization: Bearer $T"
   curl -sS -o /dev/null -H "$H" -X PUT -H "Content-Type: application/json" --data-binary "{\"greeting\":\"hi\",\"nested\":{\"n\":42}}" "$S/hello.json"
@@ -54,7 +54,7 @@ log "seeded /b3/ (hello.json, notes.txt, pic.png, sub/deep.txt)"
 
 dce \
   -e EXPLORE=inspektor -e APP_URL=http://inspektor -e NC_URL=http://nextcloud \
-  -e NC_USER="$NC_USER" -e NC_PASS="$NC_PASS" -e RS_TOKEN="$TOKEN" \
+  -e NC_USER="$NC_USER" -e NC_PASS="$NC_PASS" -e RS_TOKEN \
   -e EVIDENCE_DIR=/harness/"$ART" \
   -e PLAYWRIGHT_JSON_OUTPUT_NAME=/harness/"$OUT"/browser-raw.json \
   runner npx playwright test explore/explore-inspektor.spec.ts --reporter=json,list 2>&1 | tee -a "$LOG" || true

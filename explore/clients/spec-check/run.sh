@@ -30,14 +30,14 @@ git -C "$CO" checkout --quiet "$PIN"
 log "=== C1 spec-check @ ${PIN:0:7} ==="
 [ -d "$CO/node_modules" ] || dce client-probe sh -c "cd /harness/$CO && npm i --no-audit --no-fund" >> "$LOG" 2>&1
 
-RW="$(issue "$NC_USER" 'api-test-suite:rw')"
-RO="$(issue "$NC_USER" 'api-test-suite:r')"
-GL="$(issue "$NC_USER" '*:rw')"
+export TOKEN_READ_WRITE="$(issue "$NC_USER" 'api-test-suite:rw')"
+export TOKEN_READ_ONLY="$(issue "$NC_USER" 'api-test-suite:r')"
+export TOKEN_GLOBAL="$(issue "$NC_USER" '*:rw')"
 
 dce \
   -e DOTENV_CONFIG_QUIET=true \
   -e SERVER_URL=http://nextcloud -e ACCOUNT_HANDLE="$NC_USER" \
-  -e TOKEN_READ_WRITE="$RW" -e TOKEN_READ_ONLY="$RO" -e TOKEN_GLOBAL="$GL" \
+  -e TOKEN_READ_WRITE -e TOKEN_READ_ONLY -e TOKEN_GLOBAL \
   client-probe sh -c "cd /harness/$CO && npx mocha --reporter json > /harness/$ART/mocha.json 2> /harness/$ART/mocha.err" 2>>"$LOG" || true
 
 # dotenv can print a banner before the JSON; keep only from the first '{'.

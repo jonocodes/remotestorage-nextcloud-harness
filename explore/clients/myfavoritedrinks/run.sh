@@ -31,14 +31,14 @@ git -C "$CO" checkout --quiet "$PIN"
 log "=== B1 My Favorite Drinks @ ${PIN:0:7} ==="
 $DC up -d mfav runner >/dev/null
 
-TOKEN="$(issue "$NC_USER" '*:rw')"
+export RS_TOKEN="$(issue "$NC_USER" '*:rw')"
 # Start from a clean module (basic auth bypasses the app; folder DELETE works there).
 dce curl-probe curl -sS -o /dev/null -u "${NC_USER}:${NC_PASS}" \
   -X DELETE "http://nextcloud/remote.php/dav/files/${NC_USER}/remoteStorage/myfavoritedrinks" || true
 
 dce \
   -e EXPLORE=mfav -e APP_URL=http://mfav -e NC_URL=http://nextcloud \
-  -e NC_USER="$NC_USER" -e NC_PASS="$NC_PASS" -e RS_TOKEN="$TOKEN" \
+  -e NC_USER="$NC_USER" -e NC_PASS="$NC_PASS" -e RS_TOKEN \
   -e EVIDENCE_DIR=/harness/"$ART" \
   -e PLAYWRIGHT_JSON_OUTPUT_NAME=/harness/"$OUT"/browser-raw.json \
   runner npx playwright test explore/explore-mfav.spec.ts --reporter=json,list 2>&1 | tee -a "$LOG" || true

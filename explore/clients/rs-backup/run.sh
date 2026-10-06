@@ -29,11 +29,11 @@ basic() { # basic-auth WebDAV request against the source user
 }
 issue() { dce -u www-data nextcloud php occ remotestorage:token:issue "$1" "$2" explore 2>/dev/null | tr -d '\r\n'; }
 bear() { # bear <user> <path> <token> -> response body
-  dce -e U="$1" -e P="$2" -e T="$3" curl-probe \
+  T="$3" dce -e U="$1" -e P="$2" -e T curl-probe \
     sh -c 'curl -sS -H "Authorization: Bearer $T" "http://nextcloud/remote.php/dav/files/$U/remoteStorage/$P"'
 }
 bear_hash() { # bear_hash <user> <path> <token> -> md5 of body
-  dce -e U="$1" -e P="$2" -e T="$3" curl-probe \
+  T="$3" dce -e U="$1" -e P="$2" -e T curl-probe \
     sh -c 'curl -sS -H "Authorization: Bearer $T" "http://nextcloud/remote.php/dav/files/$U/remoteStorage/$P" | md5sum | cut -d" " -f1'
 }
 
@@ -58,7 +58,7 @@ dce curl-probe curl -sS -o /dev/null -H "Authorization: Bearer ${SRC_TOKEN}" \
 
 # --- backup ------------------------------------------------------------------------
 log "rs-backup: ${SRC_USER}@nextcloud -> /tmp/rs-backup"
-dce -e T="$SRC_TOKEN" client-probe sh -c 'rm -rf /tmp/rs-backup; rs-backup -o /tmp/rs-backup -u '"${SRC_USER}"'@nextcloud -t "$T"' 2>&1 | tee -a "$LOG"
+T="$SRC_TOKEN" dce -e T client-probe sh -c 'rm -rf /tmp/rs-backup; rs-backup -o /tmp/rs-backup -u '"${SRC_USER}"'@nextcloud -t "$T"' 2>&1 | tee -a "$LOG"
 backup_tree="$(dce client-probe sh -c 'cd /tmp/rs-backup 2>/dev/null && find . | sed "s|^\./||" | sort' | tr -d '\r')"
 
 # --- restore into a fresh account --------------------------------------------------
@@ -71,7 +71,7 @@ dce curl-probe curl -sS -o /dev/null -u "${DST_USER}:${DST_PASS}" \
   -X DELETE "http://nextcloud/remote.php/dav/files/${DST_USER}/remoteStorage" || true
 bear "$DST_USER" '' "$DST_TOKEN" >/dev/null || true
 log "rs-restore: /tmp/rs-backup -> ${DST_USER}@nextcloud"
-dce -e T="$DST_TOKEN" client-probe sh -c 'rs-restore -i /tmp/rs-backup -u '"${DST_USER}"'@nextcloud -t "$T"' 2>&1 | tee -a "$LOG"
+T="$DST_TOKEN" dce -e T client-probe sh -c 'rs-restore -i /tmp/rs-backup -u '"${DST_USER}"'@nextcloud -t "$T"' 2>&1 | tee -a "$LOG"
 
 # --- verify ------------------------------------------------------------------------
 FILES="notes/hello.txt notes/sub/nested.json notes/blob.bin notes/typed.json"

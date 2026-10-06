@@ -64,8 +64,10 @@ for version in "${VERSIONS[@]}"; do
     fi
     basic -X DELETE "$S" >/dev/null   # probes start from a user with no storage root
 
+    # Pass tokens by name: podman-compose echoes the whole exec command line on failure.
+    RS_TOKEN_RW="$(issue 'notes:rw')" RS_TOKEN_R="$(issue 'notes:r')" RS_TOKEN_ALL="$(issue '*:rw')" \
     docker compose exec -T \
-      -e RS_TOKEN_RW="$(issue 'notes:rw')" -e RS_TOKEN_R="$(issue 'notes:r')" -e RS_TOKEN_ALL="$(issue '*:rw')" \
+      -e RS_TOKEN_RW -e RS_TOKEN_R -e RS_TOKEN_ALL \
       -e WAP_ORIGIN="$wap_origin" \
       curl-probe bash /harness/app/probe.sh > "${out}-checks.json" || overall=1
     jq --argjson at10 "$at10" '. + [$at10]' "${out}-checks.json" > "${out}-checks.tmp" && mv "${out}-checks.tmp" "${out}-checks.json"
