@@ -228,16 +228,18 @@ test("AT12 unmodified remoteStorage.js: two devices connect, sync nested data, e
       await (window as any).rsSync();
     });
   }
-  const pruned = await dav.fetch(`${STORAGE}/notes/deep/`, { method: "PROPFIND", headers: { Depth: "0" } });
+  // The document is gone; its emptied parents stay on disk (the app does not prune
+  // them, to avoid racing a concurrent PUT) and listings hide them.
+  const deleted = await dav.fetch(`${STORAGE}/notes/deep/a/b.txt`, { method: "PROPFIND", headers: { Depth: "0" } });
   await b.close();
 
-  console.log(`[AT12] A connected=${a.connected} webdav-after-A=${JSON.stringify(afterA)}; B connected=${b.connected} B=${JSON.stringify(onB)} webdav-after-B=${JSON.stringify(afterB)}; deep-after-delete=${pruned.status()}`);
+  console.log(`[AT12] A connected=${a.connected} webdav-after-A=${JSON.stringify(afterA)}; B connected=${b.connected} B=${JSON.stringify(onB)} webdav-after-B=${JSON.stringify(afterB)}; document-after-delete=${deleted.status()}`);
   expect(a.connected).toBe(true);
   expect(afterA).toBe(first);
   expect(b.connected).toBe(true);
   expect(onB?.read).toBe(first);
   expect(onB?.conflicts).toEqual([]);
   expect(afterB).toBe(second);
-  expect(pruned.status()).toBe(404);
+  expect(deleted.status()).toBe(404);
   await dav.dispose();
 });

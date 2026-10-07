@@ -152,6 +152,13 @@ network and uses the service names: origin `http://origin`, API `http://nextclou
 still different origins, so CORS enforcement is identical; only the literal origin string
 differs, and `setup/webapppassword.sh` allow-lists `http://origin` accordingly.
 
+The app suite (`app/run.sh`) is the exception: the remoteStorage app accepts plain-http OAuth
+redirect URIs only on loopback hosts, so its browser tests load the origin as
+`http://localhost:8081`. The `loopback` service (Caddy, `origin/loopback.Caddyfile`) shares the
+runner's network namespace and forwards that port to `origin`. The `explore/` browser clients
+still use `http://mfav`, `http://nt` and so on, which the app now rejects; they need the same
+treatment before they are re-run.
+
 ## Result format
 
 `results/<version>-<variant>.json` is an array of:

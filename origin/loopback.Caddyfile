@@ -1,0 +1,11 @@
+# Runs in the runner's network namespace (compose service "loopback"), so the
+# browser reaches the test origin as http://localhost:8081. The app only allows
+# plain-http OAuth redirect URIs on loopback hosts.
+{
+	auto_https off
+	admin off
+}
+
+:8081 {
+	reverse_proxy origin:80
+}
