@@ -1,4 +1,5 @@
 import { test, expect, type Page, type Browser } from "@playwright/test";
+import { createHash, randomBytes } from "node:crypto";
 
 // PLAN-app.md browser cases against the real remoteStorage app:
 // AT2 OAuth consent, AT4 CORS from a page, AT12 unmodified remoteStorage.js.
@@ -242,4 +243,85 @@ test("AT12 unmodified remoteStorage.js: two devices connect, sync nested data, e
   expect(afterB).toBe(second);
   expect(deleted.status()).toBe(404);
   await dav.dispose();
+});
+
+// RFC 7636 S256, computed here: the browser over plain http://localhost:8081 is
+// not a secure context, so crypto.subtle is unavailable in the page.
+function base64url(buf: Buffer): string {
+  return buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+const TOKEN_URL = `${NC_URL}/index.php/apps/remotestorage/oauth/token`;
+
+async function exchangeCode(page: Page, body: URLSearchParams) {
+  return page.evaluate(async ({ url, body }) => {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+      credentials: "omit"
+    });
+    return { status: res.status, json: await res.json().catch(() => null) };
+  }, { url: TOKEN_URL, body: body.toString() });
+}
+
+// The server side of the PKCE code flow, end to end through the browser (so CORS
+// on the token endpoint is exercised). remoteStorage.js 2.0-beta has PKCE
+// plumbing but does not yet read the spec §10.1 WebFinger properties, so it never
+// selects this flow itself; the case drives it directly.
+test("AT13 PKCE: consent returns a code, the token endpoint redeems it once, the token works", async ({ browser }) => {
+  const verifier = base64url(randomBytes(32));
+  const challenge = base64url(createHash("sha256").update(verifier).digest());
+  const redirectUri = `${ORIGIN_URL}/callback.html`;
+
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto(oauthUrl({
+    response_type: "code",
+    code_challenge: challenge,
+    code_challenge_method: "S256",
+    state: "s-pkce"
+  }));
+  await loginIfAsked(page);
+  await page.locator("#remotestorage-allow").waitFor({ timeout: 20000 });
+  await dismissFirstRunWizard(page);
+  await page.click("#remotestorage-allow");
+  await page.waitForURL(
+    (url) => url.pathname === "/callback.html" && url.searchParams.has("code"),
+    { timeout: 20000 }
+  );
+
+  const redirected = new URL(page.url());
+  const code = redirected.searchParams.get("code") ?? "";
+  expect(redirected.searchParams.get("state")).toBe("s-pkce");
+
+  const body = () => new URLSearchParams({
+    grant_type: "authorization_code",
+    code,
+    client_id: ORIGIN_URL,
+    redirect_uri: redirectUri,
+    code_verifier: verifier
+  });
+  const exchange = await exchangeCode(page, body());
+  const accessToken = exchange.json?.access_token ?? "";
+
+  const put = await fetchFromOrigin(page, accessToken, "PUT", "notes/at13/pkce.txt", { body: "via pkce", headers: { "Content-Type": "text/plain" } });
+  const get = await fetchFromOrigin(page, accessToken, "GET", "notes/at13/pkce.txt");
+  const replay = await exchangeCode(page, body());
+  await fetchFromOrigin(page, accessToken, "DELETE", "notes/at13/pkce.txt");
+
+  console.log(`[AT13] code=${code.slice(0, 6)}… exchange=${exchange.status}/${JSON.stringify(exchange.json)} put=${put.status} get=${get.status}/${JSON.stringify(get.body)} replay=${replay.status}/${JSON.stringify(replay.json)}`);
+
+  expect(code).toMatch(/^[A-Za-z0-9]{43}$/);
+  expect(exchange.status).toBe(200);
+  expect(accessToken).toMatch(/^rs_[A-Za-z0-9]{43}$/);
+  expect(exchange.json?.token_type).toBe("bearer");
+  expect(exchange.json?.scope).toBe("notes:rw");
+  expect(put.status).toBe(201);
+  expect(get.status).toBe(200);
+  expect(get.body).toBe("via pkce");
+  // Single use: the code cannot be redeemed twice.
+  expect(replay.status).toBe(400);
+  expect(replay.json?.error).toBe("invalid_grant");
+  await context.close();
 });

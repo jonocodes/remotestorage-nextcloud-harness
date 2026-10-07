@@ -9,7 +9,7 @@
     "id": "AT4",
     "check": "AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the token",
     "status": "pass",
-    "observed": "[AT4] {\"put\":[201,\"\\\"e4d2328fcc393cf36d030282d60beede\\\"\"],\"get\":[200,\"\\\"e4d2328fcc393cf36d030282d60beede\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac69ee184ac8\\\"\"],\"stale\":412,\"del\":200}"
+    "observed": "[AT4] {\"put\":[201,\"\\\"6937aaaddc1ed5f4f5e06847b0b7ab75\\\"\"],\"get\":[200,\"\\\"6937aaaddc1ed5f4f5e06847b0b7ab75\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac6b16501464\\\"\"],\"stale\":412,\"del\":200}"
   },
   {
     "id": "AT2b",
@@ -27,12 +27,18 @@
     "id": "AT2d",
     "check": "AT2d settings: the token is listed and Disconnect revokes it",
     "status": "pass",
-    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-07 19:34 UTC 2026-10-07 19:34 UTC Disconnect\" remaining=0 after-revoke=401"
+    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-07 20:53 UTC 2026-10-07 20:53 UTC Disconnect\" remaining=0 after-revoke=401"
   },
   {
     "id": "AT12",
     "check": "AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete",
     "status": "pass",
-    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791401739661\"; B connected=true B={\"read\":\"at12 1791401739661\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791401739661 edited on device B\"; document-after-delete=404"
+    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791406478984\"; B connected=true B={\"read\":\"at12 1791406478984\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791406478984 edited on device B\"; document-after-delete=404"
+  },
+  {
+    "id": "AT13",
+    "check": "AT13 PKCE: consent returns a code, the token endpoint redeems it once, the token works",
+    "status": "pass",
+    "observed": "[AT13] code=VIr8eW… exchange=200/{\"access_token\":\"rs_i0B2CJhP3sh4dIVcMYVAp2FyIxxrfw4MGWDlParCsqE\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
   }
 ]
