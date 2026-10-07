@@ -54,7 +54,7 @@ declare global {
 }
 
 const NC_URL = process.env.NC_URL ?? "http://nextcloud";
-const ORIGIN_URL = process.env.ORIGIN_URL ?? "http://localhost";
+const ORIGIN_URL = process.env.ORIGIN_URL ?? "http://origin";
 const NC_USER = process.env.NC_USER ?? "rstest";
 const NC_PASS = process.env.NC_PASS ?? "rstest-pass";
 const VARIANT = process.env.VARIANT ?? "unknown";

@@ -2,7 +2,7 @@
 set -euo pipefail
 source "$(dirname "$0")/lib.sh"
 
-origin="${NC_CORS_ORIGIN:-http://localhost}"
+origin="${NC_CORS_ORIGIN:-http://origin}"
 foreign="${NC_FOREIGN_ORIGIN:-http://evil.example}"
 out="${RESULTS_DIR}/${NC_VERSION}-${VARIANT}-cors-headers.txt"
 file="${DAV_PREFIX}/cors-evidence.txt"

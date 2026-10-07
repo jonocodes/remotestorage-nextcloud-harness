@@ -44,14 +44,9 @@ services:
     working_dir: /harness/runner
     command: ["sleep", "infinity"]
     shm_size: "1gb"
-    # Share the origin's network namespace so the browser can use
-    # http://localhost as the client origin: the remoteStorage app requires
-    # HTTPS for non-loopback origins, and localhost keeps everything on http
-    # (no mixed content against http://nextcloud).
-    network_mode: "service:origin"
     environment:
       <<: *probe-environment
-      ORIGIN_URL: http://localhost
+      ORIGIN_URL: http://origin
       RESULTS_DIR: /harness/results
       HOME: /tmp
       VARIANT: ${VARIANT:-unknown}
@@ -62,6 +57,14 @@ services:
       # @playwright/test resolves; sessions are writable evidence.
       - ./explore/browser:/harness/runner/explore:ro
       - ./explore/sessions:/harness/explore/sessions
+
+  # Shares the runner's network namespace and forwards localhost:8081 to "origin":
+  # the app only accepts plain-http OAuth redirect URIs on loopback hosts.
+  loopback:
+    image: caddy:2-alpine
+    network_mode: service:runner
+    volumes:
+      - ./origin/loopback.Caddyfile:/etc/caddy/Caddyfile:ro
 
   # App origin for browser clients (explore/PLAN-explore.md). Serves the pinned
   # client build; distinct origin per app keeps rs.js localStorage from colliding.

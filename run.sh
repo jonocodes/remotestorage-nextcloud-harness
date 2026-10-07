@@ -6,7 +6,7 @@ export NC_USER="${NC_USER:-rstest}"
 export NC_PASS="${NC_PASS:-rstest-pass}"
 export NC_ADMIN_USER="${NC_ADMIN_USER:-admin}"
 export NC_ADMIN_PASSWORD="${NC_ADMIN_PASSWORD:-admin}"
-export NC_CORS_ORIGIN="${NC_CORS_ORIGIN:-http://localhost}"
+export NC_CORS_ORIGIN="${NC_CORS_ORIGIN:-http://origin}"
 
 read -r -a VERSIONS <<< "${VERSIONS:-35 34}"
 read -r -a VARIANTS <<< "${VARIANTS:-stock webapppassword}"

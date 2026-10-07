@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 // PLAN-app.md client check: unmodified remoteStorage.js against the rsspike
 // app. Runs only on the rsspike variant; the token is the spike's app-config
 // token (the spike has no OAuth page yet).
-const ORIGIN_URL = process.env.ORIGIN_URL ?? "http://localhost";
+const ORIGIN_URL = process.env.ORIGIN_URL ?? "http://origin";
 const VARIANT = process.env.VARIANT ?? "unknown";
 const TOKEN = process.env.RS_TOKEN ?? "spike-token-notes-rw";
 

@@ -50,7 +50,7 @@ check AT1e "every WebFinger response a browser sees carries CORS (redirects incl
 # opaque response, so any redirect breaks discovery whatever its headers.
 check AT1f "WebFinger answered without a redirect" 1 "$hops"
 
-# --- AT6 PUT creates parents, DELETE prunes them -----------------------------
+# --- AT6 PUT creates parents; DELETE leaves emptied parents (listings hide them) ---
 check AT6a "PUT into a storage with no root folder creates every parent" 201 "$(put notes/a/b/c.txt deep)"
 check AT6b "created parents are listed" "true" \
   "$(req -H "$RW" "$S/notes/a/" >/dev/null; jq -r '.items | has("b/")' /tmp/body)"
@@ -58,13 +58,15 @@ etag6c="$(etag_of -H "$RW" "$S/notes/a/b/c.txt")"
 check AT6c "DELETE the only document (remoteStorage answers 200, not 204)" 200 "$(req -H "$RW" -X DELETE "$S/notes/a/b/c.txt")"
 # remoteStorage spec >= 2: the DELETE response carries the deleted document's ETag.
 check AT6c2 "DELETE response carries the deleted document's ETag" "$etag6c" "$(hdr etag)"
-check AT6d "empty parents are left on disk (remoteStorage listings omit them)" 207 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/notes/")"
-check AT6i "GET of a missing folder lists it as empty" "200 0" "$(req -H "$RW" "$S/notes/") $(jq -r '.items | length' /tmp/body)"
+check AT6d "emptied parents stay on disk (no pruning race with a concurrent PUT)" 207 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/notes/")"
+check AT6i "a folder holding only empty folders lists as empty" "200 0" "$(req -H "$RW" "$S/notes/") $(jq -r '.items | length' /tmp/body)"
 check AT6e "storage root itself is kept" 207 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/")"
 put notes/doc.txt doc >/dev/null
 check AT6f "PUT below a document" 409 "$(put notes/doc.txt/x.txt x)"
 check AT6g "PUT to a folder path" 405 "$(req -H "$RW" -X PUT --data-binary x "$S/notes/")"
 check AT6h "DELETE a folder path" 405 "$(req -H "$RW" -X DELETE "$S/notes/")"
+check AT6j "DELETE of a folder without its slash is refused and the folder kept" "404 207" \
+  "$(req -H "$RW" -X DELETE "$S/notes/a") $(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/notes/a/")"
 
 # --- AT3 scopes --------------------------------------------------------------
 check AT3a "notes:r reads notes" 200 "$(req -H "$RO" "$S/notes/doc.txt")"
@@ -75,6 +77,8 @@ check AT3e "*:rw lists the root" 200 "$(req -H "$ALL" "$S/")"
 check AT3f "notes:rw writes public/notes/" 201 "$(put public/notes/p.txt pub)"
 check AT3g "notes:rw cannot write public/photos/" 403 "$(req -H "$RW" -X PUT --data-binary x "$S/public/photos/p.jpg")"
 check AT3h "token cannot reach files outside the root" 403 "$(req -H "$ALL" "${S%/remoteStorage}/")"
+check AT3j "a storage path nested deeper in the URL is not the storage root" 403 \
+  "$(req -H "$ALL" -X PUT --data-binary x "${S%/remoteStorage}/Documents/remote.php/dav/files/${NC_USER:-rstest}/remoteStorage/notes/x.txt")"
 check AT3i "WebDAV methods outside remoteStorage are refused" 405 "$(req -H "$ALL" -X PROPFIND -H 'Depth: 1' "$S/")"
 
 # --- AT5 listings and ETags ----------------------------------------------------
@@ -90,8 +94,8 @@ check AT5c "listing document ETag = getetag without quotes" "$(propfind_etag not
 check AT5d "listing subfolder ETag = getetag without quotes" "$(propfind_etag notes/sub/ | tr -d '"')" "$listing_sub"
 check AT5e "folder ETag header = folder getetag" "$(propfind_etag notes/)" "$folder_etag"
 check AT5f "document ETag header = getetag" "$(propfind_etag notes/doc.txt)" "$(etag_of -H "$RW" "$S/notes/doc.txt")"
-check AT5g "folder path without its slash is not a listing" 404 "$(req -H "$ALL" "$S/notes")"
-check AT5i "a module token does not reach a slashless root path" 403 "$(req -H "$RW" "$S/notes")"
+check AT5g "notes:rw does not cover /notes without its slash (a root document)" 403 "$(req -H "$RW" "$S/notes")"
+check AT5g2 "folder path without its slash is not a listing" 404 "$(req -H "$RW" "$S/notes/sub")"
 put_typed() { curl -s -o /dev/null -w '%{http_code}' -H "$RW" -X PUT -H "Content-Type: $2" --data-binary "$3" "$S/$1"; }
 put_typed notes/typed.json 'application/json; charset=utf-8' '{"a":1}' >/dev/null
 check AT5h "a document keeps the Content-Type it was PUT with (GET, HEAD, listing)" \
