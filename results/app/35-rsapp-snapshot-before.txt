@@ -4,8 +4,8 @@ body f16d05ec6b29248d
 content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
 content-length: 7
 content-type: text/plain;charset=utf-8
-etag: "ab119f784b5788292414e152ae39c547"
-oc-etag: "ab119f784b5788292414e152ae39c547"
+etag: "a54e0ecf39e1eb8407ad98e3020b1a3d"
+oc-etag: "a54e0ecf39e1eb8407ad98e3020b1a3d"
 referrer-policy: no-referrer
 server: apache/2.4.68 (debian)
 x-accel-buffering: no
@@ -21,8 +21,8 @@ body f16d05ec6b29248d
 content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
 content-length: 7
 content-type: text/plain;charset=utf-8
-etag: "ab119f784b5788292414e152ae39c547"
-oc-etag: "ab119f784b5788292414e152ae39c547"
+etag: "a54e0ecf39e1eb8407ad98e3020b1a3d"
+oc-etag: "a54e0ecf39e1eb8407ad98e3020b1a3d"
 referrer-policy: no-referrer
 server: apache/2.4.68 (debian)
 x-accel-buffering: no
@@ -48,7 +48,7 @@ x-robots-tag: noindex, nofollow
 x-user-id: rstest
 ## PROPFIND root depth 1
 status 207
-body 7bca2903ca6bfa1c
+body 372eaa76efe3fdbf
 content-length: 1021
 content-type: application/xml; charset=utf-8
 dav: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-paginate, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar, 2
@@ -63,7 +63,7 @@ x-robots-tag: noindex, nofollow
 x-user-id: rstest
 ## PROPFIND folder depth 1 with Origin
 status 207
-body 62c7adb85fef0e59
+body 040dca07c42d3d63
 content-length: 1020
 content-type: application/xml; charset=utf-8
 dav: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-paginate, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar, 2
@@ -82,8 +82,8 @@ body n/a (HEAD)
 content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
 content-length: 7
 content-type: text/plain;charset=utf-8
-etag: "ab119f784b5788292414e152ae39c547"
-oc-etag: "ab119f784b5788292414e152ae39c547"
+etag: "a54e0ecf39e1eb8407ad98e3020b1a3d"
+oc-etag: "a54e0ecf39e1eb8407ad98e3020b1a3d"
 referrer-policy: no-referrer
 server: apache/2.4.68 (debian)
 x-accel-buffering: no
@@ -100,8 +100,8 @@ body f16d05ec6b29248d
 content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
 content-length: 7
 content-type: text/plain;charset=utf-8
-etag: "ab119f784b5788292414e152ae39c547"
-oc-etag: "ab119f784b5788292414e152ae39c547"
+etag: "a54e0ecf39e1eb8407ad98e3020b1a3d"
+oc-etag: "a54e0ecf39e1eb8407ad98e3020b1a3d"
 referrer-policy: no-referrer
 server: apache/2.4.68 (debian)
 x-accel-buffering: no

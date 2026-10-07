@@ -74,7 +74,10 @@ for version in "${VERSIONS[@]}"; do
     at11="$(./app/api-test-suite.sh "${out}-api-test-suite.txt")"
     jq --argjson at11 "$at11" '. + [$at11]' "${out}-checks.json" > "${out}-checks.tmp" && mv "${out}-checks.tmp" "${out}-checks.json"
 
+    # The app accepts plain-http OAuth redirect URIs only on loopback hosts, so the
+    # browser reaches the test origin through the "loopback" proxy (compose.yaml).
     docker compose exec -T -e VARIANT="$variant" -e NC_VERSION="$version" \
+      -e ORIGIN_URL=http://localhost:8081 \
       -e PLAYWRIGHT_JSON_OUTPUT_NAME="/harness/results/app/${version}-${variant}-browser-raw.json" \
       runner npx playwright test app.spec.ts --reporter=json,list >/dev/null || overall=1
     jq '[.suites[].specs[] | {id: (.title | split(" ")[0]), check: .title,
