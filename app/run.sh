@@ -12,7 +12,7 @@ cd "$(dirname "$0")/.."
 
 export NC_USER="${NC_USER:-rstest}" NC_PASS="${NC_PASS:-rstest-pass}"
 export NC_ADMIN_USER="${NC_ADMIN_USER:-admin}" NC_ADMIN_PASSWORD="${NC_ADMIN_PASSWORD:-admin}"
-export NC_CORS_ORIGIN="${NC_CORS_ORIGIN:-http://origin}"
+export NC_CORS_ORIGIN="${NC_CORS_ORIGIN:-http://localhost}"
 export RS_APP_DIR="$(cd "${RS_APP_DIR:-../nextcloud-remotestorage}" && pwd)"
 read -r -a VERSIONS <<< "${VERSIONS:-35 34}"
 read -r -a VARIANTS <<< "${VARIANTS:-rsapp rsapp+webapppassword}"

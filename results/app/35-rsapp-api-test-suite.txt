@@ -8,52 +8,52 @@
 /usr/local/bundle/gems/json-1.8.6/lib/json/common.rb:155: warning: Using the last argument as keyword parameters is deprecated
 /usr/local/bundle/gems/json-1.8.6/lib/json/common.rb:155: warning: Using the last argument as keyword parameters is deprecated
 /usr/local/lib/ruby/2.7.0/net/http/generic_request.rb:186: warning: net/http: Content-Type did not set; using application/x-www-form-urlencoded
-Started with run options --seed 12620
+Started with run options --seed 54321
 
 OPTIONS::GET
-  test_0001_returns a valid response                              PASS (0.03s)
+  test_0001_returns a valid response                              PASS (0.02s)
 
 OPTIONS::PUT and DELETE
   test_0001_returns a valid response                              PASS (0.03s)
 
 Requests::PUT a JSON object
-  test_0001_works                                                 PASS (0.46s)
+  test_0001_works                                                 PASS (0.13s)
 
 Requests::PUT with nested folder
-  test_0001_works                                                 PASS (0.37s)
+  test_0001_works                                                 PASS (0.10s)
 
 Requests::updating that JSON object
-  test_0001_works                                                 PASS (0.52s)
+  test_0001_works                                                 PASS (0.19s)
 
 Requests::PUT with same name as existing directory
-  test_0001_returns a 409                                         PASS (0.06s)
+  test_0001_returns a 409                                         PASS (0.03s)
 
 Requests::PUT with Content-Range
-  test_0001_returns a 400                                         PASS (0.14s)
+  test_0001_returns a 400                                         PASS (0.04s)
 
 Requests::PUT with same directory name as existing object
-  test_0001_returns a 409                                         PASS (0.25s)
+  test_0001_returns a 409                                         PASS (0.09s)
 
 Requests::PUT with matching If-Match header
-  test_0001_updates the object                                    PASS (0.42s)
+  test_0001_updates the object                                    PASS (0.10s)
 
 Requests::PUT with non-matching If-Match header
-  test_0001_returns 412                                           PASS (0.07s)
+  test_0001_returns 412                                           PASS (0.03s)
 
 Requests::PUT with If-Match header to non-existing object
   test_0001_returns 412                                           PASS (0.02s)
 
 Requests::PUT with If-None-Match header to existing object
-  test_0001_returns 412                                           PASS (0.07s)
+  test_0001_returns 412                                           PASS (0.03s)
 
 Requests::PUT with If-None-Match header to non-existing object
-  test_0001_works                                                 PASS (0.30s)
+  test_0001_works                                                 PASS (0.07s)
 
 Requests::GET a JSON object
-  test_0001_works                                                 PASS (0.10s)
+  test_0001_works                                                 PASS (0.04s)
 
 Requests::GET a JSON object while accepting compressed content
-  test_0001_works                                                 PASS (0.10s)
+  test_0001_works                                                 PASS (0.03s)
 
 Requests::GET with If-None-Match header
   test_0001_returns 304 with empty body when ETag matches         PASS (0.04s)
@@ -65,10 +65,10 @@ Requests::HEAD a JSON object
   test_0001_works                                                 PASS (0.02s)
 
 Requests::PUT a JPG image
-  test_0001_works                                                 PASS (0.35s)
+  test_0001_works                                                 PASS (0.10s)
 
 Requests::GET a JPG image
-  test_0001_works                                                 PASS (0.09s)
+  test_0001_works                                                 PASS (0.04s)
 
 Requests::GET a non-existing object
   test_0001_returns a 404                                         PASS (0.02s)
@@ -83,7 +83,7 @@ Requests::GET directory listing
 Requests::PUT a JSON object to root dir
 PUT request failed with: 403 Forbidden
   test_0001_fails with normal token                               PASS (0.02s)
-  test_0002_works with root token                                 PASS (0.24s)
+  test_0002_works with root token                                 PASS (0.07s)
 
 Requests::HEAD directory listing of root dir
   test_0001_works                                                 PASS (0.02s)
@@ -93,7 +93,7 @@ Requests::GET directory listing of root dir
   test_0002_contains the correct items                            PASS (0.02s)
 
 Requests::DELETE object in root dir
-  test_0001_works                                                 PASS (0.35s)
+  test_0001_works                                                 PASS (0.11s)
 
 Requests::GET directory listing with If-None-Match header
   test_0001_returns 304 with empty body when ETag matches         PASS (0.04s)
@@ -111,7 +111,7 @@ DELETE request failed with: 403 Forbidden
   test_0001_should fail                                           PASS (0.05s)
 
 Requests::using a read-only token::GET
-  test_0001_works                                                 PASS (0.11s)
+  test_0001_works                                                 PASS (0.04s)
 
 Requests::using a read-only token::HEAD
   test_0001_works                                                 PASS (0.02s)
@@ -125,14 +125,14 @@ DELETE request failed with: 403 Forbidden
   test_0001_fails                                                 PASS (0.02s)
 
 Requests::in a public folder::PUT with a read/write category token
-  test_0001_works                                                 PASS (0.42s)
+  test_0001_works                                                 PASS (0.11s)
 
 Requests::in a public folder::PUT with a read/write category token to wrong category
 PUT request failed with: 403 Forbidden
   test_0001_fails                                                 PASS (0.02s)
 
 Requests::in a public folder::GET without a token
-  test_0001_works                                                 PASS (0.11s)
+  test_0001_works                                                 PASS (0.04s)
 
 Requests::in a public folder::HEAD without a token
   test_0001_works                                                 PASS (0.02s)
@@ -146,12 +146,12 @@ GET request failed with: 401 Unauthorized
   test_0001_is not allowed                                        PASS (0.01s)
 GET request failed with: 401 Unauthorized
 GET request failed with: 401 Unauthorized
-  test_0002_doesn't expose if folder is empty                     FAIL (0.04s)
+  test_0002_doesn't expose if folder is empty                     FAIL (0.03s)
 Minitest::Assertion:         --- expected
         +++ actual
         @@ -1 +1 @@
-        -{:date=>"Sun, 04 Oct 2026 04:04:00 GMT", :server=>"Apache/2.4.68 (Debian)", :x_content_type_options=>"nosniff", :x_frame_options=>"SAMEORIGIN", :x_permitted_cross_domain_policies=>"none", :x_robots_tag=>"noindex, nofollow", :referrer_policy=>"no-referrer", :x_powered_by=>"PHP/8.5.11", :set_cookie=>["oclxl7t34wbd=<redacted>; path=/; HttpOnly; SameSite=Lax", "oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax", "oclxl7t34wbd=<redacted>; path=/; HttpOnly; SameSite=Lax", "nc_sameSiteCookielax=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax", "nc_sameSiteCookiestrict=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict", "oclxl7t34wbd=<redacted>; path=/; HttpOnly; SameSite=Lax"], :content_security_policy=>"default-src 'none';", :www_authenticate=>"Basic realm=\"Nextcloud\", charset=\"UTF-8\"", :content_length=>"660", :content_type=>"application/xml; charset=utf-8"}
-        +{:date=>"Sun, 04 Oct 2026 04:04:00 GMT", :server=>"Apache/2.4.68 (Debian)", :x_content_type_options=>"nosniff", :x_frame_options=>"SAMEORIGIN", :x_permitted_cross_domain_policies=>"none", :x_robots_tag=>"noindex, nofollow", :referrer_policy=>"no-referrer", :x_powered_by=>"PHP/8.5.11", :set_cookie=>["oclxl7t34wbd=<redacted>; path=/; HttpOnly; SameSite=Lax", "oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax", "oclxl7t34wbd=<redacted>; path=/; HttpOnly; SameSite=Lax", "nc_sameSiteCookielax=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax", "nc_sameSiteCookiestrict=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict", "oclxl7t34wbd=<redacted>; path=/; HttpOnly; SameSite=Lax"], :content_security_policy=>"default-src 'none';", :www_authenticate=>"Basic realm=\"Nextcloud\", charset=\"UTF-8\"", :content_length=>"660", :content_type=>"application/xml; charset=utf-8"}
+        -{:date=>"Wed, 07 Oct 2026 20:19:39 GMT", :server=>"Apache/2.4.68 (Debian)", :x_content_type_options=>"nosniff", :x_frame_options=>"SAMEORIGIN", :x_permitted_cross_domain_policies=>"none", :x_robots_tag=>"noindex, nofollow", :referrer_policy=>"no-referrer", :x_powered_by=>"PHP/8.5.11", :set_cookie=>["ocsabhyy1x1i=<redacted>; path=/; HttpOnly; SameSite=Lax", "oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax", "ocsabhyy1x1i=<redacted>; path=/; HttpOnly; SameSite=Lax", "nc_sameSiteCookielax=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax", "nc_sameSiteCookiestrict=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict", "ocsabhyy1x1i=<redacted>; path=/; HttpOnly; SameSite=Lax"], :content_security_policy=>"default-src 'none';", :www_authenticate=>"Basic realm=\"Nextcloud\", charset=\"UTF-8\"", :content_length=>"660", :content_type=>"application/xml; charset=utf-8"}
+        +{:date=>"Wed, 07 Oct 2026 20:19:39 GMT", :server=>"Apache/2.4.68 (Debian)", :x_content_type_options=>"nosniff", :x_frame_options=>"SAMEORIGIN", :x_permitted_cross_domain_policies=>"none", :x_robots_tag=>"noindex, nofollow", :referrer_policy=>"no-referrer", :x_powered_by=>"PHP/8.5.11", :set_cookie=>["ocsabhyy1x1i=<redacted>; path=/; HttpOnly; SameSite=Lax", "oc_sessionPassphrase=<redacted>; path=/; HttpOnly; SameSite=Lax", "ocsabhyy1x1i=<redacted>; path=/; HttpOnly; SameSite=Lax", "nc_sameSiteCookielax=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax", "nc_sameSiteCookiestrict=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict", "ocsabhyy1x1i=<redacted>; path=/; HttpOnly; SameSite=Lax"], :content_security_policy=>"default-src 'none';", :www_authenticate=>"Basic realm=\"Nextcloud\", charset=\"UTF-8\"", :content_length=>"660", :content_type=>"application/xml; charset=utf-8"}
         (eval):8:in `must_equal'
         /suite/api_spec.rb:628:in `block (4 levels) in <top (required)>'
 
@@ -164,10 +164,10 @@ DELETE request failed with: 401 Unauthorized
   test_0001_is not allowed                                        PASS (0.01s)
 
 Requests::in a public folder::DELETE with a read/write category token
-  test_0001_works                                                 PASS (0.50s)
+  test_0001_works                                                 PASS (0.09s)
 
 Requests::DELETE objects
-  test_0001_works                                                 PASS (1.38s)
+  test_0001_works                                                 PASS (0.43s)
 
 Requests::DELETE a non-existing object
   test_0001_returns a 404                                         PASS (0.02s)
@@ -176,12 +176,12 @@ Requests::DELETE with non-matching If-Match header
   test_0001_does not delete the object                            PASS (0.04s)
 
 Requests::DELETE with matching If-Match header
-  test_0001_deletes the object                                    PASS (0.50s)
+  test_0001_deletes the object                                    PASS (0.11s)
 
 Requests::DELETE with If-Match header to non-existing object
   test_0001_returns 412                                           PASS (0.02s)
 
-Finished in 7.64221s
+Finished in 2.76514s
 53 tests, 263 assertions, 1 failures, 0 errors, 0 skips
 rake aborted!
 Command failed with status (1)

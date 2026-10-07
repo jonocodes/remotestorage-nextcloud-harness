@@ -58,7 +58,7 @@ etag6c="$(etag_of -H "$RW" "$S/notes/a/b/c.txt")"
 check AT6c "DELETE the only document (remoteStorage answers 200, not 204)" 200 "$(req -H "$RW" -X DELETE "$S/notes/a/b/c.txt")"
 # remoteStorage spec >= 2: the DELETE response carries the deleted document's ETag.
 check AT6c2 "DELETE response carries the deleted document's ETag" "$etag6c" "$(hdr etag)"
-check AT6d "empty parents pruned up to the module folder" 404 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/notes/")"
+check AT6d "empty parents are left on disk (remoteStorage listings omit them)" 207 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/notes/")"
 check AT6i "GET of a missing folder lists it as empty" "200 0" "$(req -H "$RW" "$S/notes/") $(jq -r '.items | length' /tmp/body)"
 check AT6e "storage root itself is kept" 207 "$(req "${BASIC[@]}" -X PROPFIND -H 'Depth: 0' "$S/")"
 put notes/doc.txt doc >/dev/null
@@ -90,7 +90,8 @@ check AT5c "listing document ETag = getetag without quotes" "$(propfind_etag not
 check AT5d "listing subfolder ETag = getetag without quotes" "$(propfind_etag notes/sub/ | tr -d '"')" "$listing_sub"
 check AT5e "folder ETag header = folder getetag" "$(propfind_etag notes/)" "$folder_etag"
 check AT5f "document ETag header = getetag" "$(propfind_etag notes/doc.txt)" "$(etag_of -H "$RW" "$S/notes/doc.txt")"
-check AT5g "folder path without its slash is not a listing" 404 "$(req -H "$RW" "$S/notes")"
+check AT5g "folder path without its slash is not a listing" 404 "$(req -H "$ALL" "$S/notes")"
+check AT5i "a module token does not reach a slashless root path" 403 "$(req -H "$RW" "$S/notes")"
 put_typed() { curl -s -o /dev/null -w '%{http_code}' -H "$RW" -X PUT -H "Content-Type: $2" --data-binary "$3" "$S/$1"; }
 put_typed notes/typed.json 'application/json; charset=utf-8' '{"a":1}' >/dev/null
 check AT5h "a document keeps the Content-Type it was PUT with (GET, HEAD, listing)" \

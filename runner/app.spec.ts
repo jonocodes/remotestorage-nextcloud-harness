@@ -1,9 +1,12 @@
 import { test, expect, type Page, type Browser } from "@playwright/test";
+import { createHash, randomBytes } from "node:crypto";
+import { createServer } from "node:http";
+import { type AddressInfo } from "node:net";
 
 // PLAN-app.md browser cases against the real remoteStorage app:
 // AT2 OAuth consent, AT4 CORS from a page, AT12 unmodified remoteStorage.js.
 const NC_URL = process.env.NC_URL ?? "http://nextcloud";
-const ORIGIN_URL = process.env.ORIGIN_URL ?? "http://origin";
+const ORIGIN_URL = process.env.ORIGIN_URL ?? "http://localhost";
 const NC_USER = process.env.NC_USER ?? "rstest";
 const NC_PASS = process.env.NC_PASS ?? "rstest-pass";
 const VARIANT = process.env.VARIANT ?? "unknown";
@@ -228,16 +231,117 @@ test("AT12 unmodified remoteStorage.js: two devices connect, sync nested data, e
       await (window as any).rsSync();
     });
   }
+  // #5: the app leaves emptied parent folders on disk (remoteStorage listings
+  // omit them); only the document must be gone.
+  const deleted = await dav.get(`${STORAGE}/notes/deep/a/b.txt`);
   const pruned = await dav.fetch(`${STORAGE}/notes/deep/`, { method: "PROPFIND", headers: { Depth: "0" } });
   await b.close();
 
-  console.log(`[AT12] A connected=${a.connected} webdav-after-A=${JSON.stringify(afterA)}; B connected=${b.connected} B=${JSON.stringify(onB)} webdav-after-B=${JSON.stringify(afterB)}; deep-after-delete=${pruned.status()}`);
+  console.log(`[AT12] A connected=${a.connected} webdav-after-A=${JSON.stringify(afterA)}; B connected=${b.connected} B=${JSON.stringify(onB)} webdav-after-B=${JSON.stringify(afterB)}; doc-after-delete=${deleted.status()} empty-parent=${pruned.status()}`);
   expect(a.connected).toBe(true);
   expect(afterA).toBe(first);
   expect(b.connected).toBe(true);
   expect(onB?.read).toBe(first);
   expect(onB?.conflicts).toEqual([]);
   expect(afterB).toBe(second);
-  expect(pruned.status()).toBe(404);
+  expect(deleted.status()).toBe(404);
+  expect(pruned.status()).toBe(207);
   await dav.dispose();
+});
+
+// RFC 7636 S256, in the test process (a browser over plain http:// is not a
+// secure context, so crypto.subtle is unavailable there).
+function base64url(buf: Buffer): string {
+  return buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+const TOKEN_URL = `${NC_URL}/index.php/apps/remotestorage/oauth/token`;
+
+async function exchangeCode(page: Page, body: URLSearchParams) {
+  return page.evaluate(async ({ url, body }) => {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+      credentials: "omit"
+    });
+    return { status: res.status, json: await res.json().catch(() => null) };
+  }, { url: TOKEN_URL, body: body.toString() });
+}
+
+// The server side of the PKCE code flow, end to end, through the browser (so
+// CORS on the token endpoint is exercised). Note: remoteStorage.js 2.0-beta
+// has PKCE plumbing but does not yet read the spec §10.1 WebFinger properties,
+// so it never selects this flow itself — hence this drives it directly.
+//
+// The app only accepts an HTTP redirect origin when it is loopback (it requires
+// HTTPS otherwise), so the test runs its own callback server on 127.0.0.1 (the
+// browser and this process share the runner container's network).
+test("AT13 PKCE: consent returns a code, the token endpoint redeems it once, the token works", async ({ browser }) => {
+  const verifier = base64url(randomBytes(32));
+  const challenge = base64url(createHash("sha256").update(verifier).digest());
+
+  let code = "";
+  const server = createServer((req, res) => {
+    const url = new URL(req.url ?? "/", "http://127.0.0.1");
+    if (url.pathname === "/callback") {
+      code = url.searchParams.get("code") ?? "";
+    }
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end("<!doctype html>callback");
+  });
+  await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
+  const origin = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+  const redirectUri = `${origin}/callback`;
+
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  try {
+    await page.goto(oauthUrl({
+      client_id: origin,
+      redirect_uri: redirectUri,
+      response_type: "code",
+      code_challenge: challenge,
+      code_challenge_method: "S256",
+      state: "s-pkce"
+    }));
+    await loginIfAsked(page);
+    await page.locator("#remotestorage-allow").waitFor({ timeout: 20000 });
+    await dismissFirstRunWizard(page);
+    await page.click("#remotestorage-allow");
+    await expect.poll(() => code, { timeout: 20000 }).not.toBe("");
+    expect(new URL(page.url()).searchParams.get("state")).toBe("s-pkce");
+
+    const body = () => new URLSearchParams({
+      grant_type: "authorization_code",
+      code,
+      client_id: origin,
+      redirect_uri: redirectUri,
+      code_verifier: verifier
+    });
+    const exchange = await exchangeCode(page, body());
+    const accessToken = exchange.json?.access_token ?? "";
+
+    const put = await fetchFromOrigin(page, accessToken, "PUT", "notes/at13/pkce.txt", { body: "via pkce", headers: { "Content-Type": "text/plain" } });
+    const get = await fetchFromOrigin(page, accessToken, "GET", "notes/at13/pkce.txt");
+    const replay = await exchangeCode(page, body());
+    await fetchFromOrigin(page, accessToken, "DELETE", "notes/at13/pkce.txt");
+
+    console.log(`[AT13] code=${code.slice(0, 6)}… exchange=${exchange.status}/${JSON.stringify(exchange.json)} put=${put.status} get=${get.status}/${JSON.stringify(get.body)} replay=${replay.status}/${JSON.stringify(replay.json)}`);
+
+    expect(code).toMatch(/^[A-Za-z0-9]{43}$/);
+    expect(exchange.status).toBe(200);
+    expect(accessToken).toMatch(/^rs_[A-Za-z0-9]{43}$/);
+    expect(exchange.json?.token_type).toBe("bearer");
+    expect(exchange.json?.scope).toBe("notes:rw");
+    expect(put.status).toBe(201);
+    expect(get.status).toBe(200);
+    expect(get.body).toBe("via pkce");
+    // Single use: the code cannot be redeemed twice.
+    expect(replay.status).toBe(400);
+    expect(replay.json?.error).toBe("invalid_grant");
+  } finally {
+    await context.close();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }
 });

@@ -44,9 +44,14 @@ services:
     working_dir: /harness/runner
     command: ["sleep", "infinity"]
     shm_size: "1gb"
+    # Share the origin's network namespace so the browser can use
+    # http://localhost as the client origin: the remoteStorage app requires
+    # HTTPS for non-loopback origins, and localhost keeps everything on http
+    # (no mixed content against http://nextcloud).
+    network_mode: "service:origin"
     environment:
       <<: *probe-environment
-      ORIGIN_URL: http://origin
+      ORIGIN_URL: http://localhost
       RESULTS_DIR: /harness/results
       HOME: /tmp
       VARIANT: ${VARIANT:-unknown}

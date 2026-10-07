@@ -63,10 +63,17 @@
     "status": "pass"
   },
   {
+    "id": "AT6c2",
+    "check": "DELETE response carries the deleted document's ETag",
+    "expected": "\"950839208ef39b7ec24774be7a68fd36\"",
+    "observed": "\"950839208ef39b7ec24774be7a68fd36\"",
+    "status": "pass"
+  },
+  {
     "id": "AT6d",
-    "check": "empty parents pruned up to the module folder",
-    "expected": "404",
-    "observed": "404",
+    "check": "empty parents are left on disk (remoteStorage listings omit them)",
+    "expected": "207",
+    "observed": "207",
     "status": "pass"
   },
   {
@@ -184,29 +191,29 @@
   {
     "id": "AT5c",
     "check": "listing document ETag = getetag without quotes",
-    "expected": "2b54363aa380bc2f7aa4e5e2624c2e84",
-    "observed": "2b54363aa380bc2f7aa4e5e2624c2e84",
+    "expected": "ad8843f5f1029b2b7b48ecdce340fa1e",
+    "observed": "ad8843f5f1029b2b7b48ecdce340fa1e",
     "status": "pass"
   },
   {
     "id": "AT5d",
     "check": "listing subfolder ETag = getetag without quotes",
-    "expected": "6ac1d2e6b3191",
-    "observed": "6ac1d2e6b3191",
+    "expected": "6ac6aa77cf022",
+    "observed": "6ac6aa77cf022",
     "status": "pass"
   },
   {
     "id": "AT5e",
     "check": "folder ETag header = folder getetag",
-    "expected": "\"6ac1d2e6b3191\"",
-    "observed": "\"6ac1d2e6b3191\"",
+    "expected": "\"6ac6aa77cf022\"",
+    "observed": "\"6ac6aa77cf022\"",
     "status": "pass"
   },
   {
     "id": "AT5f",
     "check": "document ETag header = getetag",
-    "expected": "\"2b54363aa380bc2f7aa4e5e2624c2e84\"",
-    "observed": "\"2b54363aa380bc2f7aa4e5e2624c2e84\"",
+    "expected": "\"ad8843f5f1029b2b7b48ecdce340fa1e\"",
+    "observed": "\"ad8843f5f1029b2b7b48ecdce340fa1e\"",
     "status": "pass"
   },
   {
@@ -214,6 +221,13 @@
     "check": "folder path without its slash is not a listing",
     "expected": "404",
     "observed": "404",
+    "status": "pass"
+  },
+  {
+    "id": "AT5i",
+    "check": "a module token does not reach a slashless root path",
+    "expected": "403",
+    "observed": "403",
     "status": "pass"
   },
   {

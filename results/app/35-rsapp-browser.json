@@ -9,7 +9,7 @@
     "id": "AT4",
     "check": "AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the token",
     "status": "pass",
-    "observed": "[AT4] {\"put\":[201,\"\\\"628f05b9d1b932c2a78c2af54b5180c3\\\"\"],\"get\":[200,\"\\\"628f05b9d1b932c2a78c2af54b5180c3\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac1d04160ce0\\\"\"],\"stale\":412,\"del\":200}"
+    "observed": "[AT4] {\"put\":[201,\"\\\"1a64f6bdb1f81f5a1ab8ca4900acfdab\\\"\"],\"get\":[200,\"\\\"1a64f6bdb1f81f5a1ab8ca4900acfdab\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac6a96713a15\\\"\"],\"stale\":412,\"del\":200}"
   },
   {
     "id": "AT2b",
@@ -21,18 +21,24 @@
     "id": "AT2c",
     "check": "AT2c consent: a client_id that is not the redirect origin gets an error page, no redirect",
     "status": "pass",
-    "observed": "[AT2c] url=http://nextcloud/index.php/apps/remotestorage/oauth?client_id=http%3A//evil.example&redirect_uri=http%3A//origin/callback.html&scope=notes%3Arw&response_type=token&state=s-bad status=undefined invalid=true"
+    "observed": "[AT2c] url=http://nextcloud/index.php/apps/remotestorage/oauth?client_id=http%3A//evil.example&redirect_uri=http%3A//localhost/callback.html&scope=notes%3Arw&response_type=token&state=s-bad status=undefined invalid=true"
   },
   {
     "id": "AT2d",
     "check": "AT2d settings: the token is listed and Disconnect revokes it",
     "status": "pass",
-    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://origin notes:rw 2026-10-04 04:04 UTC 2026-10-04 04:04 UTC Disconnect\" remaining=0 after-revoke=401"
+    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://localhost notes:rw 2026-10-07 20:19 UTC 2026-10-07 20:19 UTC Disconnect\" remaining=0 after-revoke=401"
   },
   {
     "id": "AT12",
     "check": "AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete",
     "status": "pass",
-    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791086699756\"; B connected=true B={\"read\":\"at12 1791086699756\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791086699756 edited on device B\"; deep-after-delete=404"
+    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791404433068\"; B connected=true B={\"read\":\"at12 1791404433068\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791404433068 edited on device B\"; doc-after-delete=404 empty-parent=207"
+  },
+  {
+    "id": "AT13",
+    "check": "AT13 PKCE: consent returns a code, the token endpoint redeems it once, the token works",
+    "status": "pass",
+    "observed": "[AT13] code=HM8wu2… exchange=200/{\"access_token\":\"rs_12nsu7riEyNjlySMSCkFhpNJPJTQUoZ2sAHsjXKmNjM\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
   }
 ]
