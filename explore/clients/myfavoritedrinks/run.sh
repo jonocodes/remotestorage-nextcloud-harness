@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # B1: My Favorite Drinks (remotestorage/myfavoritedrinks) against the app.
 # See ../../PLAN-explore.md. Serves the pinned static build on its own origin
-# (`mfav`) and drives it in the pinned Playwright image: connect via the app's
-# own widget/OAuth, add a drink, verify on the server, reload, delete.
+# (`mfav`, reached as http://localhost:8082 through the loopback proxy) and drives
+# it in the pinned Playwright image: connect via the app's own widget/OAuth, add a
+# drink, verify on the server, reload, delete.
 #
 # Evidence: explore/sessions/myfavoritedrinks/{result.json,run.log,artifacts/}
 set -euo pipefail
@@ -29,7 +30,7 @@ issue() { dce -u www-data nextcloud php occ remotestorage:token:issue "$1" "$2" 
 git -C "$CO" fetch --quiet origin || true
 git -C "$CO" checkout --quiet "$PIN"
 log "=== B1 My Favorite Drinks @ ${PIN:0:7} ==="
-$DC up -d mfav runner >/dev/null
+$DC up -d mfav runner loopback >/dev/null
 
 export RS_TOKEN="$(issue "$NC_USER" '*:rw')"
 # Start from a clean module (basic auth bypasses the app; folder DELETE works there).
@@ -37,7 +38,7 @@ dce curl-probe curl -sS -o /dev/null -u "${NC_USER}:${NC_PASS}" \
   -X DELETE "http://nextcloud/remote.php/dav/files/${NC_USER}/remoteStorage/myfavoritedrinks" || true
 
 dce \
-  -e EXPLORE=mfav -e APP_URL=http://mfav -e NC_URL=http://nextcloud \
+  -e EXPLORE=mfav -e APP_URL=http://localhost:8082 -e NC_URL=http://nextcloud \
   -e NC_USER="$NC_USER" -e NC_PASS="$NC_PASS" -e RS_TOKEN \
   -e EVIDENCE_DIR=/harness/"$ART" \
   -e PLAYWRIGHT_JSON_OUTPUT_NAME=/harness/"$OUT"/browser-raw.json \

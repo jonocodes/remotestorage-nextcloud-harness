@@ -203,11 +203,16 @@ with raw evidence and explained. No loosened criteria.
 
 - **A2 rs-backup** — pass; see `sessions/rs-backup/notes.md`.
 - **A1 remotestorage-fuse** — fail (stale client); see `sessions/remotestorage-fuse/notes.md`.
+  **Retired 2026-10-07** (unmaintained, cannot pass); its script and evidence are at tag
+  `archive/explore-remotestorage-fuse` (see `ARCHIVE.md`).
 - **B1 My Favorite Drinks** — pass; see `sessions/myfavoritedrinks/notes.md`. Uses its own
   widget/OAuth for module `myfavoritedrinks`; add → server → reload → delete.
 - **B2 Notes Together** — pass; see `sessions/notes-together/notes.md`. Module `documents`;
   a note created on device A is read from the server by a second fresh browser context and
   deleted through the app.
+  **Retired 2026-10-07**: it exercised the same rs.js connect/sync/delete flow as B1, and
+  two-device sync is covered by AT12; its script and evidence are at tag
+  `archive/explore-notes-together` (see `ARCHIVE.md`).
 - **B3 RS Inspektor** — pass; see `sessions/inspektor/notes.md`. Scope `*`; browses the
   account, reads documents, deletes one. Client finding: with `cache: true`, rs.js
   beta.8's `getListing` drops Content-Type/Length (its issues 721/1108), so Inspektor shows
