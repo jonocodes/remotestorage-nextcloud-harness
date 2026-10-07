@@ -63,15 +63,22 @@
     "status": "pass"
   },
   {
+    "id": "AT6c2",
+    "check": "DELETE response carries the deleted document's ETag",
+    "expected": "\"44ff36f20efbcdb325bdf2120621703f\"",
+    "observed": "\"44ff36f20efbcdb325bdf2120621703f\"",
+    "status": "pass"
+  },
+  {
     "id": "AT6d",
-    "check": "empty parents pruned up to the module folder",
-    "expected": "404",
-    "observed": "404",
+    "check": "emptied parents stay on disk (no pruning race with a concurrent PUT)",
+    "expected": "207",
+    "observed": "207",
     "status": "pass"
   },
   {
     "id": "AT6i",
-    "check": "GET of a missing folder lists it as empty",
+    "check": "a folder holding only empty folders lists as empty",
     "expected": "200 0",
     "observed": "200 0",
     "status": "pass"
@@ -102,6 +109,13 @@
     "check": "DELETE a folder path",
     "expected": "405",
     "observed": "405",
+    "status": "pass"
+  },
+  {
+    "id": "AT6j",
+    "check": "DELETE of a folder without its slash is refused and the folder kept",
+    "expected": "404 207",
+    "observed": "404 207",
     "status": "pass"
   },
   {
@@ -161,6 +175,13 @@
     "status": "pass"
   },
   {
+    "id": "AT3j",
+    "check": "a storage path nested deeper in the URL is not the storage root",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
     "id": "AT3i",
     "check": "WebDAV methods outside remoteStorage are refused",
     "expected": "405",
@@ -184,33 +205,40 @@
   {
     "id": "AT5c",
     "check": "listing document ETag = getetag without quotes",
-    "expected": "3750e5c6d4817d6427e7f4809fdd79dc",
-    "observed": "3750e5c6d4817d6427e7f4809fdd79dc",
+    "expected": "6fe5c4db1d23a50b5e65701284b207dc",
+    "observed": "6fe5c4db1d23a50b5e65701284b207dc",
     "status": "pass"
   },
   {
     "id": "AT5d",
     "check": "listing subfolder ETag = getetag without quotes",
-    "expected": "6ac1d4bec2e6c",
-    "observed": "6ac1d4bec2e6c",
+    "expected": "6ac69ea865037",
+    "observed": "6ac69ea865037",
     "status": "pass"
   },
   {
     "id": "AT5e",
     "check": "folder ETag header = folder getetag",
-    "expected": "\"6ac1d4bec2e6c\"",
-    "observed": "\"6ac1d4bec2e6c\"",
+    "expected": "\"6ac69ea865037\"",
+    "observed": "\"6ac69ea865037\"",
     "status": "pass"
   },
   {
     "id": "AT5f",
     "check": "document ETag header = getetag",
-    "expected": "\"3750e5c6d4817d6427e7f4809fdd79dc\"",
-    "observed": "\"3750e5c6d4817d6427e7f4809fdd79dc\"",
+    "expected": "\"6fe5c4db1d23a50b5e65701284b207dc\"",
+    "observed": "\"6fe5c4db1d23a50b5e65701284b207dc\"",
     "status": "pass"
   },
   {
     "id": "AT5g",
+    "check": "notes:rw does not cover /notes without its slash (a root document)",
+    "expected": "403",
+    "observed": "403",
+    "status": "pass"
+  },
+  {
+    "id": "AT5g2",
     "check": "folder path without its slash is not a listing",
     "expected": "404",
     "observed": "404",

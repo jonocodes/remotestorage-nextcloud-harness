@@ -9,7 +9,7 @@
     "id": "AT4",
     "check": "AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the token",
     "status": "pass",
-    "observed": "[AT4] {\"put\":[201,\"\\\"04ec38390a0181fd5caa48d4248ef72b\\\"\"],\"get\":[200,\"\\\"04ec38390a0181fd5caa48d4248ef72b\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac1d27f6a222\\\"\"],\"stale\":412,\"del\":200}"
+    "observed": "[AT4] {\"put\":[201,\"\\\"b72a4abd2b2301784a1fc808d1517799\\\"\"],\"get\":[200,\"\\\"b72a4abd2b2301784a1fc808d1517799\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac69d0ef24e4\\\"\"],\"stale\":412,\"del\":200}"
   },
   {
     "id": "AT2b",
@@ -21,18 +21,18 @@
     "id": "AT2c",
     "check": "AT2c consent: a client_id that is not the redirect origin gets an error page, no redirect",
     "status": "pass",
-    "observed": "[AT2c] url=http://nextcloud/index.php/apps/remotestorage/oauth?client_id=http%3A//evil.example&redirect_uri=http%3A//origin/callback.html&scope=notes%3Arw&response_type=token&state=s-bad status=undefined invalid=true"
+    "observed": "[AT2c] url=http://nextcloud/index.php/apps/remotestorage/oauth?client_id=http%3A//evil.example&redirect_uri=http%3A//localhost%3A8081/callback.html&scope=notes%3Arw&response_type=token&state=s-bad status=undefined invalid=true"
   },
   {
     "id": "AT2d",
     "check": "AT2d settings: the token is listed and Disconnect revokes it",
     "status": "pass",
-    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://origin notes:rw 2026-10-04 04:13 UTC 2026-10-04 04:13 UTC Disconnect\" remaining=0 after-revoke=401"
+    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-07 19:27 UTC 2026-10-07 19:27 UTC Disconnect\" remaining=0 after-revoke=401"
   },
   {
     "id": "AT12",
     "check": "AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete",
     "status": "pass",
-    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791087273900\"; B connected=true B={\"read\":\"at12 1791087273900\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791087273900 edited on device B\"; deep-after-delete=404"
+    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791401273144\"; B connected=true B={\"read\":\"at12 1791401273144\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791401273144 edited on device B\"; document-after-delete=404"
   }
 ]
