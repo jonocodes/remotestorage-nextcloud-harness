@@ -128,7 +128,10 @@ session for exploratory work.
 
 ### B3 · RS Inspektor
 
-- **Source:** `gitlab.com/skddc/inspektor` (mirror `m5x5/inspektor`); scope `*`.
+- **Source:** upstream `raucao/inspektor` (<https://gitea.kosmos.org/raucao/inspektor>, also
+  `gitlab.com/skddc/inspektor`; Ember 2.16, rs.js 1.1.0, `cache: false`), tested as **B3u**;
+  and `m5x5/inspektor`, a 2026 Next.js rewrite (history copied, not a fork; rs.js
+  2.0.0-beta.8, `cache: true` since m5x5 `6313ce6`), tested as **B3**. Scope `*`.
 - **Why:** whole-account client; tests root scope, traversal, delete, and doubles as our
   **verifier** for what A1/A2/B1/B2 wrote.
 - **Core action:** connect, browse the tree written by the other clients, open a JSON doc
@@ -213,11 +216,15 @@ with raw evidence and explained. No loosened criteria.
   **Retired 2026-10-07**: it exercised the same rs.js connect/sync/delete flow as B1, and
   two-device sync is covered by AT12; its script and evidence are at tag
   `archive/explore-notes-together` (see `ARCHIVE.md`).
-- **B3 RS Inspektor** — pass; see `sessions/inspektor/notes.md`. Scope `*`; browses the
-  account, reads documents, deletes one. Client finding: with `cache: true`, rs.js
-  beta.8's `getListing` drops Content-Type/Length (its issues 721/1108), so Inspektor shows
-  every item as `application/octet-stream` and can't preview images — the app serves correct
-  metadata.
+- **B3 m5x5/inspektor** (2026 Next.js rewrite of RS Inspektor) — pass; see
+  `sessions/inspektor/notes.md`. Scope `*`; browses the account, reads documents, deletes one.
+  Client finding, specific to the rewrite: with `cache: true` (m5x5 `6313ce6`), rs.js beta.8's
+  `getListing` drops Content-Type/Length (its issues 721/1108), so it shows every item as
+  `application/octet-stream` and can't preview images. The app serves correct metadata.
+- **B3u upstream RS Inspektor** (`raucao/inspektor` @ `0bece35`, `cache: false`) — pass; see
+  `sessions/inspektor-upstream/notes.md`. Full metadata: correct Content-Type, size and ETag
+  per file, JSON tree view, delete. Images preview only when stored with `charset=binary`
+  (as rs.js writes them). That is upstream's own heuristic, unrelated to the app.
 - **C1 spec-check** — pass; see `sessions/spec-check/notes.md`. `0dataapp/spec-check`
   (second conformance suite, alongside AT11): 64 passing, 6 pending, 6 failing, all
   explained (4 "other user" tests are vacuous for this URL shape; 2 DELETE-ETag cases are a
@@ -229,7 +236,8 @@ with raw evidence and explained. No loosened criteria.
 - remotestorage-fuse: <https://github.com/remotestorage/fuse>
 - rs-backup: <https://github.com/raucao/rs-backup> · npm `rs-backup`
 - Notes Together: <https://github.com/DougReeder/notes-together>
-- RS Inspektor: <https://gitlab.com/skddc/inspektor> · <https://github.com/m5x5/inspektor>
+- RS Inspektor: upstream <https://gitea.kosmos.org/raucao/inspektor> (also
+  <https://gitlab.com/skddc/inspektor>) · Next.js rewrite <https://github.com/m5x5/inspektor>
 - My Favorite Drinks: `remotestorage/myfavoritedrinks`
 - zen-fs-remotestoragejs: <https://github.com/weijia/zen-fs-remotestoragejs>
 - This harness: [`PLAN-app.md`](PLAN-app.md), [`REPORT-app.md`](REPORT-app.md)

@@ -12,12 +12,17 @@
 	reverse_proxy origin:80
 }
 
+# explore/clients/inspektor-upstream (upstream RS Inspektor)
+:8082 {
+	reverse_proxy inspektor-upstream:80
+}
+
 # explore/clients/myfavoritedrinks
 :8083 {
 	reverse_proxy mfav:80
 }
 
-# explore/clients/inspektor
+# explore/clients/inspektor (m5x5/inspektor)
 :8084 {
 	reverse_proxy inspektor:80
 }

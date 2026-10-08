@@ -156,8 +156,8 @@ The app suite (`app/run.sh`) is the exception: the remoteStorage app accepts pla
 redirect URIs only on loopback hosts, so its browser tests load the origin as
 `http://localhost:8081`. The `loopback` service (Caddy, `origin/loopback.Caddyfile`) shares the
 runner's network namespace and forwards that port to `origin`. The `explore/` browser clients
-go through the same proxy on their own ports, so their origins stay distinct:
-My Favorite Drinks `http://localhost:8083`, `m5x5/inspektor` `:8084`.
+go through the same proxy on their own ports, so their origins stay distinct: upstream
+RS Inspektor `http://localhost:8082`, My Favorite Drinks `:8083`, `m5x5/inspektor` `:8084`.
 
 ## Result format
 
