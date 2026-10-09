@@ -35,7 +35,7 @@ if [ ! -f "$CO/.next/BUILD_ID" ] || [ -n "${FORCE_BUILD:-}" ]; then
 fi
 [ -f "$CO/.next/BUILD_ID" ] || { log "build did not produce $CO/.next"; exit 1; }
 
-$DC up -d inspektor runner >/dev/null
+$DC up -d inspektor runner loopback >/dev/null
 
 export RS_TOKEN="$(issue "$NC_USER" '*:rw')"
 S="http://nextcloud/remote.php/dav/files/${NC_USER}/remoteStorage"
@@ -53,7 +53,7 @@ T="$RS_TOKEN" dce -e T curl-probe sh -c '
 log "seeded /b3/ (hello.json, notes.txt, pic.png, sub/deep.txt)"
 
 dce \
-  -e EXPLORE=inspektor -e APP_URL=http://inspektor -e NC_URL=http://nextcloud \
+  -e EXPLORE=inspektor -e APP_URL=http://localhost:8084 -e NC_URL=http://nextcloud \
   -e NC_USER="$NC_USER" -e NC_PASS="$NC_PASS" -e RS_TOKEN \
   -e EVIDENCE_DIR=/harness/"$ART" \
   -e PLAYWRIGHT_JSON_OUTPUT_NAME=/harness/"$OUT"/browser-raw.json \

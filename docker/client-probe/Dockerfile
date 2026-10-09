@@ -1,12 +1,10 @@
 # Container for third-party remoteStorage clients (PLAN-explore.md).
 # Runs on the compose network so `nextcloud` resolves and WebFinger works.
-# Node for rs-backup / rs.js CLI clients, PHP for remote-storage-uploader,
-# libcurl + libfuse for remotestorage-fuse.
+# Node for rs-backup / rs.js CLI clients, PHP for remote-storage-uploader.
 FROM node:20-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
       build-essential pkg-config git jq ca-certificates curl \
-      libcurl4-openssl-dev libfuse-dev fuse3 \
       php-cli php-curl php-xml \
     && rm -rf /var/lib/apt/lists/*
 

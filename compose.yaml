@@ -74,13 +74,6 @@ services:
       - ./origin/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./explore/clients/myfavoritedrinks/checkout:/srv:ro
 
-  # Notes Together: built dist/ (explore/clients/notes-together/run.sh builds it)
-  nt:
-    image: caddy:2-alpine
-    volumes:
-      - ./origin/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./explore/clients/notes-together/checkout/dist:/srv:ro
-
   # RS Inspektor: Next.js app, built then served with `next start`
   # (explore/clients/inspektor/run.sh builds it).
   inspektor:
@@ -92,7 +85,7 @@ services:
     volumes:
       - ./explore/clients/inspektor/checkout:/app
 
-  # Third-party remoteStorage clients (explore/PLAN-explore.md). Node/PHP/FUSE;
+  # Third-party remoteStorage clients (explore/PLAN-explore.md). Node/PHP;
   # runs on the compose network so `nextcloud` resolves for WebFinger.
   client-probe:
     build: ./docker/client-probe
@@ -100,12 +93,6 @@ services:
     working_dir: /harness
     command: ["sleep", "infinity"]
     environment: *probe-environment
-    cap_add:
-      - SYS_ADMIN
-    devices:
-      - /dev/fuse
-    security_opt:
-      - apparmor:unconfined
     volumes:
       - ./:/harness
 

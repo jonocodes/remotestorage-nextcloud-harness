@@ -58,7 +58,7 @@ Results land in `results/<version>-<variant>.json` (one JSON object per case) an
 | `compose.nginx.yaml`, `docker/nginx/` | nginx + php-fpm variants: Nextcloud's official config, and with the WebFinger rewrite |
 | `docker/api-test-suite/` | the community server suite, pinned (AT11), and its documented false positives |
 | `spike/` | throwaway spike app `rsspike` and its checks (`spike/run.sh`, `spike/probe.sh`); results in `results/spike/` |
-| `explore/` | third track: exploratory testing against real third-party remoteStorage clients — plan [`explore/PLAN-explore.md`](explore/PLAN-explore.md); run scripts in `explore/clients/`, evidence in `explore/sessions/`; the findings report lives in the app repo (`TESTING.md`) |
+| `explore/` | third track: exploratory testing against real third-party remoteStorage clients — plan [`explore/PLAN-explore.md`](explore/PLAN-explore.md); run scripts in `explore/clients/`, evidence in `explore/sessions/`; the findings report lives in the app repo (`TESTING.md`); retired clients are listed in [`ARCHIVE.md`](ARCHIVE.md) |
 | `compose.yaml` | `nextcloud`, `origin` (probe page), `curl-probe`, `runner` and `client-probe` (third-party clients) services |
 | `run.sh` | matrix loop: reset, up, wait, setup, curl probes, browser probes, token lifetimes, collect |
 | `setup/` | per-variant Nextcloud configuration via `occ` |
@@ -156,8 +156,8 @@ The app suite (`app/run.sh`) is the exception: the remoteStorage app accepts pla
 redirect URIs only on loopback hosts, so its browser tests load the origin as
 `http://localhost:8081`. The `loopback` service (Caddy, `origin/loopback.Caddyfile`) shares the
 runner's network namespace and forwards that port to `origin`. The `explore/` browser clients
-still use `http://mfav`, `http://nt` and so on, which the app now rejects; they need the same
-treatment before they are re-run.
+go through the same proxy on their own ports, so their origins stay distinct:
+My Favorite Drinks `http://localhost:8083`, `m5x5/inspektor` `:8084`.
 
 ## Result format
 

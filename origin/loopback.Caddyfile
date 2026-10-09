@@ -1,11 +1,23 @@
 # Runs in the runner's network namespace (compose service "loopback"), so the
-# browser reaches the test origin as http://localhost:8081. The app only allows
-# plain-http OAuth redirect URIs on loopback hosts.
+# browser reaches each test origin on a localhost port. The app only allows
+# plain-http OAuth redirect URIs on loopback hosts. Distinct ports keep the
+# origins distinct, so rs.js localStorage does not collide between apps.
 {
 	auto_https off
 	admin off
 }
 
+# app suite (app/run.sh)
 :8081 {
 	reverse_proxy origin:80
+}
+
+# explore/clients/myfavoritedrinks
+:8083 {
+	reverse_proxy mfav:80
+}
+
+# explore/clients/inspektor
+:8084 {
+	reverse_proxy inspektor:80
 }
