@@ -13,7 +13,7 @@
 }
 
 # explore/clients/myfavoritedrinks
-:8082 {
+:8083 {
 	reverse_proxy mfav:80
 }
 

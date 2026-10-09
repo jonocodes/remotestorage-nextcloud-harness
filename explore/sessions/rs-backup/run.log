@@ -5,10 +5,10 @@ rs-backup: rstest@nextcloud -> /tmp/rs-backup
 
 [0mStarting backup...
 
-Wrote notes/hello.txt
-Wrote notes/blob.bin
 Wrote notes/typed.json
+Wrote notes/hello.txt
 Wrote notes/sub/nested.json
+Wrote notes/blob.bin
 rs-restore: /tmp/rs-backup -> rsexplore-restore@nextcloud
 [4m>>>> Executing external compose provider "/home/jono/.nix-profile/bin/docker-compose". Please see podman-compose(1) for how to disable this message. <<<<
 
@@ -16,13 +16,13 @@ rs-restore: /tmp/rs-backup -> rsexplore-restore@nextcloud
 Starting restore...
 
 Restored notes/sub/nested.json (201)
-Restored notes/typed.json (201)
 Restored notes/blob.bin (201)
 Restored notes/hello.txt (201)
+Restored notes/typed.json (201)
 --- checks ---
 pass	A2-byte:notes/hello.txt	5eb63bbbe01eeed093cb22bb8f5acdc3
 pass	A2-byte:notes/sub/nested.json	bb6cb5c68df4652941caf652a366f2d8
-pass	A2-byte:notes/blob.bin	cfe26ca3d837629475132edd85771a26
+pass	A2-byte:notes/blob.bin	43786458a00139dc89d203eb5475e7b5
 pass	A2-byte:notes/typed.json	bb6cb5c68df4652941caf652a366f2d8
 pass	A2-ctype:hello.txt	text/plain
 pass	A2-ctype:typed.json	text/plain

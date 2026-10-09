@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # B1: My Favorite Drinks (remotestorage/myfavoritedrinks) against the app.
 # See ../../PLAN-explore.md. Serves the pinned static build on its own origin
-# (`mfav`, reached as http://localhost:8082 through the loopback proxy) and drives
+# (`mfav`, reached as http://localhost:8083 through the loopback proxy) and drives
 # it in the pinned Playwright image: connect via the app's own widget/OAuth, add a
 # drink, verify on the server, reload, delete.
 #
@@ -38,7 +38,7 @@ dce curl-probe curl -sS -o /dev/null -u "${NC_USER}:${NC_PASS}" \
   -X DELETE "http://nextcloud/remote.php/dav/files/${NC_USER}/remoteStorage/myfavoritedrinks" || true
 
 dce \
-  -e EXPLORE=mfav -e APP_URL=http://localhost:8082 -e NC_URL=http://nextcloud \
+  -e EXPLORE=mfav -e APP_URL=http://localhost:8083 -e NC_URL=http://nextcloud \
   -e NC_USER="$NC_USER" -e NC_PASS="$NC_PASS" -e RS_TOKEN \
   -e EVIDENCE_DIR=/harness/"$ART" \
   -e PLAYWRIGHT_JSON_OUTPUT_NAME=/harness/"$OUT"/browser-raw.json \
