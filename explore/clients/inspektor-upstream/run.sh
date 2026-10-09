@@ -33,7 +33,12 @@ dce() { $DC exec -T "$@"; }
 log() { printf '%s\n' "$*" | tee -a "$LOG"; }
 issue() { dce -u www-data nextcloud php occ remotestorage:token:issue "$1" "$2" explore 2>/dev/null | tr -d '\r\n'; }
 
-[ -d "$CO/.git" ] || git clone --quiet "$REPO_URL" "$CO"
+# The inspektor-upstream service bind-mounts $CO/dist, so a `docker compose up` of the
+# whole stack creates $CO (holding an empty dist/) before any clone; fetch into it in place.
+if [ ! -d "$CO/.git" ]; then
+  git init --quiet "$CO"
+  git -C "$CO" remote add origin "$REPO_URL"
+fi
 git -C "$CO" fetch --quiet origin || true
 git -C "$CO" checkout --quiet "$PIN"
 log "=== B3u upstream RS Inspektor @ ${PIN:0:7} ==="
@@ -45,7 +50,10 @@ fi
 [ -f "$CO/dist/index.html" ] || { log "build did not produce $CO/dist"; exit 1; }
 log "remotestoragejs $(jq -r .version "$CO/node_modules/remotestoragejs/package.json"), remotestorage-widget $(jq -r .version "$CO/node_modules/remotestorage-widget/package.json")"
 
-$DC up -d inspektor-upstream runner loopback >/dev/null
+# Recreate the static server: a rebuilt dist/ can be a new directory that an
+# already-running container's bind mount no longer shows.
+$DC up -d --force-recreate inspektor-upstream >/dev/null
+$DC up -d runner loopback >/dev/null
 
 export RS_TOKEN="$(issue "$NC_USER" '*:rw')"
 S="http://nextcloud/remote.php/dav/files/${NC_USER}/remoteStorage"

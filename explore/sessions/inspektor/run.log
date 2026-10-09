@@ -5,9 +5,9 @@ seeded /b3/ (hello.json, notes.txt, pic.png, sub/deep.txt)
 [0m
 Running 1 test using 1 worker
 
-  ✓  1 explore/explore-inspektor.spec.ts:65:5 › B3 RS Inspektor: connect, browse, view JSON + image, delete (13.8s)
+  ✓  1 explore/explore-inspektor.spec.ts:69:5 › B3 RS Inspektor: connect, browse, view JSON + image, delete (13.0s)
 
-  1 passed (14.2s)
+  1 passed (13.5s)
 --- checks ---
 pass	B3	
 wrote explore/sessions/inspektor/result.json; artifacts in explore/sessions/inspektor/artifacts
