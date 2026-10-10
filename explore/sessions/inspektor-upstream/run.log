@@ -1,0 +1,294 @@
+=== B3u upstream RS Inspektor @ 0bece35 ===
+building dist/ (npm ci && ember build --environment=production) in node:8
+[4m>>>> Executing external compose provider "/home/jono/.nix-profile/bin/docker-compose". Please see podman-compose(1) for how to disable this message. <<<<
+
+[0m Container rsh-explore-ferret-inspektor-upstream-build-run-ad64b62e4215 Creating 
+ Container rsh-explore-ferret-inspektor-upstream-build-run-ad64b62e4215 Created 
+
+> node-sass@4.6.0 install /app/node_modules/broccoli-sass-source-maps/node_modules/node-sass
+> node scripts/install.js
+
+Downloading binary from https://github.com/sass/node-sass/releases/download/v4.6.0/linux-x64-57_binding.node
+Download complete
+Binary saved to /app/node_modules/broccoli-sass-source-maps/node_modules/node-sass/vendor/linux-x64-57/binding.node
+Caching binary to /root/.npm/node-sass/4.6.0/linux-x64-57_binding.node
+
+> node-sass@4.6.0 postinstall /app/node_modules/broccoli-sass-source-maps/node_modules/node-sass
+> node scripts/build.js
+
+Binary found at /app/node_modules/broccoli-sass-source-maps/node_modules/node-sass/vendor/linux-x64-57/binding.node
+Testing binary
+Binary is fine
+
+> spawn-sync@1.0.15 postinstall /app/node_modules/spawn-sync
+> node postinstall
+
+added 1222 packages in 407.447s
+Could not start watchman
+Visit https://ember-cli.com/user-guide/#watchman for more info.
+cleaning up...
+Built project successfully. Stored in "dist/".
+File sizes:
+ - dist/assets/inspektor-16561482bab9fd003915662fe0f7a3c2.js: 43.18 KB (9.47 KB gzipped)
+ - dist/assets/inspektor-c937439d47e278fbaafa9ec1ae6ebaf0.css: 7.94 KB (2.16 KB gzipped)
+ - dist/assets/vendor-0039af54de35c64df7a379d67bc2eccc.js: 974.05 KB (249.61 KB gzipped)
+ - dist/assets/vendor-d41d8cd98f00b204e9800998ecf8427e.css: 0 B
+remotestoragejs 1.1.0, remotestorage-widget 1.3.0
+seeded /b3/ (hello.json, notes.txt, pic.png, pic-rsjs.png, sub/deep.txt)
+--- server listing of /b3/ (Bearer *:rw) ---
+{
+  "@context": "http://remotestorage.io/spec/folder-description",
+  "items": {
+    "sub/": {
+      "ETag": "6ac972df8ae1b"
+    },
+    "hello.json": {
+      "ETag": "b110b1c80cbd13e1831828da9ee03c39",
+      "Content-Type": "application/json",
+      "Content-Length": 35,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "notes.txt": {
+      "ETag": "552627edc56c1f09edf52676f82ec0e0",
+      "Content-Type": "text/plain",
+      "Content-Length": 15,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "pic.png": {
+      "ETag": "34ac398248f241f7f63fdd5251a86926",
+      "Content-Type": "image/png",
+      "Content-Length": 70,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "pic-rsjs.png": {
+      "ETag": "8fdba3b0603d309f55dface14867fe42",
+      "Content-Type": "image/png; charset=binary",
+      "Content-Length": 70,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    }
+  }
+}
+[4m>>>> Executing external compose provider "/home/jono/.nix-profile/bin/docker-compose". Please see podman-compose(1) for how to disable this message. <<<<
+
+[0m
+Running 1 test using 1 worker
+
+{
+  "server": {
+    "sub/": {
+      "ETag": "6ac972df8ae1b"
+    },
+    "hello.json": {
+      "ETag": "b110b1c80cbd13e1831828da9ee03c39",
+      "Content-Type": "application/json",
+      "Content-Length": 35,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "notes.txt": {
+      "ETag": "552627edc56c1f09edf52676f82ec0e0",
+      "Content-Type": "text/plain",
+      "Content-Length": 15,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "pic.png": {
+      "ETag": "34ac398248f241f7f63fdd5251a86926",
+      "Content-Type": "image/png",
+      "Content-Length": 70,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "pic-rsjs.png": {
+      "ETag": "8fdba3b0603d309f55dface14867fe42",
+      "Content-Type": "image/png; charset=binary",
+      "Content-Length": 70,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    }
+  },
+  "root": [
+    "b3/"
+  ],
+  "b3Listing": [
+    {
+      "name": "sub/",
+      "size": "",
+      "type": "folder"
+    },
+    {
+      "name": "hello.json",
+      "size": "35 bytes",
+      "type": "application/json"
+    },
+    {
+      "name": "notes.txt",
+      "size": "15 bytes",
+      "type": "text/plain"
+    },
+    {
+      "name": "pic-rsjs.png",
+      "size": "70 bytes",
+      "type": "image/png"
+    },
+    {
+      "name": "pic.png",
+      "size": "70 bytes",
+      "type": "image/png"
+    }
+  ],
+  "jsonTree": "contentObject[2] greetinghi nestedObject[1] n42",
+  "hello.json": {
+    "Name": "hello.json",
+    "Content type": "application/json",
+    "Size": "35 bytes",
+    "Revision (ETag)": "b110b1c80cbd13e1831828da9ee03c39"
+  },
+  "images": {
+    "pic.png": {
+      "info": {
+        "Name": "pic.png",
+        "Content type": "image/png",
+        "Size": "70 bytes",
+        "Revision (ETag)": "34ac398248f241f7f63fdd5251a86926"
+      },
+      "preview": "not rendered",
+      "imgSrc": null,
+      "natural": null,
+      "codeText": ""
+    },
+    "pic-rsjs.png": {
+      "info": {
+        "Name": "pic-rsjs.png",
+        "Content type": "image/png",
+        "Size": "70 bytes",
+        "Revision (ETag)": "8fdba3b0603d309f55dface14867fe42"
+      },
+      "preview": "rendered",
+      "imgSrc": "blob:http://localhost:8082/9580a340-d50c-4b1f-befb-2e6ed926bb94",
+      "natural": {
+        "complete": true,
+        "w": 1,
+        "h": 1
+      },
+      "codeText": null
+    }
+  },
+  "notes.txt": {
+    "Name": "notes.txt",
+    "Content type": "text/plain",
+    "Size": "15 bytes",
+    "Revision (ETag)": "552627edc56c1f09edf52676f82ec0e0"
+  }
+}
+  ✓  1 explore/explore-inspektor-upstream.spec.ts:89:5 › B3u upstream RS Inspektor: connect, browse, JSON tree, image preview + metadata, delete (16.7s)
+
+  1 passed (17.2s)
+npm notice
+npm notice New major version of npm available! 11.19.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+--- checks ---
+pass	B3u
+{
+  "server": {
+    "sub/": {
+      "ETag": "6ac972df8ae1b"
+    },
+    "hello.json": {
+      "ETag": "b110b1c80cbd13e1831828da9ee03c39",
+      "Content-Type": "application/json",
+      "Content-Length": 35,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "notes.txt": {
+      "ETag": "552627edc56c1f09edf52676f82ec0e0",
+      "Content-Type": "text/plain",
+      "Content-Length": 15,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "pic.png": {
+      "ETag": "34ac398248f241f7f63fdd5251a86926",
+      "Content-Type": "image/png",
+      "Content-Length": 70,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    },
+    "pic-rsjs.png": {
+      "ETag": "8fdba3b0603d309f55dface14867fe42",
+      "Content-Type": "image/png; charset=binary",
+      "Content-Length": 70,
+      "Last-Modified": "Fri, 09 Oct 2026 23:03:59 GMT"
+    }
+  },
+  "root": [
+    "b3/"
+  ],
+  "b3Listing": [
+    {
+      "name": "sub/",
+      "size": "",
+      "type": "folder"
+    },
+    {
+      "name": "hello.json",
+      "size": "35 bytes",
+      "type": "application/json"
+    },
+    {
+      "name": "notes.txt",
+      "size": "15 bytes",
+      "type": "text/plain"
+    },
+    {
+      "name": "pic-rsjs.png",
+      "size": "70 bytes",
+      "type": "image/png"
+    },
+    {
+      "name": "pic.png",
+      "size": "70 bytes",
+      "type": "image/png"
+    }
+  ],
+  "jsonTree": "contentObject[2] greetinghi nestedObject[1] n42",
+  "hello.json": {
+    "Name": "hello.json",
+    "Content type": "application/json",
+    "Size": "35 bytes",
+    "Revision (ETag)": "b110b1c80cbd13e1831828da9ee03c39"
+  },
+  "images": {
+    "pic.png": {
+      "info": {
+        "Name": "pic.png",
+        "Content type": "image/png",
+        "Size": "70 bytes",
+        "Revision (ETag)": "34ac398248f241f7f63fdd5251a86926"
+      },
+      "preview": "not rendered",
+      "imgSrc": null,
+      "natural": null,
+      "codeText": ""
+    },
+    "pic-rsjs.png": {
+      "info": {
+        "Name": "pic-rsjs.png",
+        "Content type": "image/png",
+        "Size": "70 bytes",
+        "Revision (ETag)": "8fdba3b0603d309f55dface14867fe42"
+      },
+      "preview": "rendered",
+      "imgSrc": "blob:http://localhost:8082/9580a340-d50c-4b1f-befb-2e6ed926bb94",
+      "natural": {
+        "complete": true,
+        "w": 1,
+        "h": 1
+      },
+      "codeText": null
+    }
+  },
+  "notes.txt": {
+    "Name": "notes.txt",
+    "Content type": "text/plain",
+    "Size": "15 bytes",
+    "Revision (ETag)": "552627edc56c1f09edf52676f82ec0e0"
+  }
+}
+wrote explore/sessions/inspektor-upstream/result.json; artifacts in explore/sessions/inspektor-upstream/artifacts

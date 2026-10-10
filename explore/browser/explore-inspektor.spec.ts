@@ -1,7 +1,11 @@
 import { test, expect, type Page } from "@playwright/test";
 import * as fs from "fs";
 
-// B3: RS Inspektor (m5x5/inspektor) against the real app. explore/PLAN-explore.md.
+// B3: m5x5/inspektor against the real app. explore/PLAN-explore.md.
+// m5x5/inspektor is a 2026 Next.js rewrite of raucao's RS Inspektor (history
+// copied, not a GitHub fork). Its `cache: true` comes from m5x5 commit 6313ce6
+// (2026-02-28, "Refactor project structure and migrate to Next.js"); upstream uses
+// `cache: false`. Upstream: explore-inspektor-upstream.spec.ts.
 // Scope `*`: browse the whole account, open a JSON document (tree view) and an
 // image, and delete a document. Doubles as a verifier for the other clients.
 const NC_URL = process.env.NC_URL ?? "http://nextcloud";
@@ -89,7 +93,8 @@ test("B3 RS Inspektor: connect, browse, view JSON + image, delete", async ({ bro
   await expect(page.getByText("greeting")).toBeVisible({ timeout: 20000 });
   await page.screenshot({ path: `${EVIDENCE}/03-json.png`, fullPage: true }).catch(() => {});
 
-  // Image: the preview does NOT render — with `cache: true`, rs.js beta.8's
+  // Image: the preview does NOT render — with `cache: true` (m5x5's rewrite only;
+  // upstream Inspektor uses `cache: false` and shows full metadata), rs.js beta.8's
   // getListing loses Content-Type (issues 721/1108), so the client sees
   // application/octet-stream and never builds a blob URL. Client limitation, not
   // the app's: verify the app serves the correct PNG bytes to the token anyway.

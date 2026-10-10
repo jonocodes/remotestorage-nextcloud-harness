@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
-# B3: RS Inspektor (m5x5/inspektor) against the app. See ../../PLAN-explore.md.
+# B3: m5x5/inspektor against the app. See ../../PLAN-explore.md.
+#
+# m5x5/inspektor is a 2026 Next.js rewrite of raucao's RS Inspektor (history copied,
+# not a GitHub fork). It constructs `new RemoteStorage({cache: true})`, introduced by
+# m5x5 commit 6313ce6 (2026-02-28, "Refactor project structure and migrate to
+# Next.js"); upstream uses `cache: false`. The metadata loss recorded in
+# ../../sessions/inspektor/notes.md is specific to this rewrite. Upstream is tested
+# separately: ../inspektor-upstream/run.sh, ../../sessions/inspektor-upstream/notes.md.
+#
 # Builds the pinned Next.js app, serves it with `next start` on its own origin
 # (`inspektor`), seeds a small tree, then drives it in the pinned Playwright image:
 # connect (scope *), browse, open a JSON document and an image, delete a document.

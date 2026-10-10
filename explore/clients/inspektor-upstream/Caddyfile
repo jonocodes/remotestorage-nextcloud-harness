@@ -1,0 +1,11 @@
+# Static origin for the upstream RS Inspektor Ember build (compose service
+# "inspektor-upstream"). Ember uses history URLs (locationType: auto), so unknown
+# paths such as /connect and /inspect fall back to index.html.
+:80 {
+	root * /srv
+	try_files {path} /index.html
+	file_server
+	header {
+		Cache-Control "no-store"
+	}
+}

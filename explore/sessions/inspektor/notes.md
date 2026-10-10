@@ -1,6 +1,16 @@
-# B3 · RS Inspektor — session notes (2026-10-05)
+# B3 · m5x5/inspektor (Next.js rewrite of RS Inspektor) — session notes (2026-10-05)
 
-Client: `m5x5/inspektor` @ `b499d16` (modernized RS Inspektor; Next.js 16, React 19,
+> **Which Inspektor?** This session tested **`m5x5/inspektor`**, a 2026 Next.js rewrite of
+> raucao's RS Inspektor (<https://gitea.kosmos.org/raucao/inspektor>). Its history was copied
+> in; it isn't a GitHub fork. The `cache: true` that causes the metadata loss below came in
+> with m5x5's commit **`6313ce6`** (2026-02-28, "Refactor project structure and migrate to
+> Next.js"), which changed `cache: false` to `cache: true`. **Upstream RS Inspektor uses
+> `cache: false`.** Tested against the app, it shows the correct Content-Type, size and ETag
+> for every item and renders JSON as a tree. See
+> [`../inspektor-upstream/notes.md`](../inspektor-upstream/notes.md). Read "Inspektor" below
+> as m5x5's rewrite.
+
+Client: `m5x5/inspektor` @ `b499d16` (2026 Next.js rewrite of RS Inspektor; Next.js 16, React 19,
 `remotestoragejs` **2.0.0-beta.8**, `m5x5-remotestorage-widget`). Stack: Nextcloud 35.0.1.1
 (apache), app `remotestorage` 0.2.0 (`be660b2`). Built and served with `next start` on its
 own origin `http://inspektor` (compose service `inspektor`); driven by the pinned Playwright
@@ -21,7 +31,7 @@ bug (below), not by the app.
 | Open image | `04-image.png`: PNG bytes shown as (garbled) text |
 | Delete | `05-deleted.png`; `notes.txt` gone from the server listing |
 
-## Finding: Inspektor shows every item as `application/octet-stream`
+## Finding: m5x5/inspektor shows every item as `application/octet-stream`
 
 In `03-json.png` / `04-image.png`, File info shows **Content type `application/octet-stream`,
 Size `—`, Revision `—`** for every file, and so:
@@ -36,8 +46,8 @@ Root cause is in the client's stack, and **documented in rs.js itself** —
 > With caching turned on, it will only contain the item names as properties with `true` as
 > value. See issues 721 and 1108.
 
-Inspektor constructs `new RemoteStorage({ cache: true })` (`lib/remotestorage.ts`) and calls
-`client.getListing(path)`, so it receives `{ "hello.json": true, ... }` and falls back to
+m5x5/inspektor constructs `new RemoteStorage({ cache: true })` (`lib/remotestorage.ts`;
+added in m5x5 `6313ce6`, upstream has `cache: false`) and calls `client.getListing(path)`, so it receives `{ "hello.json": true, ... }` and falls back to
 `application/octet-stream` (`lib/remotestorage.ts:70,80`). Reproduced directly:
 
 ```
