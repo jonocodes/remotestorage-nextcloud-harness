@@ -39,6 +39,6 @@
     "id": "AT13",
     "check": "AT13 PKCE: consent returns a code, the token endpoint redeems it once, the token works",
     "status": "pass",
-    "observed": "[AT13] code=IVGFxP… exchange=200/{\"access_token\":\"rs_TNXuGdWmiCEXAueNHij60VXElL8HIkbCgmaHeniDyeZ\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
+    "observed": "[AT13] code=IVGFxP… exchange=200/{\"access_token\":\"rs_TNX…\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
   }
 ]

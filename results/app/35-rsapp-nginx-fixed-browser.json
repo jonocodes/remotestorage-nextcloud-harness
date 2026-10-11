@@ -39,6 +39,6 @@
     "id": "AT13",
     "check": "AT13 PKCE: consent returns a code, the token endpoint redeems it once, the token works",
     "status": "pass",
-    "observed": "[AT13] code=PY24cC… exchange=200/{\"access_token\":\"rs_55zKsm1c5OfLjTkyXKmF1Mn58VnHFhhQMbXerelbeU7\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
+    "observed": "[AT13] code=PY24cC… exchange=200/{\"access_token\":\"rs_55z…\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
   }
 ]
