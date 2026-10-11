@@ -9,7 +9,7 @@
     "id": "AT4",
     "check": "AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the token",
     "status": "pass",
-    "observed": "[AT4] {\"put\":[201,\"\\\"8c8677d5f6e7e1147926b8f0616faef9\\\"\"],\"get\":[200,\"\\\"8c8677d5f6e7e1147926b8f0616faef9\\\"\",\"hi\"],\"list\":[200,\"\\\"6ac6adaf79735\\\"\"],\"stale\":412,\"del\":200}"
+    "observed": "[AT4] {\"put\":[201,\"\\\"5d84791f428160fab49740235ad85330\\\"\"],\"get\":[200,\"\\\"5d84791f428160fab49740235ad85330\\\"\",\"hi\"],\"list\":[200,\"\\\"6acb07eb0ae69\\\"\"],\"stale\":412,\"del\":200}"
   },
   {
     "id": "AT2b",
@@ -27,18 +27,18 @@
     "id": "AT2d",
     "check": "AT2d settings: the token is listed and Disconnect revokes it",
     "status": "pass",
-    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-07 20:38 UTC 2026-10-07 20:38 UTC Disconnect\" remaining=0 after-revoke=401"
+    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-11 03:52 UTC 2026-10-11 03:52 UTC Disconnect\" remaining=0 after-revoke=401"
   },
   {
     "id": "AT12",
     "check": "AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete",
     "status": "pass",
-    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791405529688\"; B connected=true B={\"read\":\"at12 1791405529688\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791405529688 edited on device B\"; document-after-delete=404"
+    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791690773328\"; B connected=true B={\"read\":\"at12 1791690773328\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791690773328 edited on device B\"; document-after-delete=404"
   },
   {
     "id": "AT13",
     "check": "AT13 PKCE: consent returns a code, the token endpoint redeems it once, the token works",
     "status": "pass",
-    "observed": "[AT13] code=gsoWzl… exchange=200/{\"access_token\":\"rs_4OKuHEwbqeb8Zta4GFPLfccyEpUhafU8OKprZqlKR9F\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
+    "observed": "[AT13] code=IVGFxP… exchange=200/{\"access_token\":\"rs_TNXuGdWmiCEXAueNHij60VXElL8HIkbCgmaHeniDyeZ\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
   }
 ]

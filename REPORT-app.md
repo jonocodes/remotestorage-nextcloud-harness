@@ -29,11 +29,10 @@ everything here is reproducible with this repository.
 
 ## Results
 
-Nextcloud 35.0.1 and 34.0.4 (official images, SQLite), app 0.2.0, remoteStorage.js
-2.0.0-beta.9, Chromium (Playwright 1.63). Each cell is identical on 34 and 35. Three consecutive
-full runs gave identical statuses, except that the nginx-fixed config gained its gzip line
-after the first (which turned its AT11 from fail to pass). The committed evidence is from the
-third run, against app commit `be660b2`.
+Nextcloud 35.0.1 and 34.0.4 (official images, SQLite), app 0.3.1, remoteStorage.js
+2.0.0-beta.9, Chromium (Playwright 1.63). Each cell is identical on 34 and 35. The committed
+evidence is from one full run of the matrix against app commit `b518d43` (the 0.3.1 release
+candidate); earlier runs against 0.2.0 gave the same statuses for the cases they had.
 
 | Cases | Apache | Apache + WebAppPassword | nginx, official config | nginx, with the two additions |
 | --- | --- | --- | --- | --- |
@@ -41,7 +40,8 @@ third run, against app commit `be660b2`.
 | AT1e–f WebFinger without a redirect, CORS on every response | pass | pass | **fail** (301) | pass |
 | AT11 community suite (52/53; the one is a documented false positive) | pass | pass | **fail** (+2: weak folder ETags from gzip) | pass |
 | AT12 remoteStorage.js, two devices | pass | pass | **fail** (discovery) | pass |
-| **Total** | **67/67** | **69/69** | 63/67 | **67/67** |
+| AT13 OAuth code flow with PKCE | pass | pass | not run (the browser cases are serial; it follows AT12) | pass |
+| **Total** | **72/72** | **74/74** | 67/72 | **72/72** |
 
 The nginx failures are the deployment issue the two config additions fix; the app needs no
 change for them.
