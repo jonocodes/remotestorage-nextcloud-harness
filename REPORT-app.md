@@ -140,9 +140,10 @@ every response.
 
 ## What is not done
 
-- OAuth code flow with PKCE: not built, because remoteStorage.js uses the implicit grant for
-  remoteStorage servers and the spec defines no token-endpoint discovery; revisit when clients
-  support it.
+- OAuth code flow with PKCE: built in app 0.3.0 (spec §10.1, S256 only) and tested end to end
+  by AT13, which drives the flow directly. remoteStorage.js 2.0-beta does not read the §10.1
+  WebFinger properties yet, so no unmodified client uses it
+  ([remotestorage.js PR #1401](https://github.com/remotestorage/remotestorage.js/pull/1401)).
 - The first-run wizard over the consent page (a new user closes it once).
 - App-store publication (needs a signing certificate).
 - Tested on the official Docker images with SQLite only; MySQL/PostgreSQL, object storage and
