@@ -3,19 +3,19 @@
     "id": "AT2a",
     "check": "AT2a consent: allow returns a token in the redirect fragment",
     "status": "pass",
-    "observed": "[wizard] first-run wizard shown over the consent page; skipping and closing it\n[AT2a] consent page names origin+scope: true; fragment keys: access_token,token_type,scope,state; state=s-allow; token_type=bearer"
+    "observed": "[wizard] over the consent page: false\n[AT2a] consent page names origin+scope: true; fragment keys: access_token,token_type,scope,state; state=s-allow; token_type=bearer"
   },
   {
     "id": "AT4",
     "check": "AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the token",
     "status": "pass",
-    "observed": "[AT4] {\"put\":[201,\"\\\"59510ad7073fdc21253d7f9b600d77ac\\\"\"],\"get\":[200,\"\\\"59510ad7073fdc21253d7f9b600d77ac\\\"\",\"hi\"],\"list\":[200,\"\\\"6acb09d457eda\\\"\"],\"stale\":412,\"del\":200}"
+    "observed": "[AT4] {\"put\":[201,\"\\\"653360f93b30d39b2e122f1c50c636c8\\\"\"],\"get\":[200,\"\\\"653360f93b30d39b2e122f1c50c636c8\\\"\",\"hi\"],\"list\":[200,\"\\\"6acd7391bdd96\\\"\"],\"stale\":412,\"del\":200}"
   },
   {
     "id": "AT2b",
     "check": "AT2b consent: deny returns access_denied",
     "status": "pass",
-    "observed": "[AT2b] {\"error\":\"access_denied\",\"state\":\"s-deny\"}"
+    "observed": "[wizard] over the consent page: false\n[AT2b] {\"error\":\"access_denied\",\"state\":\"s-deny\"}"
   },
   {
     "id": "AT2c",
@@ -27,18 +27,18 @@
     "id": "AT2d",
     "check": "AT2d settings: the token is listed and Disconnect revokes it",
     "status": "pass",
-    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-11 04:00 UTC 2026-10-11 04:00 UTC Disconnect\" remaining=0 after-revoke=401"
+    "observed": "[wizard] first-run wizard shown; skipping and closing it\n[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-12 23:56 UTC 2026-10-12 23:56 UTC Disconnect\" remaining=0 after-revoke=401"
   },
   {
     "id": "AT12",
     "check": "AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete",
     "status": "pass",
-    "observed": "[AT12] A connected=true webdav-after-A=\"at12 1791691262274\"; B connected=true B={\"read\":\"at12 1791691262274\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791691262274 edited on device B\"; document-after-delete=404"
+    "observed": "[wizard] over the consent page: false\n[wizard] over the consent page: false\n[AT12] A connected=true webdav-after-A=\"at12 1791849412256\"; B connected=true B={\"read\":\"at12 1791849412256\",\"conflicts\":[],\"errors\":[]} webdav-after-B=\"at12 1791849412256 edited on device B\"; document-after-delete=404"
   },
   {
     "id": "AT13",
     "check": "AT13 PKCE: consent returns a code, the token endpoint redeems it once, the token works",
     "status": "pass",
-    "observed": "[AT13] code=PY24cC… exchange=200/{\"access_token\":\"rs_55z…\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
+    "observed": "[wizard] over the consent page: false\n[AT13] code=kiHrVM… exchange=200/{\"access_token\":\"rs_lKK…\",\"token_type\":\"bearer\",\"scope\":\"notes:rw\"} put=201 get=200/\"via pkce\" replay=400/{\"error\":\"invalid_grant\"}"
   }
 ]

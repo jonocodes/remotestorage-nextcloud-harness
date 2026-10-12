@@ -65,8 +65,8 @@
   {
     "id": "AT6c2",
     "check": "DELETE response carries the deleted document's ETag",
-    "expected": "\"1ff141919a12c765c3a03ca99e7ccb8a\"",
-    "observed": "\"1ff141919a12c765c3a03ca99e7ccb8a\"",
+    "expected": "\"de91cff2d98333a1cc929f923b787a1a\"",
+    "observed": "\"de91cff2d98333a1cc929f923b787a1a\"",
     "status": "pass"
   },
   {
@@ -205,29 +205,29 @@
   {
     "id": "AT5c",
     "check": "listing document ETag = getetag without quotes",
-    "expected": "4e1b47f6a20a3f1b59898f0c03e1e0ac",
-    "observed": "4e1b47f6a20a3f1b59898f0c03e1e0ac",
+    "expected": "fce542cd9c994cf1a30f71d306b0443a",
+    "observed": "fce542cd9c994cf1a30f71d306b0443a",
     "status": "pass"
   },
   {
     "id": "AT5d",
     "check": "listing subfolder ETag = getetag without quotes",
-    "expected": "6acb099c29ea3",
-    "observed": "6acb099c29ea3",
+    "expected": "6acd735b45916",
+    "observed": "6acd735b45916",
     "status": "pass"
   },
   {
     "id": "AT5e",
     "check": "folder ETag header = folder getetag",
-    "expected": "\"6acb099c29ea3\"",
-    "observed": "\"6acb099c29ea3\"",
+    "expected": "\"6acd735b45916\"",
+    "observed": "\"6acd735b45916\"",
     "status": "pass"
   },
   {
     "id": "AT5f",
     "check": "document ETag header = getetag",
-    "expected": "\"4e1b47f6a20a3f1b59898f0c03e1e0ac\"",
-    "observed": "\"4e1b47f6a20a3f1b59898f0c03e1e0ac\"",
+    "expected": "\"fce542cd9c994cf1a30f71d306b0443a\"",
+    "observed": "\"fce542cd9c994cf1a30f71d306b0443a\"",
     "status": "pass"
   },
   {

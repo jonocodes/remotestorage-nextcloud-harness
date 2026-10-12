@@ -4,8 +4,8 @@ body f16d05ec6b29248d
 content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
 content-length: 7
 content-type: text/plain;charset=utf-8
-etag: "21bcdc673589bae3f3149feb964fd40d"
-oc-etag: "21bcdc673589bae3f3149feb964fd40d"
+etag: "509aa5d94dbf124eb2a8c5534306f63d"
+oc-etag: "509aa5d94dbf124eb2a8c5534306f63d"
 referrer-policy: no-referrer
 server: nginx
 x-content-type-options: nosniff
@@ -19,8 +19,8 @@ body f16d05ec6b29248d
 content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
 content-length: 7
 content-type: text/plain;charset=utf-8
-etag: "21bcdc673589bae3f3149feb964fd40d"
-oc-etag: "21bcdc673589bae3f3149feb964fd40d"
+etag: "509aa5d94dbf124eb2a8c5534306f63d"
+oc-etag: "509aa5d94dbf124eb2a8c5534306f63d"
 referrer-policy: no-referrer
 server: nginx
 x-content-type-options: nosniff
@@ -43,7 +43,7 @@ x-robots-tag: noindex, nofollow
 x-user-id: rstest
 ## PROPFIND root depth 1
 status 207
-body faf4e08d7141717f
+body d580a07551b8ef92
 content-type: application/xml; charset=utf-8
 dav: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-paginate, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar, 2
 referrer-policy: no-referrer
@@ -57,7 +57,7 @@ x-robots-tag: noindex, nofollow
 x-user-id: rstest
 ## PROPFIND folder depth 1 with Origin
 status 207
-body 14d1e2cb76d800a6
+body 8ff0a15f594a224c
 content-type: application/xml; charset=utf-8
 dav: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-paginate, nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar, 2
 referrer-policy: no-referrer
@@ -75,8 +75,8 @@ body n/a (HEAD)
 content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
 content-length: 7
 content-type: text/plain;charset=utf-8
-etag: "21bcdc673589bae3f3149feb964fd40d"
-oc-etag: "21bcdc673589bae3f3149feb964fd40d"
+etag: "509aa5d94dbf124eb2a8c5534306f63d"
+oc-etag: "509aa5d94dbf124eb2a8c5534306f63d"
 referrer-policy: no-referrer
 server: nginx
 x-content-type-options: nosniff
@@ -90,8 +90,8 @@ body f16d05ec6b29248d
 content-disposition: attachment; filename*=utf-8''fixture.txt; filename="fixture.txt"
 content-length: 7
 content-type: text/plain;charset=utf-8
-etag: "21bcdc673589bae3f3149feb964fd40d"
-oc-etag: "21bcdc673589bae3f3149feb964fd40d"
+etag: "509aa5d94dbf124eb2a8c5534306f63d"
+oc-etag: "509aa5d94dbf124eb2a8c5534306f63d"
 referrer-policy: no-referrer
 server: nginx
 x-content-type-options: nosniff

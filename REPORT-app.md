@@ -29,10 +29,12 @@ everything here is reproducible with this repository.
 
 ## Results
 
-Nextcloud 35.0.1 and 34.0.4 (official images, SQLite), app 0.3.1, remoteStorage.js
-2.0.0-beta.9, Chromium (Playwright 1.63). Each cell is identical on 34 and 35. The committed
-evidence is from one full run of the matrix against app commit `b518d43` (the 0.3.1 release
-candidate); earlier runs against 0.2.0 gave the same statuses for the cases they had.
+Nextcloud 35.0.1 and 34.0.4 (official images, SQLite), app 0.3.1 plus the consent-page wizard
+fix, remoteStorage.js 2.0.0-beta.9, Chromium (Playwright 1.63). Each cell is identical on 34
+and 35. The committed evidence is from one full run of the matrix against app commit `eb7d9a8`
+(merged to the app's `main` as `c88d650`, not yet released); the 0.3.1 release (`b518d43`) and
+earlier runs against 0.2.0 gave the same statuses, except that 0.3.1 fails the consent-page
+wizard check AT2a was given with the fix.
 
 | Cases | Apache | Apache + WebAppPassword | nginx, official config | nginx, with the two additions |
 | --- | --- | --- | --- | --- |
@@ -125,7 +127,7 @@ Worth reporting to the projects concerned, independent of this app:
 | Nextcloud docs (nginx) | The documented config redirects `/.well-known/webfinger`; browser WebFinger clients that do not follow redirects (remoteStorage.js) cannot discover the server | variants `rsapp-nginx` vs `rsapp-nginx-fixed` |
 | Nextcloud docs (nginx) | The documented config gzips JSON and XML, and nginx makes compressed responses' ETags weak (`W/`); WebDAV `If-Match` with a weak ETag fails, and clients relying on strong ETags misbehave | suite on `rsapp-nginx` (weak folder ETags) |
 | Nextcloud server | `IThrottler::sleepDelayOrThrowOnMax()` no longer sleeps in 34/35 (it returns the delay); apps calling it expecting a delay get none | A3, Throttler.php |
-| Nextcloud (firstrunwizard) | The first-run wizard opens over any page a new user lands on first, including app consent pages | AT2a/AT12 logs |
+| Nextcloud (firstrunwizard) | The first-run wizard opens over the next logged-in page a new user (or, after a major upgrade, any user) lands on, including app consent pages rendered as a normal `TemplateResponse`; the app now renders its consent page as a `StandaloneTemplateResponse`, which core keeps page scripts off | AT2a/AT2b/AT12/AT13 (`[wizard] over the consent page: false`), AT2d (shown on settings) |
 | remoteStorage.js (webfinger.js 3) | WebFinger fetches use `redirect: "manual"`, which browsers turn into an opaque response, so any WebFinger redirect breaks discovery, CORS or not | `rsapp-nginx` browser log |
 
 ### Security checks
@@ -144,7 +146,6 @@ every response.
   by AT13, which drives the flow directly. remoteStorage.js 2.0-beta does not read the §10.1
   WebFinger properties yet, so no unmodified client uses it
   ([remotestorage.js PR #1401](https://github.com/remotestorage/remotestorage.js/pull/1401)).
-- The first-run wizard over the consent page (a new user closes it once).
 - App-store publication (needs a signing certificate).
 - Tested on the official Docker images with SQLite only; MySQL/PostgreSQL, object storage and
   encryption are untested.

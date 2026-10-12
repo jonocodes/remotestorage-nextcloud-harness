@@ -33,9 +33,9 @@ async function loginIfAsked(page: Page): Promise<void> {
   }
 }
 
-// A brand-new user's first login shows Nextcloud's first-run wizard on top of
-// whatever page comes next — here, the consent page. Close it like a person would.
-// It opens a moment after the page loads, so call this once the consent page is up.
+// A brand-new user's first login (and every user's first page after a major upgrade)
+// shows Nextcloud's first-run wizard on top of the next normal page. Close it like a
+// person would. It opens a moment after the page loads, so call this once the page is up.
 async function dismissFirstRunWizard(page: Page): Promise<void> {
   // Two elements carry id="firstrunwizard"; the dialog is the one with the role.
   const wizard = page.locator("[role='dialog']#firstrunwizard");
@@ -44,7 +44,7 @@ async function dismissFirstRunWizard(page: Page): Promise<void> {
   } catch {
     return;
   }
-  console.log("[wizard] first-run wizard shown over the consent page; skipping and closing it");
+  console.log("[wizard] first-run wizard shown; skipping and closing it");
   // Escape does nothing; the intro animation needs "Skip", then the slides have "Close".
   const skip = wizard.getByRole("button", { name: "Skip" });
   if (await skip.count()) {
@@ -52,6 +52,16 @@ async function dismissFirstRunWizard(page: Page): Promise<void> {
   }
   await page.locator("[role='dialog'] button[aria-label='Close']").first().click();
   await wizard.waitFor({ state: "hidden", timeout: 5000 });
+}
+
+// The consent page must stay clear of the wizard: a user arriving from an app's
+// Connect button should see Allow/Deny, not a Nextcloud tour. The app renders it as a
+// standalone page (like core's ClientFlowLogin), so core loads no page scripts on it.
+async function expectNoWizardOverConsent(page: Page): Promise<void> {
+  const wizard = page.locator("[role='dialog']#firstrunwizard");
+  const shown = await wizard.waitFor({ state: "visible", timeout: 8000 }).then(() => true, () => false);
+  console.log(`[wizard] over the consent page: ${shown}`);
+  expect(shown, "first-run wizard covers the consent page").toBe(false);
 }
 
 function fragment(url: string): Record<string, string> {
@@ -83,7 +93,7 @@ test("AT2a consent: allow returns a token in the redirect fragment", async ({ br
   await page.goto(oauthUrl({ state: "s-allow" }));
   await loginIfAsked(page);
   await page.locator("#remotestorage-allow").waitFor({ timeout: 20000 });
-  await dismissFirstRunWizard(page);
+  await expectNoWizardOverConsent(page);
   const consentText = await page.locator(".remotestorage-authorize").innerText();
   await page.click("#remotestorage-allow");
   await page.waitForURL(`${ORIGIN_URL}/callback.html**`, { timeout: 20000 });
@@ -124,7 +134,7 @@ test("AT2b consent: deny returns access_denied", async ({ browser }) => {
   await page.goto(oauthUrl({ state: "s-deny" }));
   await loginIfAsked(page);
   await page.locator("#remotestorage-deny").waitFor({ timeout: 20000 });
-  await dismissFirstRunWizard(page);
+  await expectNoWizardOverConsent(page);
   await page.click("#remotestorage-deny");
   await page.waitForURL(`${ORIGIN_URL}/callback.html**`, { timeout: 20000 });
   const params = fragment(page.url());
@@ -153,6 +163,7 @@ test("AT2d settings: the token is listed and Disconnect revokes it", async () =>
   await page.goto(`${NC_URL}/index.php/settings/user/security`);
   const row = page.locator(`#remotestorage-tokens tr[data-client="${ORIGIN_URL}"]`).first();
   await row.waitFor({ timeout: 20000 });
+  await dismissFirstRunWizard(page);
   const listed = await row.innerText();
   const address = await page.locator("#remotestorage code").first().innerText();
   await row.locator(".remotestorage-revoke").click();
@@ -179,7 +190,7 @@ async function connectDevice(browser: Browser): Promise<{ page: Page; connected:
   await page.waitForURL(`${NC_URL}/**`, { timeout: 20000 });
   await loginIfAsked(page);
   await page.locator("#remotestorage-allow").waitFor({ timeout: 20000 });
-  await dismissFirstRunWizard(page);
+  await expectNoWizardOverConsent(page);
   await page.click("#remotestorage-allow");
   await page.waitForURL(`${ORIGIN_URL}/rs-app.html**`, { timeout: 20000 });
   const connected = await page.evaluate(() => Promise.race([
@@ -284,7 +295,7 @@ test("AT13 PKCE: consent returns a code, the token endpoint redeems it once, the
   }));
   await loginIfAsked(page);
   await page.locator("#remotestorage-allow").waitFor({ timeout: 20000 });
-  await dismissFirstRunWizard(page);
+  await expectNoWizardOverConsent(page);
   await page.click("#remotestorage-allow");
   await page.waitForURL(
     (url) => url.pathname === "/callback.html" && url.searchParams.has("code"),
