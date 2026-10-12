@@ -21,308 +21,313 @@ nextcloud-1  | ==> Skipped: the "post-installation" folder is empty (or does not
 nextcloud-1  | Initializing finished
 nextcloud-1  | => Searching for hook scripts (*.sh) to run, located in the folder "/docker-entrypoint-hooks.d/before-starting"
 nextcloud-1  | ==> Skipped: the "before-starting" folder is empty (or does not exist)
-nextcloud-1  | [04-Oct-2026 04:10:17] NOTICE: fpm is running, pid 1
-nextcloud-1  | [04-Oct-2026 04:10:17] NOTICE: ready to handle connections
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:18 +0000 "GET /status.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:19 +0000 "MKCOL /remote.php" 201
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:22 +0000 "MKCOL /remote.php" 201
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:22 +0000 "MKCOL /remote.php" 201
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:22 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:22 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:23 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:23 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:23 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:23 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:23 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:23 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:24 +0000 "PUT /remote.php" 404
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:24 +0000 "MKCOL /remote.php" 405
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:24 +0000 "GET /remote.php" 404
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:25 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:26 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:26 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:26 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:26 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:27 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:27 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:27 +0000 "PUT /remote.php" 404
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:27 +0000 "MKCOL /remote.php" 405
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:27 +0000 "GET /remote.php" 404
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:28 +0000 "DELETE /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:29 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:30 +0000 "GET /index.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:30 +0000 "GET /index.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:30 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:30 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:30 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:31 +0000 "PROPFIND /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:31 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "PUT /remote.php" 409
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "PUT /remote.php" 405
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "DELETE /remote.php" 405
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "PUT /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "GET /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "GET /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:31 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:32 +0000 "PUT /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:32 +0000 "GET /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:32 +0000 "PROPFIND /remote.php" 405
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:32 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:32 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:32 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:32 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:32 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:32 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "PUT /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "DELETE /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "PUT /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 304
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "GET /remote.php" 304
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "PUT /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:33 +0000 "PUT /remote.php" 412
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:33 +0000 "PROPFIND /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "PUT /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "PUT /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "PUT /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:34 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "PUT /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "OPTIONS /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:35 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 - rstest 04/Oct/2026:04:10:35 +0000 "PROPFIND /remote.php" 207
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "PROPFIND /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:35 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:36 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:37 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:38 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:42 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:10:48 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:06 +0000 "OPTIONS /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:06 +0000 "OPTIONS /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:06 +0000 "OPTIONS /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:06 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:06 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 409
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 400
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 409
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:07 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 304
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 304
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "PUT /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 304
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 304
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "PUT /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "DELETE /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "PUT /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "DELETE /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:08 +0000 "PUT /remote.php" 403
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "PUT /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "GET /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 401
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "HEAD /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "HEAD /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "HEAD /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "HEAD /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "HEAD /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:09 +0000 "HEAD /remote.php" 404
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:10 +0000 "DELETE /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:11 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "POST /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:12 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:13 +0000 "GET /cron.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "DELETE /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "POST /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "OPTIONS /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "PUT /remote.php" 201
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "OPTIONS /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "GET /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "OPTIONS /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "PUT /remote.php" 412
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:21 +0000 "DELETE /remote.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:22 +0000 "POST /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:23 +0000 "GET /cron.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "POST /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:31 +0000 "POST /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 400
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:32 +0000 "GET /cron.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:52 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:53 +0000 "PUT /ocs/v2.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:53 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:53 +0000 "GET /cron.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:53 +0000 "GET /ocs/v2.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:53 +0000 "POST /index.php" 303
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:53 +0000 "GET /index.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:53 +0000 "GET /cron.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:53 +0000 "GET /ocs/v2.php" 200
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:54 +0000 "OPTIONS /remote.php" 204
-nextcloud-1  | 127.0.0.1 -  04/Oct/2026:04:11:54 +0000 "GET /remote.php" 401
+nextcloud-1  | [11-Oct-2026 03:56:40] NOTICE: fpm is running, pid 1
+nextcloud-1  | [11-Oct-2026 03:56:40] NOTICE: ready to handle connections
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:40 +0000 "GET /status.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:42 +0000 "MKCOL /remote.php" 201
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:44 +0000 "MKCOL /remote.php" 201
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:44 +0000 "MKCOL /remote.php" 201
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:44 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:45 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:45 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:45 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:45 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:45 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:46 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:46 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:46 +0000 "PUT /remote.php" 404
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:46 +0000 "MKCOL /remote.php" 405
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:46 +0000 "GET /remote.php" 404
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:48 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:48 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:48 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:48 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:49 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:49 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:49 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:49 +0000 "PUT /remote.php" 404
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:49 +0000 "MKCOL /remote.php" 405
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:50 +0000 "GET /remote.php" 404
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:50 +0000 "DELETE /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:52 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:52 +0000 "GET /index.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:52 +0000 "GET /index.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:52 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:53 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:53 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:53 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:53 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:53 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:53 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:53 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "PUT /remote.php" 409
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "PUT /remote.php" 405
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "DELETE /remote.php" 405
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "DELETE /remote.php" 404
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:54 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "PUT /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "GET /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "GET /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:54 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:55 +0000 "PUT /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:55 +0000 "GET /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:55 +0000 "PUT /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:55 +0000 "PROPFIND /remote.php" 405
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:55 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:55 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:55 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:55 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:56 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:56 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:56 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:56 +0000 "GET /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:56 +0000 "GET /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:56 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:56 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:56 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:56 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:56 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "PUT /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "DELETE /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "PUT /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "GET /remote.php" 304
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "GET /remote.php" 304
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "PUT /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:57 +0000 "PUT /remote.php" 412
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:56:57 +0000 "PROPFIND /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:58 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:58 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:58 +0000 "PUT /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:58 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "PUT /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "PUT /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:56:59 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "PUT /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "OPTIONS /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:00 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:57:00 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 - rstest 11/Oct/2026:03:57:01 +0000 "PROPFIND /remote.php" 207
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "PROPFIND /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:01 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:02 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:03 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:04 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:08 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:14 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:32 +0000 "OPTIONS /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:32 +0000 "OPTIONS /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:32 +0000 "OPTIONS /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:32 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:33 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:33 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:33 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:33 +0000 "PUT /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:33 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:33 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:33 +0000 "PUT /remote.php" 409
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "PUT /remote.php" 400
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "PUT /remote.php" 409
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "PUT /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "PUT /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "PUT /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "PUT /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:34 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "GET /remote.php" 304
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "GET /remote.php" 304
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "GET /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "PUT /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:35 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "HEAD /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "GET /remote.php" 304
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "GET /remote.php" 304
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "GET /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "PUT /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "DELETE /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "PUT /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "DELETE /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:36 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "PUT /remote.php" 403
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "PUT /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "GET /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "DELETE /remote.php" 401
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:37 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:38 +0000 "HEAD /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:38 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:38 +0000 "HEAD /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:38 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:38 +0000 "HEAD /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:38 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:39 +0000 "HEAD /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:39 +0000 "DELETE /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:39 +0000 "DELETE /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:39 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:39 +0000 "HEAD /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:39 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:39 +0000 "HEAD /remote.php" 404
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:39 +0000 "DELETE /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:42 +0000 "GET /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:42 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:43 +0000 "POST /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:44 +0000 "GET /cron.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:52 +0000 "DELETE /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:52 +0000 "POST /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "OPTIONS /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "PUT /remote.php" 201
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "OPTIONS /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "OPTIONS /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "PUT /remote.php" 412
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "DELETE /remote.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:53 +0000 "POST /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:57:54 +0000 "GET /cron.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "POST /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:02 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "POST /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 400
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:03 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:04 +0000 "GET /cron.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:24 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:25 +0000 "GET /cron.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:25 +0000 "PUT /ocs/v2.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:25 +0000 "GET /ocs/v2.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:25 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:25 +0000 "POST /index.php" 303
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:25 +0000 "GET /index.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:26 +0000 "GET /cron.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:26 +0000 "GET /ocs/v2.php" 200
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:26 +0000 "OPTIONS /remote.php" 204
+nextcloud-1  | 127.0.0.1 -  11/Oct/2026:03:58:26 +0000 "GET /remote.php" 401

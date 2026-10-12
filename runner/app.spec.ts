@@ -310,7 +310,7 @@ test("AT13 PKCE: consent returns a code, the token endpoint redeems it once, the
   const replay = await exchangeCode(page, body());
   await fetchFromOrigin(page, accessToken, "DELETE", "notes/at13/pkce.txt");
 
-  console.log(`[AT13] code=${code.slice(0, 6)}… exchange=${exchange.status}/${JSON.stringify(exchange.json)} put=${put.status} get=${get.status}/${JSON.stringify(get.body)} replay=${replay.status}/${JSON.stringify(replay.json)}`);
+  console.log(`[AT13] code=${code.slice(0, 6)}… exchange=${exchange.status}/${JSON.stringify({ ...exchange.json, access_token: accessToken ? `${accessToken.slice(0, 6)}…` : accessToken })} put=${put.status} get=${get.status}/${JSON.stringify(get.body)} replay=${replay.status}/${JSON.stringify(replay.json)}`);
 
   expect(code).toMatch(/^[A-Za-z0-9]{43}$/);
   expect(exchange.status).toBe(200);
