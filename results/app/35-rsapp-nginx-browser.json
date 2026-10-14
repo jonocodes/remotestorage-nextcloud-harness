@@ -3,19 +3,19 @@
     "id": "AT2a",
     "check": "AT2a consent: allow returns a token in the redirect fragment",
     "status": "pass",
-    "observed": "[wizard] first-run wizard shown over the consent page; skipping and closing it\n[AT2a] consent page names origin+scope: true; fragment keys: access_token,token_type,scope,state; state=s-allow; token_type=bearer"
+    "observed": "[wizard] over the consent page: false\n[AT2a] consent page names origin+scope: true; fragment keys: access_token,token_type,scope,state; state=s-allow; token_type=bearer"
   },
   {
     "id": "AT4",
     "check": "AT4 CORS: the page can PUT, list, read ETags, see 412 and DELETE with the token",
     "status": "pass",
-    "observed": "[AT4] {\"put\":[201,\"\\\"817f5551a3e5b32f7e9873f50c1f40fc\\\"\"],\"get\":[200,\"\\\"817f5551a3e5b32f7e9873f50c1f40fc\\\"\",\"hi\"],\"list\":[200,\"W/\\\"6acb0941192ef\\\"\"],\"stale\":412,\"del\":200}"
+    "observed": "[AT4] {\"put\":[201,\"\\\"290bec915029269fbe115835df738ec7\\\"\"],\"get\":[200,\"\\\"290bec915029269fbe115835df738ec7\\\"\",\"hi\"],\"list\":[200,\"W/\\\"6acd6dfceb828\\\"\"],\"stale\":412,\"del\":200}"
   },
   {
     "id": "AT2b",
     "check": "AT2b consent: deny returns access_denied",
     "status": "pass",
-    "observed": "[AT2b] {\"error\":\"access_denied\",\"state\":\"s-deny\"}"
+    "observed": "[wizard] over the consent page: false\n[AT2b] {\"error\":\"access_denied\",\"state\":\"s-deny\"}"
   },
   {
     "id": "AT2c",
@@ -27,13 +27,13 @@
     "id": "AT2d",
     "check": "AT2d settings: the token is listed and Disconnect revokes it",
     "status": "pass",
-    "observed": "[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-11 03:57 UTC 2026-10-11 03:57 UTC Disconnect\" remaining=0 after-revoke=401"
+    "observed": "[wizard] first-run wizard shown; skipping and closing it\n[AT2d] address=rstest@nextcloud listed=\"http://localhost:8081 notes:rw 2026-10-12 23:32 UTC 2026-10-12 23:32 UTC Disconnect\" remaining=0 after-revoke=401"
   },
   {
     "id": "AT12",
     "check": "AT12 unmodified remoteStorage.js: two devices connect, sync nested data, edit after a (compressed) read, delete",
     "status": "fail",
-    "observed": "TimeoutError: page.waitForURL: Timeout 20000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"http://nextcloud/**\" until \"load\"\n============================================================\n\n  177 |   await page.goto(`${ORIGIN_URL}/rs-app.html`);\n  178 |   await page.evaluate((address) => { (window as any).rs.connect(address); }, `${NC_USER}@nextcloud`);\n> 179 |   await page.waitForURL(`${NC_URL}/**`, { timeout: 20000 });\n      |              ^\n  180 |   await loginIfAsked(page);\n  181 |   await page.locator(\"#remotestorage-allow\").waitFor({ timeout: 20000 });\n  182 |   await dismissFirstRunWizard(page);\n    at connectDevice (/harness/runner/app.spec.ts:179:14)\n    at /harness/runner/app.spec.ts:200:13"
+    "observed": "TimeoutError: page.waitForURL: Timeout 20000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"http://nextcloud/**\" until \"load\"\n============================================================\n\n  188 |   await page.goto(`${ORIGIN_URL}/rs-app.html`);\n  189 |   await page.evaluate((address) => { (window as any).rs.connect(address); }, `${NC_USER}@nextcloud`);\n> 190 |   await page.waitForURL(`${NC_URL}/**`, { timeout: 20000 });\n      |              ^\n  191 |   await loginIfAsked(page);\n  192 |   await page.locator(\"#remotestorage-allow\").waitFor({ timeout: 20000 });\n  193 |   await expectNoWizardOverConsent(page);\n    at connectDevice (/harness/runner/app.spec.ts:190:14)\n    at /harness/runner/app.spec.ts:211:13"
   },
   {
     "id": "AT13",
